@@ -10,5 +10,5 @@ document.querySelector('#login-form').addEventListener('submit', async (e) => {
         return;
     }
 
-    window.location.href = "index.html";
+    window.location.href = "/sources/index-user/index";
 });

@@ -1,4 +1,4 @@
-import { pb } from './global.js';
+import { pb } from '../../global.js';
 
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
@@ -14,5 +14,5 @@ getUserInfo();
 
 document.querySelector('#logout-btn').addEventListener('click', async () => {
     pb.authStore.clear();
-    window.location.href = "login.html";
+    window.location.href = "../../login.html";
 });

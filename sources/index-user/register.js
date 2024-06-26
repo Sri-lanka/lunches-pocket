@@ -1,4 +1,4 @@
-import { register } from "./global";
+import { register } from "../../global";
 
 
 document.querySelector('#register-form').addEventListener('submit', async (e) => {

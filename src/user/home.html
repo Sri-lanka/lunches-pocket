@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/StylePHome.css">
+    <script src="dashboard.js" type="module" defer></script>
+    <title>home</title>
+</head>
+
+<body>
+
+    <div class="head">
+        <div class="img">
+            <img src="/img/logo.png" class="logo">
+        </div>
+        <div class="se">
+            <h1>Servicio Nacional de Aprendizaje</h1>
+        </div>
+    </div>
+
+    <div class="navegate">
+        <div class="nav1">
+            <a href="" class="nav1Icon"><img src="/img/home.png" class="icon" />Home</a>
+            <a href="" class="nav1Icon"><img src="/img/data.png" class="icon" />Data</a>
+            <a href="" class="nav1Icon"><img src="/img/history.webp" class="icon" />History</a>
+        </div>
+        <div class="nav2">
+            <a  class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <div class="screen">
+        <div class="profile">
+            <img src="/img/data.png" class="proImg">
+            <ul id="user-info">
+            </ul>
+        </div>
+        <div class="contH">
+            <div class="mail">
+                <header><img src="/img/in.png" class="icon2">
+                    <p>INBOX</p>
+                </header>
+                <div id="inbox" class="table">
+                    <table class="inbox">
+                        <tr each="user : user">
+                            <th>For</th>
+                            <th>Message</th>
+                        </tr>
+                        <tr>
+                            <td text="user.nameUser"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="mesenger">
+                <header><img src="/img/mesenger.png" class="icon2">
+                    <p>SEND MESSAGE</p>
+                </header>
+                <div class="form">
+                    <form action="" method="post" onsubmit="event.preventDefault(); sendMessage();">
+                        <label for="txtFor">For:</label> <br>
+                        <input class="for" type="text" name="txtFor" id="txtFor" required><br><br>
+                        <label for="txtMensaje">Message:</label>
+                        <textarea name="txtMensaje" id="txtMensaje" class="txtMensaje" cols="38" rows="10" required
+                            placeholder="New message:"></textarea><br>
+                        <label for="txtArchive" class="upload">Upload Archive</label>
+                        <input id="txtArchive" type="file" class="txt" name="txtArchive" />
+                        <br>
+                        <input class="send" type="submit" name="btnSend" value="Send">
+                    </form>
+                </div>
+            </div>
+            <div class="mail">
+                <header><img src="/img/out.png" class="icon2">
+                    <p>OUTBOX</p>
+                </header>
+                <div class="table">
+                    <table id="outbox">
+                        <tr>
+                            <th>For</th>
+                            <th>Message</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

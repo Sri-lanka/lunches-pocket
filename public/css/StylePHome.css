@@ -1,18 +1,28 @@
-:root{
+:root {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .column {
-  width: 100%;
+    width: 100%;
 }
 
 @media (min-width: 600px) {
-  .column {
-    width: 50%;
-  }
+    .column {
+        width: 50%;
+    }
 }
 
-body{
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+body {
     width: 100%;
     margin: 0%;
     background: #ebeaea;
@@ -20,34 +30,39 @@ body{
     height: 90vh;
 
 }
-.logo{
+
+.logo {
     height: 80px;
 }
 
-.head{
+.head {
     width: 100%;
     height: 80px;
     background: #ebeaea;
     box-shadow: #175631b8 1px 3px 2px;
 }
-.head .img{
+
+.head .img {
     position: absolute;
     right: 94%;
     overflow: hidden;
 }
-.head .se{
+
+.head .se {
     width: 50%;
     height: 80px;
     position: absolute;
     left: 8%;
     margin-top: 0px;
 }
-.title{
+
+.title {
     background: green;
     height: 60px;
     text-align: center;
 }
-.se{
+
+.se {
     margin-top: auto;
     margin-bottom: auto;
     color: black;
@@ -125,18 +140,19 @@ a:link {
     color: black;
 }
 
-.screen{
+.screen {
     width: 100%;
     height: 60px;
     display: grid;
-    grid-template-columns:  1fr 6fr ;
+    grid-template-columns: 1fr 6fr;
 
 }
+
 .profile {
     padding-left: 0.5rem;
     top: 40px;
     height: 35vh;
-    background: #00AF00 ;
+    background: #00AF00;
     width: 90%;
     max-width: 200px;
     position: relative;
@@ -144,41 +160,43 @@ a:link {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 
-.profile table th p {
-   text-align: left;
+    .profile table th p {
+        text-align: left;
+    }
+
+    .p1 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
 }
 
-.p1{
-    font-size: 20px;
-    font-weight: bold;
-}
-
-}
-.proImg{
+.proImg {
     width: 70%;
     margin-top: 10px;
     margin-left: 15%;
     margin-right: 10%;
 }
-.profi{
+
+.profi {
     margin-left: 10%;
     font-size: 20px;
 }
 
 
-.contH{
+.contH {
     position: relative;
     width: 90%;
     height: 90%;
     margin-right: 5px;
     margin-left: 120px;
     display: grid;
-    grid-template-columns:   1fr 1fr;
-    grid-template-rows: 270px ;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 270px;
     margin-top: 120px;
 }
 
-header{
+header {
     display: grid;
     grid-template-columns: 1fr 8fr;
     font-size: 16px;
@@ -186,20 +204,20 @@ header{
     border-radius: 8px;
 }
 
-.icon2{
+.icon2 {
     height: 25px;
     position: relative;
     margin-top: 5px;
     margin-left: 10px;
 }
 
-.mail p{
+.mail p {
     margin-top: 6px;
     margin-bottom: 0px;
-    color:white;
+    color: white;
 }
 
-.table{
+.table {
     height: 200px;
     background: #aaaaaa93;
     margin: 10px;
@@ -207,30 +225,32 @@ header{
     color: rgb(0, 0, 0);
 
 }
-p{
+
+p {
     font-size: 16px;
     text-align: left;
 }
 
-.mail{
-    background: #00AF00 ;
+.mail {
+    background: #00AF00;
     margin-top: 10px;
     width: 350px;
     height: 250px;
     border-radius: 8px;
 }
-.form{
+
+.form {
     margin: 10px;
     width: 300px;
     height: 420px;
     padding: 15px;
     background: #aaaaaa93;
-    border:1px solid rgba(24, 121, 24, 0.233);
+    border: 1px solid rgba(24, 121, 24, 0.233);
     border-radius: 8px;
 }
 
-.mesenger{
-    background: #00AF00 ;
+.mesenger {
+    background: #00AF00;
     margin-left: 20px;
     border-radius: 8px;
     margin-top: 10px;
@@ -238,12 +258,12 @@ p{
     height: 520px;
 }
 
-.mesenger p{
+.mesenger p {
     color: white;
     margin-top: 7px;
 }
 
-.txtMensaje{
+.txtMensaje {
     height: 200px;
     margin-top: 10px;
     margin-left: 1px;
@@ -251,20 +271,20 @@ p{
     margin-bottom: 14px;
 }
 
-.upload{
+.upload {
     margin-top: 100px;
 
 }
 
-.for{
+.for {
     width: 290px;
     margin-top: 10px;
 }
 
-.send{
+.send {
     position: center;
     width: 20%;
-    background: #03db03 ;
+    background: #03db03;
     outline: none;
     border: 0px;
     border-radius: 4px;
@@ -272,11 +292,12 @@ p{
     cursor: pointer;
     box-shadow: 1px 1px 1px 1px rgba(0, 255, 0, 0.219);
 }
-.send:hover{
+
+.send:hover {
     background: #0f0;
 }
 
-.txt{
+.txt {
     margin-bottom: 16px;
     margin-top: 10px;
 }
@@ -288,6 +309,7 @@ p{
     padding: 10px;
     overflow-y: scroll;
 }
+
 .mensaje {
     margin-bottom: 10px;
 }
@@ -306,9 +328,3 @@ input[type="file"]::before {
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(37, 223, 62, 0.589);
 }
-
-
-
-
-
-

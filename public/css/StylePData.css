@@ -9,6 +9,16 @@ body {
     height: 90vh;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
 .logo {
     height: 80px;
 }

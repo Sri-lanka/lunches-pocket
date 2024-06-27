@@ -1,0 +1,65 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/StylePHistory.css">
+    <script src="/js/home.js" defer></script>
+    <title>history</title>
+
+</head>
+<body>
+
+<div class="body">
+<div class="head">
+    <div class="img">
+        <img src="/img/logo.png" class="logo">
+    </div>
+    <div class="se">
+        <h1>Servicio Nacional de Aprendizaje</h1>
+    </div>
+</div>
+
+<div class="navegate">
+    <div class="nav1">
+        <a href="" class="nav1Icon"><img src="/img/home.png" class="icon" />Home</a>
+        <a href="" class="nav1Icon"><img src="/img/data.png" class="icon" />Data</a>
+        <a href="" class="nav1Icon"><img src="/img/history.webp"  class="icon" />History</a>
+    </div>
+    <div class="nav2">
+        <a href="/login" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
+    </div>
+</div>
+
+<div class="screen">
+
+    <div class="profile">
+        <img src="/Img/data.png" class="proImg">
+        <table>
+            <tr>
+                <td colspan="2"> <p class="p1" text="user.nameUser"></td>
+            </tr>
+            <tr>
+                <th><p>Document:</p></th>
+                <td text="user.document"></td>
+            </tr>
+            <tr>
+                <th><p>Code file:</p></th>
+                <td each="userFile : userFile" if="userFile.id_user == user.id_user">
+                    <span each="file : file" if="file.id_file == userFile.id_file" text="file.n_file"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><p>State:</p></th>
+                <td>
+                    <span if="user.state == 1">Active</span>
+                    <span if="user.state == 2">Disabled</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</div>
+</body>
+
+</html>

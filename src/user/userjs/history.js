@@ -2,7 +2,7 @@ import { pb } from '../../../global.js';
 
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
-        window.location.href = "data.html";
+        window.location.href = "history.html";
         return;
     }
     
@@ -27,6 +27,7 @@ document.querySelector('#logout-btn').addEventListener('click', async () => {
     pb.authStore.clear();
     window.location.replace("../../../index");
 });
+
 document.querySelector('#home-btn').addEventListener('click', async () => {
     window.location.href = "home";
 });

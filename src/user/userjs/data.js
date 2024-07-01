@@ -19,9 +19,21 @@ async function getUserInfo() {
     userSheetElement.innerHTML += '<li> ' + listData.last_name + '</li>';
     userSheetElement.innerHTML += '<li>Sheet: ' + listData.N_sheet + '</li>';
     userSheetElement.innerHTML += '<li>state: ' + listData.state + '</li>';
+
+        
+    let dataUserUp = document.querySelector('#dataUp');
+    dataUserUp.innerHTML = '<td> ' + listData.username + '</td>';
+    dataUserUp.innerHTML += '<td> ' + listData.last_name + '</td>';
+    dataUserUp.innerHTML += '<td> ' + listData.document + '</td>';''
+
+    let dataUserDown = document.querySelector('#dataDown');
+    dataUserDown.innerHTML = '<td> ' + listData.telephone + '</td>';
+    dataUserDown.innerHTML += '<td> ' + listData.email + '</td>';
+    dataUserDown.innerHTML += '<td> ' + '<a href="updateUser">' + '<img src="/img/edit.png" class="icon">' + '</a>' + '</td>';
 }
 
 getUserInfo();
+
 
 document.querySelector('#logout-btn').addEventListener('click', async () => {
     pb.authStore.clear();

@@ -5,7 +5,7 @@ async function getUserInfo() {
         window.location.href = "home.html";
         return;
     }
-    
+
     let user = await pb.collection('users').getOne(pb.authStore.model.id);
     /*
     let userinfo = document.querySelector('#user-info');
@@ -33,47 +33,47 @@ async function getUserInfo() {
         filter: `sender = "${user.username}"`,
     });
 
-    
-for (let i = 0; i < resultOutbox.items.length; i++) {
-    let listOutbox = resultOutbox.items[i]; 
-    console.log(listOutbox);
-    
-    let newRow = document.createElement('tr');
 
-    let senderCell = document.createElement('td');
-    senderCell.textContent = listOutbox.sender;
-    newRow.appendChild(senderCell);
+    for (let i = 0; i < resultOutbox.items.length; i++) {
+        let listOutbox = resultOutbox.items[i];
+        console.log(listOutbox);
 
-    let descriptionCell = document.createElement('td');
-    descriptionCell.textContent = listOutbox.description;
-    newRow.appendChild(descriptionCell);
+        let newRow = document.createElement('tr');
 
-    document.querySelector('#messageOutbox').appendChild(newRow);
-}
+        let senderCell = document.createElement('td');
+        senderCell.textContent = listOutbox.sender;
+        newRow.appendChild(senderCell);
+
+        let descriptionCell = document.createElement('td');
+        descriptionCell.textContent = listOutbox.description;
+        newRow.appendChild(descriptionCell);
+
+        document.querySelector('#messageOutbox').appendChild(newRow);
+    }
 
 
-const resultInbox = await pb.collection('message_user_report').getList(1, 50, {
-    filter: `Recipient = "${user.id}"`,
-});
+    const resultInbox = await pb.collection('message_user_report').getList(1, 50, {
+        filter: `Recipient = "${user.id}"`,
+    });
 
-console.log(resultInbox);
+    console.log(resultInbox);
 
-for (let i = 0; i < resultInbox.items.length; i++) {
-    let listInbox = resultInbox.items[i];
+    for (let i = 0; i < resultInbox.items.length; i++) {
+        let listInbox = resultInbox.items[i];
 
-    
-    let newRow = document.createElement('tr');
 
-    let senderCell = document.createElement('td');
-    senderCell.textContent = listInbox.sender;
-    newRow.appendChild(senderCell);
+        let newRow = document.createElement('tr');
 
-    let descriptionCell = document.createElement('td');
-    descriptionCell.textContent = listInbox.description;
-    newRow.appendChild(descriptionCell);
+        let senderCell = document.createElement('td');
+        senderCell.textContent = listInbox.sender;
+        newRow.appendChild(senderCell);
 
-    document.querySelector('#messageInbox').appendChild(newRow);
-}
+        let descriptionCell = document.createElement('td');
+        descriptionCell.textContent = listInbox.description;
+        newRow.appendChild(descriptionCell);
+
+        document.querySelector('#messageInbox').appendChild(newRow);
+    }
 
 }
 

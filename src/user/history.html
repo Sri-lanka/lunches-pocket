@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/StylePHistory.css">
-    <script src="userjs/history.js" type="module" defer></script>
+   <!-- <script src="userjs/history.js" type="module" defer></script>-->
     <title>history</title>
 
 </head>
@@ -37,9 +37,60 @@
         <ul id="user-info">
         </ul>
     </div>
+    <div class="cont">
+        <select name="history" id="history">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          
+          <div id="tables">
+            <table id="tableReport">
+              <caption>Tabla de Reportes</caption>
+              <thead>
+              <tr>
+                <th>Sender</th>
+                <th>Description</th>
+                <th>Date sent</th>
+              </tr>
+              </thead>
+              <tbody id="reportHistory">
 
+              </tbody>
+            </table>
+        
+            <table id="tableExcuse">
+              <caption>Tabla de Excusas</caption>
+              <thead>
+              <tr>
+                <th>Description</th>
+                <th>Date sent</th>
+              </tr>
+              </thead>
+
+              <tbody id="excuseHistory">
+
+              </tbody>
+            </table>
+
+            <table id="tableAssistance">
+                <caption>Tabla de asistencias</caption>
+                <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Verification</th>
+                </tr>
+                </thead>
+  
+                <tbody id="assistanceHistory">
+  
+                </tbody>
+              </table>
+          </div>
+    </div>
 </div>
 </div>
+<script src="userjs/history.js" type="module" defer></script>
 </body>
 
 </html>

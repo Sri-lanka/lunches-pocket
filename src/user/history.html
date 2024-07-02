@@ -1,96 +1,125 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/StylePHistory.css">
-   <!-- <script src="userjs/history.js" type="module" defer></script>-->
-    <title>history</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/StylePHistory.css">
+  <!-- <script src="userjs/history.js" type="module" defer></script>-->
+  <title>history</title>
 
 </head>
+
 <body>
 
-<div class="body">
-<div class="head">
-    <div class="img">
+  <div class="body">
+    <div class="head">
+      <div class="img">
         <img src="/img/logo.png" class="logo">
-    </div>
-    <div class="se">
+      </div>
+      <div class="se">
         <h1>Servicio Nacional de Aprendizaje</h1>
+      </div>
     </div>
-</div>
 
-<div class="navegate">
-    <div class="nav1">
-        <a  id="home-btn" class="nav1Icon"><img src="/img/home.png" class="icon" />Home</a>
-        <a  id="data-btn" class="nav1Icon"><img src="/img/data.png" class="icon" />Data</a>
-        <a  id="history-btn" class="nav1Icon"><img src="/img/history.webp"  class="icon" />History</a>
+    <div class="navegate">
+      <div class="nav1">
+        <a id="home-btn" class="nav1Icon"><img src="/img/home.png" class="icon" />Home</a>
+        <a id="data-btn" class="nav1Icon"><img src="/img/data.png" class="icon" />Data</a>
+        <a id="history-btn" class="nav1Icon"><img src="/img/history.webp" class="icon" />History</a>
+      </div>
+      <div class="nav2">
+        <a id="logout-btn" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
+      </div>
     </div>
-    <div class="nav2">
-        <a  id="logout-btn" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
-    </div>
-</div>
 
-<div class="screen">
+    <div class="screen">
 
-    <div class="profile">
+      <div class="profile">
         <img src="/img/data.png" class="proImg">
         <ul id="user-info">
         </ul>
-    </div>
-    <div class="cont">
+      </div>
+      <div class="cont">
         <select name="history" id="history">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-          
-          <div id="tables">
-            <table id="tableReport">
-              <caption>Tabla de Reportes</caption>
-              <thead>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+
+        <div id="tables">
+          <table id="tableReport">
+            <caption>Tabla de Reportes</caption>
+            <thead>
               <tr>
                 <th>Sender</th>
                 <th>Description</th>
                 <th>Date sent</th>
               </tr>
-              </thead>
-              <tbody id="reportHistory">
+            </thead>
+            <tbody id="reportHistory">
 
-              </tbody>
-            </table>
-        
-            <table id="tableExcuse">
-              <caption>Tabla de Excusas</caption>
-              <thead>
+            </tbody>
+          </table>
+
+          <table id="tableExcuse">
+            <caption>Tabla de Excusas</caption>
+            <thead>
               <tr>
                 <th>Description</th>
                 <th>Date sent</th>
               </tr>
-              </thead>
+            </thead>
 
-              <tbody id="excuseHistory">
+            <tbody id="excuseHistory">
 
-              </tbody>
-            </table>
+            </tbody>
+          </table>
 
-            <table id="tableAssistance">
-                <caption>Tabla de asistencias</caption>
-                <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Verification</th>
-                </tr>
-                </thead>
-  
-                <tbody id="assistanceHistory">
-  
-                </tbody>
-              </table>
-          </div>
+          <table id="tableAssistance">
+            <caption>Tabla de asistencias</caption>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Verification</th>
+                <th><button class="logOut" id="create-btn"><img src="/img/add.webp" class="icon" />Add</button></th>
+              </tr>
+            </thead>
+
+            <tbody id="assistanceHistory">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-</div>
-</div>
-<script src="userjs/history.js" type="module" defer></script>
+  </div>
+  <div id="overlay-update" style="display: none;">
+    <div id="overlay-update-content">
+
+      <form id="update-form">
+        <label for="verification">verification:</label>
+        <input type="checkbox" id="verification" name="verification" required>
+
+        <input type="submit" value="Update" id="update-form-btn">
+        <input type="button" value="Cancel" onclick="overlayUpdate.style.display='none';">
+      </form>
+    </div>
+  </div>
+  <div id="overlay-create" style="display: none;">
+    <div id="overlay-create-content">
+
+      <form id="create-form">
+        <label for="user">user:</label>
+        <select name="user" id="user-select"></select>
+        <label for="verification">verification:</label>
+        <input type="checkbox" id="verification" name="verification" required>
+
+        <input type="submit" value="Create" id="create-form-btn">
+        <input type="button" value="Cancel" onclick="overlayCreate.style.display='none';">
+      </form>
+    </div>
+  </div>
+  <script src="userjs/history.js" type="module" defer></script>
 </body>
 
 </html>

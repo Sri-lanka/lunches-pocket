@@ -1,4 +1,8 @@
 import { pb } from '../../../global.js';
+import { deleteAssistance, updateAssistance } from './assitancecrud.js';
+
+let overlayUpdate = document.getElementById('overlay-update');
+let overlayCreate = document.getElementById('overlay-create');
 
 async function getUserInfo() {
   if (!pb.authStore.isValid) {
@@ -71,7 +75,9 @@ async function getUserInfo() {
     filter: `idUser = "${user.id}"`,
   });
   for (let i = 0; i < resultAssistance.items.length; i++) {
+
     let listAssistances = resultAssistance.items[i];
+    console.log(listAssistances);
 
     let newRow = document.createElement('tr');
 
@@ -83,10 +89,56 @@ async function getUserInfo() {
     verificationCell.textContent = listAssistances.verification;
     newRow.appendChild(verificationCell);
 
+    let updateTd = document.createElement('td');
+    let updateBtn = document.createElement('button');
+    updateBtn.innerHTML = 'Update';
+    updateBtn.onclick = async () => {
+      let verification = document.getElementById('verification');
+      verification.checked = listAssistances.verification;
+      overlayUpdate.style.display = 'block';
+
+      let updateFormBtn = document.getElementById('update-form-btn');
+      updateFormBtn.onclick = async (event) => {
+        event.preventDefault();
+        await updateAssistance(listAssistances.id, verification.checked);
+        window.location.reload();
+      }
+    }
+    //update.innerHTML = '<a href="updateUser"><img src="/img/edit.png" class="icon"></a>';
+    updateTd.appendChild(updateBtn);
+    newRow.appendChild(updateTd);
+
+    let delete_td = document.createElement('td');
+    let delete_btn = document.createElement('button');
+
+    delete_btn.onclick = async () => {
+      await deleteAssistance(listAssistances.id);
+      window.location.reload();
+    }
+    delete_td.appendChild(delete_btn);
+    newRow.appendChild(delete_td);
+
+
     document.querySelector('#assistanceHistory').appendChild(newRow);
   }
 
 
+}
+
+export async function onCreateAssistance() {
+  let verification = document.getElementById('verification');
+  verification.checked = false;
+
+  let users = await pb.collection('users').getFullList();
+  let userSelect = document.getElementById('user-select');
+  users.forEach(user => {
+    console.log(user);
+    let option = document.createElement('option');
+    option.value = user.id;
+    option.innerHTML = user.email;
+    userSelect.appendChild(option);
+  });
+  overlayCreate.style.display = 'block';
 }
 
 getUserInfo();
@@ -119,6 +171,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Llamar a la función inicialmente para establecer el estado inicial
   mostrarTabla();
+
+  let createBtn = document.getElementById('create-btn');
+  createBtn.onclick = async () => {
+    await onCreateAssistance();
+  }
 });
 
 function mostrarTabla() {

@@ -1,5 +1,5 @@
 import { pb } from '../../../global.js';
-import { deleteAssistance, updateAssistance } from './assitancecrud.js';
+import { deleteAssistance, updateAssistance, createAssistance } from './assitancecrud.js';
 
 let overlayUpdate = document.getElementById('overlay-update');
 let overlayCreate = document.getElementById('overlay-create');
@@ -110,7 +110,7 @@ async function getUserInfo() {
 
     let delete_td = document.createElement('td');
     let delete_btn = document.createElement('button');
-
+    delete_btn.innerText = 'Delete';
     delete_btn.onclick = async () => {
       await deleteAssistance(listAssistances.id);
       window.location.reload();
@@ -131,6 +131,7 @@ export async function onCreateAssistance() {
 
   let users = await pb.collection('users').getFullList();
   let userSelect = document.getElementById('user-select');
+  userSelect.innerHTML = '';
   users.forEach(user => {
     console.log(user);
     let option = document.createElement('option');
@@ -139,6 +140,20 @@ export async function onCreateAssistance() {
     userSelect.appendChild(option);
   });
   overlayCreate.style.display = 'block';
+  let createForm = document.getElementById('create-form');
+  createForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let formData = new FormData(createForm);
+    var data = {};
+    formData.forEach(function (value, key) {
+      data[key] = value;
+    });
+
+    console.log(data);
+
+    await createAssistance(data.user, data.verification === 'on');
+    window.location.reload();
+  });
 }
 
 getUserInfo();

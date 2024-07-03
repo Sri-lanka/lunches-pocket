@@ -11,3 +11,11 @@ export async function updateAssistance(id, verification) {
     });
     console.log(result);
 }
+
+export async function createAssistance(id, verification = false) {
+    let result = await pb.collection('assistance').create({
+        idUser: id,
+        verification: verification,
+    });
+    console.log(result);
+}

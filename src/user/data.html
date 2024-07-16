@@ -40,6 +40,7 @@
             </ul>
         </div>
         <div class="cont">
+            <button id="updateUser">update</button>
             <table class="table">
                 <caption>DATA</caption>
                 <thead>
@@ -50,9 +51,19 @@
             </table>
         </div>
     </div>
+    <div id="overlay-update" style="display: none;">
+        <div id="overlay-update-content">
+          <form id="update-form">
+            <label for="email">email:</label>
+            <input type="email" name="email" id="email">
 
+            <label for="telephone">telephone:</label>
+            <input type="number" id="telephone" name="telephone">
 
-
+            <input type="submit" value="update" id="update-form-btn">
+          </form>
+        </div>
+      </div>
 </body>
 
 </html>

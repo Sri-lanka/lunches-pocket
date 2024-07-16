@@ -1,0 +1,94 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module administrator</title>
+    <link rel="stylesheet" href="/css/administation.css">
+
+    <script src="adminjs/listUsers.js" type="module" defer></script>
+
+    <link href="/public/bootstrap-5.3.2-dist/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body class="body">
+<div id="tableContainer">
+    <div class="header">
+        <img src="/img/logo.png" class="logo">
+        <p class="title">Administration module</p>
+        <div class="nav2">
+            <a href="/login" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
+        </div>
+    </div>
+    <div class="scream">
+        <div class="display">
+            <div class="button">
+                <label for="databaseTables">
+                    <p>Select a table:</p>
+                </label>
+                <select id="databaseTables" onchange="window.location.href = this.value;">
+                    <option value="/userSena/listUser" >User</option>
+                    <option value="/assistance/listAssistance" >Assistance</option>
+                    <option value="/authorization/listAuthorization">Authorization</option>
+                    <option value="/program/listProgram" >Program</option>
+                    <option value="/fileSena/listFileSena" >File</option>
+                    <option value="/userFile/listUserFile" >User-File</option>
+                    <option value="/message/listMessage" >Message</option>
+                    <option value="/archive/listArchive" >Archive</option>
+                    <option value="/userMessage/listUserMessage" >UserMessage</option>
+                </select>
+            </div>
+        </div>
+        <div class="container">
+            <table class="table table-dark" >
+                <p>list Users</p>
+                <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Document</th>
+                    <th>T.document</th>
+                    <th>Name</th>
+                    <th>Lastname</th>
+                    <th>E-mail</th>
+                    <th>Phone</th>
+                    <th>State</th>
+                    <th>Rol</th>
+                    <th><button class="logOut" id="create-btn"><img src="/img/add.webp" class="icon" />Add</button></th>
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="listUsers">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="overlay-update" style="display: none;">
+    <div id="overlay-update-content">
+        <form id="update-form">
+            <label for="email">email:</label>
+            <input type="email" name="email" id="email">
+
+            <label for="telephone">telephone:</label>
+            <input type="number" id="telephone" name="telephone">
+
+            <input type="submit" value="update" id="update-form-btn">
+        </form>
+    </div>
+  </div>
+  <div id="overlay-create" style="display: none;">
+    <div id="overlay-create-content">
+
+      <form id="create-form">
+        <label for="user">user:</label>
+        <select name="user" id="user-select"></select>
+        <label for="verification">verification:</label>
+        <input type="checkbox" id="verification" name="verification">
+
+        <input type="submit" value="Create" id="create-form-btn">
+        <input type="button" value="Cancel" onclick="overlayCreate.style.display='none';">
+      </form>
+    </div>
+  </div>
+</body>
+</html>

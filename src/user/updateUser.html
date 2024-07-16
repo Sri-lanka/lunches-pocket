@@ -1,43 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User</title>
+    <script src="userjs/updateUser.js"></script>
     <link rel="stylesheet" href="/css/styleForm.css">
 </head>
+
 <body>
-<div class="container">
-    <h1 class="logo">Edit User</h1>
-    <!--<form class="userForm" id="pdate-form">
+    <div class="container">
+        <h1 class="logo">Edit User</h1>
 
-        <div  class="formGroup">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
 
-        <div class="formGroup">
-            <label for="telephone">Telephone: </label>
-            <input type="number" id="telephone" name="telephone"  required>
-        </div>
+        <br>
+        <button class="btnSubmit"><a href="data"> return page</a></button>
+        <br>
+        <form id="update-form">
+            <label for="email">email:</label>
+            <input type="email" name="email" id="email">
 
-        <div class="formGroup">
-            <button type="submit" class="btnSubmit">Save User</button>
-        </div>
+            <label for="telephone">telephone:</label>
+            <input type="number" id="telephone" name="telephone">
 
-    </form>-->
+            <input type="submit" value="update" id="update-form-btn">
+        </form>
 
-    <br>
-    <button class="btnSubmit"><a href="data"> return page</a></button>
-
-    <form id="register-form">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Register</button>
-    </form>
-</div>
+    </div>
 </body>
+
 </html>

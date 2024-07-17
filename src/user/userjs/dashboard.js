@@ -7,12 +7,7 @@ async function getUserInfo() {
     }
 
     let user = await pb.collection('users').getOne(pb.authStore.model.id);
-    /*
-    let userinfo = document.querySelector('#user-info');
-    userinfo.innerHTML = '<li>Nombre: ' + user.username + '</li>';
-    userinfo.innerHTML += '<li>Documento: ' + user.document + '</li>';
-    userinfo.innerHTML += '<li>sheet: '+ user.sheet + '</li>';
-    userinfo.innerHTML += '<li>Estado: ' + user.state + '</li>';*/
+
 
     console.log(user.username);
 

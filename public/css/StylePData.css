@@ -316,3 +316,7 @@ form {
     align-items: center;
 
 }
+
+.a-button {
+    cursor: pointer;
+}

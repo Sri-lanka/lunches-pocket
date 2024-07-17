@@ -30,10 +30,19 @@ async function getUserInfo() {
     let dataUserDown = document.querySelector('#dataDown');
     dataUserDown.innerHTML = '<td> ' + listData.telephone + '</td>';
     dataUserDown.innerHTML += '<td> ' + listData.email + '</td>';
-    dataUserDown.innerHTML += '<td> ' + '<a href="updateUser">' + '<img src="/img/edit.png" class="icon">' + '</a>' + '</td>';
+    let userUpdateBtn = document.createElement('a');
+    userUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
+    userUpdateBtn.onclick = () => {
+        alert("Me pica la monda...");
+    }
+
+    let userUpdateTd = document.createElement('td');
+    userUpdateTd.appendChild(userUpdateBtn);
+    dataUserDown.appendChild(userUpdateTd);
 
     async function updateUser(id, email, telephone) {
-        let result = await pb.collection('users').update(id, email, telephone, {
+        let result = await pb.collection('users').update(id, {
+            id: id,
             email: email,
             telephone: telephone,
         });
@@ -48,15 +57,13 @@ async function getUserInfo() {
         updateFormBtn.onclick = async (event) => {
             event.preventDefault();
             let email = document.getElementById('email');
-            email.textEmail = user.email;
             let telephone = document.getElementById('telephone');
-            telephone.textTelephone = user.telephone;
-            event.preventDefault();
-            console.log(textEmail);
-            console.log(textEmail);
-            await updateUser(user.id, user.textEmail, user.textTelephone);
-            window.location.href = "data";
-           
+
+            console.log(email.value);
+            console.log(telephone.value);
+            await updateUser(user.id, email.value, telephone.value);
+            window.location.reload();
+
         }
     }
 }

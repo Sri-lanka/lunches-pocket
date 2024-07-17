@@ -154,6 +154,10 @@ export async function onCreateAssistance() {
     await createAssistance(data.user, data.verification === 'on');
     window.location.reload();
   });
+  let createBtnCancel = document.getElementById('create-form-cancel');
+  createBtnCancel.onclick = () => {
+    overlayCreate.style.display = 'none';
+  }
 }
 
 getUserInfo();

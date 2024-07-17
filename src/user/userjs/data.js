@@ -7,6 +7,7 @@ async function getUserInfo() {
     }
 
     let user = await pb.collection('users').getOne(pb.authStore.model.id);
+    
     const result = await pb.collection('sheet_user').getList(1, 50, {
         filter: `username = "${user.username}"`,
     });
@@ -32,40 +33,45 @@ async function getUserInfo() {
     dataUserDown.innerHTML += '<td> ' + listData.email + '</td>';
     let userUpdateBtn = document.createElement('a');
     userUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
-    userUpdateBtn.onclick = () => {
-        alert("Me pica la monda...");
-    }
+    
 
     let userUpdateTd = document.createElement('td');
     userUpdateTd.appendChild(userUpdateBtn);
     dataUserDown.appendChild(userUpdateTd);
 
-    async function updateUser(id, email, telephone) {
+    async function updateUser(id, type_document, telephone) {
         let result = await pb.collection('users').update(id, {
             id: id,
-            email: email,
+            type_document: type_document,
             telephone: telephone,
         });
         console.log(result);
     }
 
-    let updateBtn = document.getElementById('updateUser')
-    updateBtn.onclick = async () => {
+    //let updateBtn = document.getElementById('updateUser')
+    userUpdateBtn.onclick = async () => {
         overlayUpdate.style.display = 'block';
 
+        let createBtnCancel = document.getElementById('update-form-cancel');
+        createBtnCancel.onclick = () => {
+            overlayUpdate.style.display = 'none';
+        }
         let updateFormBtn = document.getElementById('update-form-btn');
+
         updateFormBtn.onclick = async (event) => {
             event.preventDefault();
-            let email = document.getElementById('email');
+            let type_document = document.getElementsByName('type_document');
             let telephone = document.getElementById('telephone');
 
-            console.log(email.value);
+            //console.log(email.value);
             console.log(telephone.value);
-            await updateUser(user.id, email.value, telephone.value);
+            await updateUser(user.id, type_document.value, telephone.value);
+            
             window.location.reload();
 
         }
     }
+
 }
 
 getUserInfo();

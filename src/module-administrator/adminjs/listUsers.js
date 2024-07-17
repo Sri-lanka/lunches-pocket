@@ -1,22 +1,22 @@
 import { pb } from '../../../global.js';
-
+/*
 let overlayUpdate = document.getElementById('overlay-update');
 let overlayCreate = document.getElementById('overlay-create');
-
+*/
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
         window.location.href = "updateUser.html";
         return;
     }
-    async function updateUser(id, email, telephone) {
+  /*  async function updateUser(id, email, telephone) {
         let result = await pb.collection('users').update(id, email, telephone, {
             email: email,
             telephone: telephone,
         });
         console.log(result);
-    }
+    }*/
 
-    async function createUsers(id) {
+   /* async function createUsers(id) {
         let result = await pb.collection('users').create({
             document: document,
             typeDocument: typeDocument,
@@ -29,7 +29,7 @@ async function getUserInfo() {
             Password: password
         });
         console.log(result);
-    }
+    }*/
 
         const resultList = await pb.collection('users').getList(1, 50, {
         });
@@ -66,7 +66,7 @@ async function getUserInfo() {
             rolCell.textContent = listUser.rol;
             newRow.appendChild(rolCell);
             document.querySelector('#listUsers').appendChild(newRow);
-            
+           /* 
             let updateTd = document.createElement('td');
             let updateBtn = document.createElement('button');
             updateBtn.innerHTML = 'Update';
@@ -82,7 +82,7 @@ async function getUserInfo() {
                 }
             }
             updateTd.appendChild(updateBtn);
-            newRow.appendChild(updateTd);
+            newRow.appendChild(updateTd);*/
         }
 }
 

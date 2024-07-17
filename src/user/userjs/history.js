@@ -191,8 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Llamar a la función inicialmente para establecer el estado inicial
-  //mostrarTabla();
+
 
   let createBtn = document.getElementById('create-btn');
   createBtn.onclick = async () => {
@@ -200,22 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-/*function mostrarTabla() {
-  var select = document.getElementById("history");
-  var tableReport = document.getElementById("tableReport");
-  var tableExcuse = document.getElementById("tableExcuse");
 
-  if (select.value === "1") {
-    tableReport.style.display = "table";
-    tableExcuse.style.display = "none";
-  } else if (select.value === "2") {
-    tableReport.style.display = "none";
-    tableExcuse.style.display = "table";
-  } else {
-    tableReport.style.display = "none";
-    tableExcuse.style.display = "none";
-  }
-}*/
 
 document.querySelector('#logout-btn').addEventListener('click', async () => {
   pb.authStore.clear();

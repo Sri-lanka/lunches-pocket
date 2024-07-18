@@ -6,7 +6,7 @@
     <title>Module administrator</title>
     <link rel="stylesheet" href="/css/administation.css">
 
-    <script src="adminjs/listAssistence.js" type="module" defer></script>
+    <script src="adminjs/listProgram.js" type="module" defer></script>
 
     <link href="/public/bootstrap-5.3.2-dist/css/bootstrap.css" rel="stylesheet">
 </head>
@@ -26,33 +26,35 @@
                 </label>
                 <select id="databaseTables" onchange="window.location.href = this.value;">
                     <option value="/src/module-administrator/users" >User</option>
-                    <option value="/src/module-administrator/assistence" selected >Assistance</option>
-                    <option value="/src/module-administrator/authorization">Authorization</option>
+                    <option value="/src/module-administrator/assistence"  >Assistance</option>
+                    <option value="/src/module-administrator/authorization"  >Authorization</option>
                     <option value="/src/module-administrator/characterizationSheet" >Characterization sheet</option>
                     <option value="/src/module-administrator/message" >Message</option>
-                    <option value="/src/module-administrator/program" >Program</option>
+                    <option value="/src/module-administrator/program" selected >Program</option>
                     <option value="/src/module-administrator/userSheet" >User Sheet</option>
                 </select>
             </div>
+
             <div class="nav2">
                 <a href="/login" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
             </div>
         </div>
         <div class="container">
             <table class="table table-dark" >
-                <p>list Assistance</p>
+                <p>list Program</p>
                 <thead class="thead-dark">
                 <tr>
                     <th>Id</th>
-                    <th>Id User</th>
-                    <th>verification</th>
-                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Created Date</th>
+                    <th>Update Date</th>
+                    
 
                     <th><button  id="create-btn"><img src="/img/add.webp" class="icon2" />Add</button></th>
                     </th>
                 </tr>
                 </thead>
-                <tbody id="listAssistence">
+                <tbody id="listProgram">
                 </tbody>
             </table>
         </div>

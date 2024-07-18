@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/StylePData.css">
-
+   
     <script src="userjs/data.js" type="module" defer></script>
     <title>data</title>
 
@@ -52,15 +52,18 @@
         </div>
     </div>
 
-    <div id="overlay-update" style="display: none;">
+    <!--<div id="overlay-update" style="display: none;">
         <div id="overlay-update-content">
           <form>
             
             <div class="formGroup">
             <label for="type_document">type document:</label>
-            <section></section>
-            <input class="form-check-input" type="radio" name="type_document" id="Active" value= "CC" >CC
-            <input class="form-check-input" type="radio" name="type_document" id="Disabled" value= "TI" >TI
+            <select>
+             <option class="form-check-input" type="radio" name="type_document"  value= "CC" >CC
+             <option class="form-check-input" type="radio" name="type_document" value= "TI" >TI 
+            </select>
+            <input class="form-check-input" type="radio" name="type_document"  value= "CC" >CC
+            <input class="form-check-input" type="radio" name="type_document" value= "TI" >TI
             </div>
             <label for="telephone">telephone:</label>
             <input type="number" id="telephone" name="telephone" required>
@@ -70,9 +73,29 @@
            
           </form>
         </div>
-      </div>
-   
+      </div>-->
 
+
+      <div id="overlay-update" style="display: none;">
+        <div id="overlay-update-content">
+          <form>
+
+            <label for="type_document">type document:</label>
+
+            <select>
+             <option type="radio" name="type_document"  value= "CC" >CC
+             <option type="radio" name="type_document" value= "TI" >TI 
+            </select>
+
+            <label for="telephone">telephone:</label>
+            <input type="number" id="telephone" name="telephone" required>
+            <br><br>
+            <input type="submit" value="update" id="update-form-btn" >
+            <br><br>
+            <input type="button" value="Cancel" id="update-form-cancel">
+          </form>
+        </div>
+      </div>
 
 
 </html>

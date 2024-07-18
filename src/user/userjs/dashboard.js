@@ -70,21 +70,49 @@ async function getUserInfo() {
         document.querySelector('#messageInbox').appendChild(newRow);
     }
 
+    async function createMessage(id, idUser, type_message = "excuse", description, field, Recipient) {
+        let result = await pb.collection('assistance').create({
+            idUser: id,
+            type_message: type_message,
+            description: description,
+            field: field,
+            Recipient: Recipient,
+        });
+
+        console.log(result);
+    }
+
+    async function onCreateMessage() {
+
+
+
+
+
+        console.log(data);
+
+        await createMessage(id.value, idUser.value, type_message.value, description.value, field.value, Recipient.value);
+        window.location.reload();
+
+    }
 }
+    getUserInfo();
 
-getUserInfo();
+    let createBtn = document.getElementById('send-btn');
+    createBtn.onclick = async () => {
+        await onCreateAssistance();
+    }
 
-document.querySelector('#logout-btn').addEventListener('click', async () => {
-    pb.authStore.clear();
-    window.location.replace("../../../index");
-});
+    document.querySelector('#logout-btn').addEventListener('click', async () => {
+        pb.authStore.clear();
+        window.location.replace("../../../index");
+    });
 
-document.querySelector('#home-btn').addEventListener('click', async () => {
-    window.location.href = "home";
-});
-document.querySelector('#data-btn').addEventListener('click', async () => {
-    window.location.href = "data";
-});
-document.querySelector('#history-btn').addEventListener('click', async () => {
-    window.location.href = "history";
-});
+    document.querySelector('#home-btn').addEventListener('click', async () => {
+        window.location.href = "home";
+    });
+    document.querySelector('#data-btn').addEventListener('click', async () => {
+        window.location.href = "data";
+    });
+    document.querySelector('#history-btn').addEventListener('click', async () => {
+        window.location.href = "history";
+    });

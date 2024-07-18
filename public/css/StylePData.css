@@ -289,31 +289,58 @@ input[type="file"]:hover::before {
     border-radius: 3px;
 }
 
+
 #overlay-update {
-    position: fixed;
+    position: fixed; /* Posiciona el overlay en la pantalla */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    /* Establecer un valor alto para que sea visible sobre el contenido */
-   
-}
-
-#overlay-update-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
+    padding-top: 15%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo transparente */
+    display: none; /* Oculta el overlay por defecto */
+    
+  }
+  
+  #overlay-update-content {
+    position: relative;
+    margin: 40px auto; /* Centra el contenido horizontalmente */
+    width: 400px; /* Ancho del contenido */
+    background-color: #fff; /* Fondo blanco */
     padding: 20px;
-    border-radius: 5px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 10px; /* Esquinas redondeadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  }
+  
+ 
+  
+  label {
+    display: block; /* Etiqueta como bloque */
+    margin-bottom: 10px; /* Espacio entre etiqueta y campo */
+  }
+  
+  select, input[type="number"] {
+    width: 100%; /* Ancho del campo */
+    padding: 10px;
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Esquinas redondeadas */
+  }
+  
+  input[type="submit"], input[type="button"] {
+    width: 100%; /* Ancho del botón */
+    padding: 10px;
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Esquinas redondeadas */
+    background-color: #4CAF50; /* Fondo verde */
+    color: #fff; /* Texto blanco */
+    cursor: pointer; /* Cursor de mano */
+  }
+  
+  input[type="submit"]:hover, input[type="button"]:hover {
+    background-color: #3e8e41; /* Fondo verde oscuro al pasar el mouse */
+  }
+  
+  input[type="submit"]:active, input[type="button"]:active {
+    background-color: #3e8e41; /* Fondo verde oscuro al presionar el botón */
+  }

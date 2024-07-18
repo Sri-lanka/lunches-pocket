@@ -63,19 +63,22 @@
                     <p>SEND MESSAGE</p>
                 </header>
                 <div class="form">
-                    <form action="" method="post" onsubmit="event.preventDefault(); sendMessage();">
-                        <label for="txtFor">For:</label> <br>
-                        <input class="for" type="text" name="txtFor" id="txtFor" required><br><br>
+                    <form>
+                        <!--<label for="txtFor">For:</label> <br>
+                        <input class="for" type="text" name="txtFor" id="txtFor" required><br><br>-->
+
                         <label for="txtMensaje">Message:</label>
                         <textarea name="txtMensaje" id="txtMensaje" class="txtMensaje" cols="38" rows="10" required
                             placeholder="New message:"></textarea><br>
+
                         <label for="txtArchive" class="upload">Upload Archive</label>
                         <input id="txtArchive" type="file" class="txt" name="txtArchive" />
                         <br>
-                        <input class="send" type="submit" name="btnSend" value="Send">
+                        <input id="send-btn" type="submit" name="btnSend" value="Send">
                     </form>
                 </div>
             </div>
+
             <div class="mail">
                 <header><img src="/img/out.png" class="icon2">
                     <p>OUTBOX</p>

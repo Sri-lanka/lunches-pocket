@@ -25,6 +25,17 @@
                     <p>Select a table:</p>
                 </label>
                 <select id="databaseTables" onchange="window.location.href = this.value;">
+
+                    <option value="/src/module-administrator/users" >User</option>
+                    <option value="/assistance/listAssistance" >Assistance</option>
+                    <option value="/authorization/listAuthorization">Authorization</option>
+                    <option value="/program/listProgram" >Program</option>
+                    <option value="/fileSena/listFileSena" >File</option>
+                    <option value="/userFile/listUserFile" >User-File</option>
+                    <option value="/message/listMessage" >Message</option>
+                    <option value="/archive/listArchive" >Archive</option>
+                    <option value="/userMessage/listUserMessage" >UserMessage</option>
+
                     <option value="src/module-administrator/users" selected>User</option>
                     <option value="/src/module-administrator/assistence" >Assistance</option>
                     <option value="/src/module-administrator/authorization">Authorization</option>
@@ -32,6 +43,7 @@
                     <option value="/src/module-administrator/message" >Message</option>
                     <option value="/src/module-administrator/program" >Program</option>
                     <option value="/src/module-administrator/userSheet" >User Sheet</option>
+
                 </select>
             </div>
             <div class="nav2">

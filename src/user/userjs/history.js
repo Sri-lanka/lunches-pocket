@@ -140,7 +140,9 @@ export async function onCreateAssistance() {
     userSelect.appendChild(option);
   });
   overlayCreate.style.display = 'block';
+
   let createForm = document.getElementById('create-form');
+
   createForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     let formData = new FormData(createForm);
@@ -154,6 +156,7 @@ export async function onCreateAssistance() {
     await createAssistance(data.user, data.verification === 'on');
     window.location.reload();
   });
+  
   let createBtnCancel = document.getElementById('create-form-cancel');
   createBtnCancel.onclick = () => {
     overlayCreate.style.display = 'none';

@@ -25,7 +25,8 @@ async function getUserInfo() {
 
 
     const resultOutbox = await pb.collection('message_user').getList(1, 50, {
-        filter: `sender = "${user.username}"`,
+        filter: `idUser = "${user.id}"`,
+        sort: '-created'
     });
 
 
@@ -49,6 +50,7 @@ async function getUserInfo() {
 
     const resultInbox = await pb.collection('message_user_report').getList(1, 50, {
         filter: `Recipient = "${user.id}"`,
+        sort: '-created'
     });
 
     console.log(resultInbox);
@@ -70,37 +72,44 @@ async function getUserInfo() {
         document.querySelector('#messageInbox').appendChild(newRow);
     }
 
-    async function createMessage(id, idUser, type_message = "excuse", description, field, Recipient) {
-        let result = await pb.collection('assistance').create({
+    async function createMessage(id, typeMessage = "excuse", description, field) {
+        let resultCreate = await pb.collection('message').create({
+           
             idUser: id,
-            type_message: type_message,
+            typeMessage: typeMessage,
             description: description,
             field: field,
-            Recipient: Recipient,
+           
         });
 
-        console.log(result);
+        console.log(resultCreate);
     }
 
     async function onCreateMessage() {
 
+    
+        let idUser = user.id;
+        console.log(idUser);
+        let typeMessage = "excuse";
+        let description = document.getElementById('description').value;
+        let field = document.getElementById('field').files[0];
 
+        await createMessage( idUser, typeMessage, description, field);
 
+       
+    }
 
-
-        console.log(data);
-
-        await createMessage(id.value, idUser.value, type_message.value, description.value, field.value, Recipient.value);
+   let createBtn = document.getElementById('send-btn');
+    createBtn.onclick = async (event) => {
+        event.preventDefault();
+        await onCreateMessage();
         window.location.reload();
-
     }
 }
+
     getUserInfo();
 
-    let createBtn = document.getElementById('send-btn');
-    createBtn.onclick = async () => {
-        await onCreateAssistance();
-    }
+
 
     document.querySelector('#logout-btn').addEventListener('click', async () => {
         pb.authStore.clear();

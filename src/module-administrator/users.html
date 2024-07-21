@@ -12,83 +12,119 @@
 </head>
 
 <body class="body">
-<div id="tableContainer">
-    <div class="header">
-        <img src="/img/logo.png" class="logo">
-        <p class="title">Administration module</p>
+    <div id="tableContainer">
+        <div class="header">
+            <img src="/img/logo.png" class="logo">
+            <p class="title">Administration module</p>
 
-    </div>
-    <div class="scream">
-        <div class="display">
-            <div class="button">
-                <label for="databaseTables">
-                    <p>Select a table:</p>
-                </label>
-                <select id="databaseTables" onchange="window.location.href = this.value;">
-                    <option value="src/module-administrator/users" selected>User</option>
-                    <option value="/src/module-administrator/assistence" >Assistance</option>
-                    <option value="/src/module-administrator/authorization">Authorization</option>
-                    <option value="/src/module-administrator/characterizationSheet" >Characterization sheet</option>
-                    <option value="/src/module-administrator/message" >Message</option>
-                    <option value="/src/module-administrator/program" >Program</option>
-                    <option value="/src/module-administrator/userSheet" >User Sheet</option>
+        </div>
+        <div class="scream">
+            <div class="display">
+                <div class="button">
+                    <label for="databaseTables">
+                        <p>Select a table:</p>
+                    </label>
+                    <select id="databaseTables" onchange="window.location.href = this.value;">
+                        <option value="/src/module-administrator/users" selected>User</option>
+                        <option value="/src/module-administrator/assistence">Assistance</option>
+                        <option value="/src/module-administrator/authorization">Authorization</option>
+                        <option value="/src/module-administrator/characterizationSheet">Characterization sheet</option>
+                        <option value="/src/module-administrator/message">Message</option>
+                        <option value="/src/module-administrator/program">Program</option>
+                        <option value="/src/module-administrator/userSheet">User Sheet</option>
 
-                </select>
+                    </select>
+                </div>
+                <div class="nav2">
+                    <a href="/login" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
+                </div>
             </div>
-            <div class="nav2">
-                <a href="/login" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
+            <div class="container">
+                <table class="table table-dark">
+                    <p>list Users</p>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Document</th>
+                            <th>T.document</th>
+                            <th>Name</th>
+                            <th>Lastname</th>
+                            <th>E-mail</th>
+                            <th>Phone</th>
+                            <th>State</th>
+                            <th>Rol</th>
+                            <th colspan="2"><center><a id="create-btn"><img src="/img/add.webp" class="icon2"></a></center></th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="listUsers">
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="container">
-            <table class="table table-dark" >
-                <p>list Users</p>
-                <thead class="thead-dark">
-                <tr>
-                    <th>Id</th>
-                    <th>Document</th>
-                    <th>T.document</th>
-                    <th>Name</th>
-                    <th>Lastname</th>
-                    <th>E-mail</th>
-                    <th>Phone</th>
-                    <th>State</th>
-                    <th>Rol</th>
-                    <th><button  id="create-btn"><img src="/img/add.webp" class="icon2" />Add</button></th>
-                    </th>
-                </tr>
-                </thead>
-                <tbody id="listUsers">
-                </tbody>
-            </table>
+    </div>
+    <div id="overlay-update" style="display: none;">
+        <div id="overlay-update-content">
+            <form id="update-form">
+                <label for="documentUpdate">Document:</label>
+                <input type="number" name="documentUpdate" id="documentUpdate">
+                <label for="typeDocumentUpdate">Type Document:</label>
+                <input type="text" name="typeDocumentUpdate" id="typeDocumentUpdate">
+                <label for="usernameUpdate">Name:</label>
+                <input type="text" name="usernameUpdate" id="usernameUpdate">
+                <label for="last_nameUpdate">Last Name:</label>
+                <input type="text" name="last_nameUpdate" id="last_nameUpdate">
+                <label for="emailUpdate">E-mail:</label>
+                <input type="email" name="emailUpdate" id="emailUpdate">
+                <label for="telephoneUpdate">Telephone:</label>
+                <input type="number" id="telephoneUpdate" name="telephoneUpdate">
+                <label for="stateUpdate">State:</label>
+                <input type="text" name="stateUpdate" id="stateUpdate">
+                <label for="rolUpdate">Rol:</label>
+                <input type="text" name="rolUpdate" id="rolUpdate">
+                <label for="oldPassword">old Password:</label>
+                <input type="password" name="oldPassword" id="oldPassword">
+                <label for="passwordUpdate">Password:</label>
+                <input type="password" name="passwordUpdate" id="passwordUpdate">
+                <label for="passwordConfirmUpdate">Confirm Password:</label>
+                <input type="password" name="passwordConfirmUpdate" id="passwordConfirmUpdate">
+                <br>
+                <input type="submit" value="update" id="update-form-btn">
+                <br>
+                <input type="button" value="Cancel" id="update-form-cancel">
+            </form>
         </div>
     </div>
-</div>
-<div id="overlay-update" style="display: none;">
-    <div id="overlay-update-content">
-        <form id="update-form">
-            <label for="email">email:</label>
-            <input type="email" name="email" id="email">
-
-            <label for="telephone">telephone:</label>
-            <input type="number" id="telephone" name="telephone">
-
-            <input type="submit" value="update" id="update-form-btn">
-        </form>
+    <div id="overlay-create" style="display: none;">
+        <div id="overlay-create-content">
+            <form id="create-form">
+                <label for="documentCreate">Document:</label>
+                <input type="number" name="documentCreate" id="documentCreate">
+                <label for="typeDocumentCreate">Type Document:</label>
+                <input type="text" name="typeDocumentCreate" id="typeDocumentCreate">
+                <label for="usernameCreate">Name:</label>
+                <input type="text" name="usernameCreate" id="usernameCreate">
+                <label for="last_nameCreate">Last Name:</label>
+                <input type="text" name="last_nameCreate" id="last_nameCreate">
+                <label for="emailCreateCreate">E-mail:</label>
+                <input type="email" name="emailCreateCreate" id="emailCreateCreate">
+                <label for="telephoneCreate">Telephone:</label>
+                <input type="number" id="telephoneCreate" name="telephoneCreate">
+                <label for="stateCreate">State:</label>
+                <input type="text" name="stateCreate" id="stateCreate">
+                <label for="rolCreate">Rol:</label>
+                <input type="text" name="rolCreate" id="rolCreate">
+                <label for="passwordCreate">Password:</label>
+                <input type="password" name="passwordCreate" id="passwordCreate">
+                <label for="passwordConfirmCreate">Confirm Password:</label>
+                <input type="password" name="passwordConfirmCreate" id="passwordConfirmCreate">
+                <br>
+                <input type="submit" value="Create" id="create-form-btn">
+                <br>
+                <input type="button" value="Cancel" id="create-form-cancel">
+            </form>
+        </div>
     </div>
-  </div>
-  <div id="overlay-create" style="display: none;">
-    <div id="overlay-create-content">
-
-      <form id="create-form">
-        <label for="user">user:</label>
-        <select name="user" id="user-select"></select>
-        <label for="verification">verification:</label>
-        <input type="checkbox" id="verification" name="verification">
-
-        <input type="submit" value="Create" id="create-form-btn">
-        <input type="button" value="Cancel" onclick="overlayCreate.style.display='none';">
-      </form>
-    </div>
-  </div>
 </body>
+
 </html>

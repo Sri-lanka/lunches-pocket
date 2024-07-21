@@ -344,3 +344,7 @@ input[type="file"]:hover::before {
   input[type="submit"]:active, input[type="button"]:active {
     background-color: #3e8e41; /* Fondo verde oscuro al presionar el botón */
   }
+  
+.a-button {
+    cursor: pointer;
+}

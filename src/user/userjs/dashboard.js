@@ -81,13 +81,13 @@ async function getUserInfo() {
             field: field,
            
         });
-
         console.log(resultCreate);
     }
 
     async function onCreateMessage() {
 
-    
+        overlayCreate.style.display = 'block';
+        
         let idUser = user.id;
         console.log(idUser);
         let typeMessage = "excuse";

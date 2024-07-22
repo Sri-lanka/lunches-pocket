@@ -1,10 +1,35 @@
 import { pb } from '../../../global.js';
 
+let overlayUpdate = document.getElementById('overlay-update');
+let overlayCreate = document.getElementById('overlay-create');
+
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
-        window.location.href = "updateUser.html";
+        window.location.href = "index.html";
         return;
     }
+
+    async function updateUser(id, name) {
+
+        let result = await pb.collection('message').update(id, {
+            name: name,
+        });
+        console.log(result);
+    }
+
+    async function createUsers(name) {
+        let result = await pb.collection('message').create({
+            name: name,
+        });
+        console.log(result);
+    }
+
+    async function deleteUser(id) {
+        let result = await pb.collection('message').delete(id);
+        console.log(result);
+    }
+
+
         const resultList = await pb.collection('message').getList(1, 50, {
         });
 

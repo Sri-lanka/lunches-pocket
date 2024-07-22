@@ -138,9 +138,11 @@ async function getUserInfo() {
 
         let userDeleteBtn = document.createElement('a');
         userDeleteBtn.innerHTML = '<img src="/img/delate.webp" class="icon a-button">';
+
         let userDeleteTd = document.createElement('td');
         userDeleteTd.appendChild(userDeleteBtn);
         newRow.appendChild(userDeleteTd);
+        
 
         userDeleteBtn.onclick = async () => {
             await deleteUser(listUser.id);

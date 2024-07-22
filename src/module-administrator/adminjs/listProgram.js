@@ -1,40 +1,117 @@
-import { pb } from '../../../global.js';
+import { pb } from "../../../global.js";
+
+let overlayUpdate = document.getElementById("overlay-update");
+let overlayCreate = document.getElementById("overlay-create");
 
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
-        window.location.href = "updateUser.html";
+        window.location.href = "index.html";
         return;
     }
-        const resultList = await pb.collection('program').getList(1, 50, {
+
+    async function updateProgram(id, name) {
+        let result = await pb.collection("program").update(id, {
+            name: name,
         });
-
-        for (let i = 0; i < resultList.items.length; i++) {
-            let listProgram = resultList.items[i];
-       
-            let newRow = document.createElement('tr');
-
-            let idCell = document.createElement('td');
-            idCell.textContent = listProgram.id;
-            newRow.appendChild(idCell);
-
-            let nameCell = document.createElement('td')
-            nameCell.textContent = listProgram.name;
-            newRow.appendChild(nameCell);
-
-            let createdCell = document.createElement('td')
-            createdCell.textContent = listProgram.created;
-            newRow.appendChild(createdCell);
-
-            let updateCell = document.createElement('td')
-            updateCell.textContent = listProgram.updated;
-            newRow.appendChild(updateCell);
-
-
-            document.querySelector('#listProgram').appendChild(newRow);
-
-
+        console.log(result);
     }
 
+    async function createProgram(name) {
+        let result = await pb.collection("program").create({
+            name: name,
+        });
+        console.log(result);
+    }
+
+    async function deleteProgram(id) {
+        let result = await pb.collection("program").delete(id);
+        console.log(result);
+    }
+
+    const resultList = await pb.collection("program").getList(1, 50, {});
+
+    for (let i = 0; i < resultList.items.length; i++) {
+        let listProgram = resultList.items[i];
+
+        let newRow = document.createElement("tr");
+
+        let idCell = document.createElement("td");
+        idCell.textContent = listProgram.id;
+        newRow.appendChild(idCell);
+
+        let nameCell = document.createElement("td");
+        nameCell.textContent = listProgram.name;
+        newRow.appendChild(nameCell);
+
+        let createdCell = document.createElement("td");
+        createdCell.textContent = listProgram.created;
+        newRow.appendChild(createdCell);
+
+        let updateCell = document.createElement("td");
+        updateCell.textContent = listProgram.updated;
+        newRow.appendChild(updateCell);
+
+        let programUpdateBtn = document.createElement("a");
+        programUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
+        let programUpdateTd = document.createElement("td");
+
+        programUpdateTd.appendChild(programUpdateBtn);
+        newRow.appendChild(programUpdateTd);
+
+        programUpdateBtn.onclick = async () => {
+            overlayUpdate.style.display = "block";
+
+            let updateFormBtn = document.getElementById("update-form-btn");
+            updateFormBtn.onclick = async (event) => {
+
+                let name = document.getElementById("updateProgram").value;
+
+                await updateProgram(listProgram.id, name);
+                window.location.reload();
+            };
+        };
+
+        let programDeleteBtn = document.createElement("a");
+        programDeleteBtn.innerHTML =
+            '<img src="/img/delate.webp" class="icon a-button">';
+
+        let programDeleteTd = document.createElement("td");
+        programDeleteTd.appendChild(programDeleteBtn);
+        newRow.appendChild(programDeleteTd);
+
+        programDeleteBtn.onclick = async () => {
+            await deleteProgram(listProgram.id);
+            window.location.reload();
+        };
+
+        document.querySelector("#listProgram").appendChild(newRow);
+    }
+
+    async function onCreateProgram() {
+        let name = document.getElementById("createProgram").value;
+
+        await createProgram(name);
+    }
+
+    let createBtn = document.getElementById("create-btn");
+    createBtn.onclick = async () => {
+        overlayCreate.style.display = "block";
+
+        let createForm = document.getElementById("create-form-btn");
+        createForm.addEventListener("click", async (event) => {
+            event.preventDefault();            await onCreateProgram();
+            window.location.reload();
+        });
+    };
+
+    let createBtnCancel = document.getElementById("create-form-cancel");
+    createBtnCancel.onclick = () => {
+        overlayCreate.style.display = "none";
+    };
+    let updateBtnCancel = document.getElementById("update-form-cancel");
+    updateBtnCancel.onclick = () => {
+        overlayUpdate.style.display = "none";
+    };
 }
 
 getUserInfo();

@@ -30,8 +30,6 @@ async function getUserInfo() {
         console.log(result);
     }
 
-
-
     async function createUsers(document, type_document, name, last_name, email, telephone, state, rol, password, passwordConfirm) {
         let result = await pb.collection('users').create({
             document: document,
@@ -143,10 +141,12 @@ async function getUserInfo() {
         let userDeleteTd = document.createElement('td');
         userDeleteTd.appendChild(userDeleteBtn);
         newRow.appendChild(userDeleteTd);
+
         userDeleteBtn.onclick = async () => {
             await deleteUser(listUser.id);
             window.location.reload();
         }
+        
         document.querySelector('#listUsers').appendChild(newRow);
 
 

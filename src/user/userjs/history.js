@@ -104,7 +104,7 @@ async function getUserInfo() {
         window.location.reload();
       }
     }
-    //update.innerHTML = '<a href="updateUser"><img src="/img/edit.png" class="icon"></a>';
+   
     updateTd.appendChild(updateBtn);
     newRow.appendChild(updateTd);
 

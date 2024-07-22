@@ -1,10 +1,33 @@
 import { pb } from '../../../global.js';
 
+let overlayUpdate = document.getElementById('overlay-update');
+let overlayCreate = document.getElementById('overlay-create');
+
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
         window.location.href = "updateUser.html";
         return;
     }
+    async function deleteAuthorization(id) {
+        let result = await pb.collection('authorization').delete(id);
+        console.log(result);
+    }
+
+    async function updateAuthorization(id, ) {
+        let result = await pb.collection('authorization').update(id, {
+            dateAplication: dateAplication,
+        });
+        console.log(result);
+    }
+
+    async function createAuthorization( idAssistence,dateAplication) {
+        let result = await pb.collection('authorization').create({
+            idAssistence: idAssistence,
+            dateAplication: dateAplication,
+        });
+        console.log(result);
+    }
+
         const resultList = await pb.collection('authorization').getList(1, 50, {
         });
 
@@ -30,6 +53,42 @@ async function getUserInfo() {
 
     }
 
+    async function OnCreateAuthorization() {
+
+        let user = document.getElementById('user-select').value;
+        let verification = document.getElementById('verificationCreate').checked;
+
+        await createAssistance(user, verification);
+    }
+
+    let createBtn = document.getElementById('create-btn');
+    createBtn.onclick = async () => {
+        overlayCreate.style.display = 'block';
+
+        let assistance = await pb.collection('assistance').getFullList();
+        let user = await pb.collection('users').getFullList({
+            filter: `id = "${assistance.idUser}"`,
+        });
+
+        let assistanceSelect = document.getElementById('assistance-select');
+        assistanceSelect.innerHTML = '';
+        assistance.forEach(assistances => {
+            user.forEach(users => {
+            console.log(assistances);
+            let option = document.createElement('option');
+            option.value = assistances.id;
+            option.innerHTML = assistances.idUser;
+            option.innerHTML += ' - ' + users.username;
+            
+            assistanceSelect.appendChild(option);
+            });
+        });
+
+        let createForm = document.getElementById('create-form-btn');
+        createForm.addEventListener('click', async () => {
+            await OnCreateAuthorization();
+        })
+    }
 }
 
 getUserInfo();

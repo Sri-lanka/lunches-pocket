@@ -112,25 +112,32 @@ async function getUserInfo() {
         newRow.appendChild(userUpdateTd);
 
         userUpdateBtn.onclick = async () => {
-
             overlayUpdate.style.display = 'block';
+
+            let documentUpdate = document.getElementById('documentUpdate');
+            documentUpdate.value = listUser.document;
+            let typeDocumentUpdate = document.getElementById('typeDocumentUpdate');
+            typeDocumentUpdate.value = listUser.document
+            let usernameUpdate = document.getElementById('usernameUpdate');
+            usernameUpdate.value = listUser.username
+            let last_nameUpdate = document.getElementById('last_nameUpdate');
+            last_nameUpdate.value = listUser.last_name;
+            let emailUpdate = document.getElementById('emailUpdate');
+            emailUpdate.value = listUser.email;
+            let telephoneUpdate = document.getElementById('telephoneUpdate');
+            telephoneUpdate.value = listUser.telephone;
+            let stateUpdate = document.getElementById('stateUpdate');
+            stateUpdate.value = listUser.state;
+            let rolUpdate = document.getElementById('rolUpdate');
+            rolUpdate.value = listUser.rol;
+            let oldPassword = document.getElementById('oldPassword');
+            let passwordUpdate = document.getElementById('passwordUpdate');
+            let passwordConfirmUpdate = document.getElementById('passwordConfirmUpdate');
 
             let updateFormBtn = document.getElementById('update-form-btn');
             updateFormBtn.onclick = async (event) => {
                 event.preventDefault();
-                let documentUpdate = document.getElementById('documentUpdate').value;
-                let typeDocumentUpdate = document.getElementById('typeDocumentUpdate').value;
-                let usernameUpdate = document.getElementById('usernameUpdate').value;
-                let last_nameUpdate = document.getElementById('last_nameUpdate').value;
-                let emailUpdate = document.getElementById('emailUpdate').value;
-                let telephoneUpdate = document.getElementById('telephoneUpdate');
-                let stateUpdate = document.getElementById('stateUpdate').value;
-                let rolUpdate = document.getElementById('rolUpdate').value;
-                let oldPassword = document.getElementById('oldPassword').value;
-                let passwordUpdate = document.getElementById('passwordUpdate').value;
-                let passwordConfirmUpdate = document.getElementById('passwordConfirmUpdate').value;
-
-                await updateUser(listUser.id, documentUpdate, typeDocumentUpdate, usernameUpdate, last_nameUpdate, emailUpdate, telephoneUpdate, stateUpdate, rolUpdate, oldPassword, passwordUpdate, passwordConfirmUpdate);
+                await updateUser(listUser.id, documentUpdate.value, typeDocumentUpdate.value, usernameUpdate.value, last_nameUpdate.value, emailUpdate.value, telephoneUpdate.value, stateUpdate.value, rolUpdate.value, oldPassword.value, passwordUpdate.value, passwordConfirmUpdate.value);
                 window.location.reload();
             }
 
@@ -148,7 +155,7 @@ async function getUserInfo() {
             await deleteUser(listUser.id);
             window.location.reload();
         }
-        
+
         document.querySelector('#listUsers').appendChild(newRow);
 
 
@@ -174,8 +181,7 @@ async function getUserInfo() {
         overlayCreate.style.display = 'block';
 
         let createForm = document.getElementById('create-form-btn');
-        createForm.addEventListener('submit', 'click', async () => {
-
+        createForm.addEventListener( 'click', async () => {
             await onCreateUsers();
             window.location.reload();
         })

@@ -12,12 +12,12 @@ async function getUserInfo() {
 
 
 
-    async function updateUser(id, document, type_document, username, last_name, email, telephone, state, rol, oldPassword, password, passwordConfirm) {
+    async function updateUser(id, document, type_document, name, last_name, email, telephone, state, rol, oldPassword, password, passwordConfirm) {
 
         let result = await pb.collection('users').update(id, {
             document: document,
             type_document: type_document,
-            username: username,
+            name: name,
             last_name: last_name,
             email: email,
             telephone: telephone,
@@ -32,11 +32,11 @@ async function getUserInfo() {
 
 
 
-    async function createUsers(document, type_document, username, last_name, email, telephone, state, rol, password, passwordConfirm) {
+    async function createUsers(document, type_document, name, last_name, email, telephone, state, rol, password, passwordConfirm) {
         let result = await pb.collection('users').create({
             document: document,
             type_document: type_document,
-            username: username,
+            name: name,
             last_name: last_name,
             email: email,
             telephone: telephone,
@@ -76,10 +76,13 @@ async function getUserInfo() {
         let typeDocumentCell = document.createElement('td');
         typeDocumentCell.textContent = listUser.type_document;
         newRow.appendChild(typeDocumentCell);
-        
+
+        let usernameCell = document.createElement('td');
+        usernameCell.textContent = listUser.username;
+        newRow.appendChild(usernameCell);
 
         let nameCell = document.createElement('td');
-        nameCell.textContent = listUser.username;
+        nameCell.textContent = listUser.name;
         newRow.appendChild(nameCell);
 
         let lastNameCell = document.createElement('td');
@@ -169,8 +172,8 @@ async function getUserInfo() {
         overlayCreate.style.display = 'block';
 
         let createForm = document.getElementById('create-form-btn');
-        createForm.addEventListener('submit','click', async () => {
-        
+        createForm.addEventListener('submit', 'click', async () => {
+
             await onCreateUsers();
             window.location.reload();
         })

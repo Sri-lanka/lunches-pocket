@@ -12,13 +12,13 @@ async function getUserInfo() {
     console.log(user.username);
 
     const result = await pb.collection('sheet_user').getList(1, 50, {
-        filter: `username = "${user.username}"`,
+        filter: `idUser = "${user.id}"`,
     });
 
     let listData = result.items[0];
     //console.log(listData);
     let userSheetElement = document.querySelector('#user-info');
-    userSheetElement.innerHTML = '<li> ' + listData.username + '</li>';
+    userSheetElement.innerHTML = '<li> ' + listData.name + '</li>';
     userSheetElement.innerHTML += '<li> ' + listData.last_name + '</li>';
     userSheetElement.innerHTML += '<li>Sheet: ' + listData.N_sheet + '</li>';
     userSheetElement.innerHTML += '<li>state: ' + listData.state + '</li>';
@@ -86,10 +86,8 @@ async function getUserInfo() {
 
     async function onCreateMessage() {
 
-        overlayCreate.style.display = 'block';
         
         let idUser = user.id;
-        console.log(idUser);
         let typeMessage = "excuse";
         let description = document.getElementById('description').value;
         let field = document.getElementById('field').files[0];

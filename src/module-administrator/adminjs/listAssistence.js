@@ -57,14 +57,15 @@ async function getUserInfo() {
         createdCell.textContent = listAssistance.created;
         newRow.appendChild(createdCell);
 
-        let userUpdateBtn = document.createElement('a');
-        userUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
-        let userUpdateTd = document.createElement('td');
+        let assistanceUpdateBtn = document.createElement('a');
+        assistanceUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
+        let assistanceUpdateTd = document.createElement('td');
 
-        userUpdateTd.appendChild(userUpdateBtn);
-        newRow.appendChild(userUpdateTd);
+        assistanceUpdateTd.appendChild(assistanceUpdateBtn);
+        newRow.appendChild(assistanceUpdateTd);
+    
 
-        userUpdateBtn.onclick = async () => {
+        assistanceUpdateBtn.onclick = async () => {
             overlayUpdate.style.display = 'block';
 
             let verification = document.getElementById('verificationUpdate');
@@ -80,13 +81,13 @@ async function getUserInfo() {
 
         }
 
-        let userDeleteBtn = document.createElement('a');
-        userDeleteBtn.innerHTML = '<img src="/img/delate.webp" class="icon a-button">';
-        let userDeleteTd = document.createElement('td');
-        userDeleteTd.appendChild(userDeleteBtn);
-        newRow.appendChild(userDeleteTd);
-
-        userDeleteBtn.onclick = async () => {
+        let assistanceDeleteBtn = document.createElement('a');
+        assistanceDeleteBtn.innerHTML = '<img src="/img/delate.webp" class="icon a-button">';
+        let assistanceDeleteTd = document.createElement('td');
+        assistanceDeleteTd.appendChild(assistanceDeleteBtn);
+        newRow.appendChild(assistanceDeleteTd);
+        
+        assistanceDeleteBtn.onclick = async () => {
             await deleteAssistance(listAssistance.id);
             window.location.reload();
         }

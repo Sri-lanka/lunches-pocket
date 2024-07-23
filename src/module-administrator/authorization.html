@@ -61,11 +61,11 @@
 <div id="overlay-update" style="display: none;">
     <div id="overlay-update-content">
         <form id="update-form">
-            <label for="email">email:</label>
-            <input type="email" name="email" id="email">
-
-            <label for="telephone">telephone:</label>
-            <input type="number" id="telephone" name="telephone">
+            <label for="assistance">user:</label>
+            <select name="assistance" id="assistance-select-Update"></select>
+    
+            <label for="dateAplication">dateAplication:</label>
+            <input type="datetime-local" id="dateAplicationUpdate" name="dateAplication">
 
             <input type="submit" value="update" id="update-form-btn">
             <input type="button" value="Cancel" id="update-form-cancel">
@@ -77,10 +77,10 @@
     <div id="overlay-create-content">
       <form id="create-form">
         <label for="assistance">user:</label>
-        <select name="assistance" id="assistance-select"></select>
+        <select name="assistance" id="assistance-select-Create"></select>
 
         <label for="dateAplication">dateAplication:</label>
-        <input type="datetime-local" id="dateAplication" name="dateAplication">
+        <input type="datetime-local" id="dateAplicationCreate" name="dateAplication">
 
         <input type="submit" value="Create" id="create-form-btn">
         <input type="button" value="Cancel" id="create-form-cancel">

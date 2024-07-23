@@ -18,13 +18,3 @@ export async function register(data) {
     }
 }
 
-/*
-// after the above you can also access the auth data from the authStore
-console.log(pb.authStore.isValid);
-console.log(pb.authStore.token);
-console.log(pb.authStore.model.id);
-
-// "logout" the last authenticated account
-pb.authStore.clear();
-document.getElementById('login-form').addEventListener('submit', authData);
-*/

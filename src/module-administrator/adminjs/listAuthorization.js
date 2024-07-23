@@ -13,14 +13,14 @@ async function getUserInfo() {
         console.log(result);
     }
 
-    async function updateAuthorization(id, ) {
+    async function updateAuthorization(id,) {
         let result = await pb.collection('authorization').update(id, {
             dateAplication: dateAplication,
         });
         console.log(result);
     }
 
-    async function createAuthorization( idAssistence,dateAplication) {
+    async function createAuthorization(idAssistence, dateAplication) {
         let result = await pb.collection('authorization').create({
             idAssistence: idAssistence,
             dateAplication: dateAplication,
@@ -28,27 +28,27 @@ async function getUserInfo() {
         console.log(result);
     }
 
-        const resultList = await pb.collection('authorization').getList(1, 50, {
-        });
+    const resultList = await pb.collection('authorization').getList(1, 50, {
+    });
 
-        for (let i = 0; i < resultList.items.length; i++) {
-            let listAuthorization = resultList.items[i];
-       
-            let newRow = document.createElement('tr');
+    for (let i = 0; i < resultList.items.length; i++) {
+        let listAuthorization = resultList.items[i];
 
-            let idCell = document.createElement('td');
-            idCell.textContent = listAuthorization.id;
-            newRow.appendChild(idCell);
+        let newRow = document.createElement('tr');
 
-            let idAssistenceCell = document.createElement('td');
-            idAssistenceCell.textContent = listAuthorization.idAssistence;
-            newRow.appendChild(idAssistenceCell);
+        let idCell = document.createElement('td');
+        idCell.textContent = listAuthorization.id;
+        newRow.appendChild(idCell);
 
-            let createdCell = document.createElement('td');
-            createdCell.textContent = listAuthorization.created;
-            newRow.appendChild(createdCell);
+        let idAssistenceCell = document.createElement('td');
+        idAssistenceCell.textContent = listAuthorization.idAssistence;
+        newRow.appendChild(idAssistenceCell);
 
-            document.querySelector('#listAuthorization').appendChild(newRow);
+        let createdCell = document.createElement('td');
+        createdCell.textContent = listAuthorization.created;
+        newRow.appendChild(createdCell);
+
+        document.querySelector('#listAuthorization').appendChild(newRow);
 
 
     }
@@ -65,23 +65,23 @@ async function getUserInfo() {
     createBtn.onclick = async () => {
         overlayCreate.style.display = 'block';
 
-        let assistance = await pb.collection('assistance').getFullList();
-        let user = await pb.collection('users').getFullList({
-            filter: `id = "${assistance.idUser}"`,
-        });
+        let assistance = await pb.collection('assistance').getFullList(
+            { expand: 'idUser' }
+        );
+
+        console.log(assistance);
 
         let assistanceSelect = document.getElementById('assistance-select');
         assistanceSelect.innerHTML = '';
-        assistance.forEach(assistances => {
-            user.forEach(users => {
-            console.log(assistances);
+
+        assistance.forEach(assistance => {
             let option = document.createElement('option');
-            option.value = assistances.id;
-            option.innerHTML = assistances.idUser;
-            option.innerHTML += ' - ' + users.username;
-            
+            console.log(assistance);
+            option.value = assistance.id;
+
+            option.innerHTML = assistance.expand.idUser.name;
+      
             assistanceSelect.appendChild(option);
-            });
         });
 
         let createForm = document.getElementById('create-form-btn');

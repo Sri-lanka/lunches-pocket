@@ -76,7 +76,7 @@ async function getUserInfo() {
         let resultCreate = await pb.collection('message').create({
            
             idUser: id,
-            typeMessage: typeMessage,
+            type_message: typeMessage,
             description: description,
             field: field,
            

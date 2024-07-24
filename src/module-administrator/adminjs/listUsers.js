@@ -182,6 +182,7 @@ async function getUserInfo() {
 
         let createForm = document.getElementById('create-form-btn');
         createForm.addEventListener( 'click', async () => {
+            
             await onCreateUsers();
             window.location.reload();
         })

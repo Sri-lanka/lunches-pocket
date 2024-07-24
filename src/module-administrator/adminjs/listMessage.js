@@ -17,7 +17,7 @@ async function getUserInfo() {
         console.log(result);
     }
 
-    async function createUsers(name) {
+    async function createMessage(idUser,type_message,description,field) {
         let result = await pb.collection('message').create({
             name: name,
         });

@@ -68,8 +68,11 @@
             <form id="update-form">
                 <label for="document">Document:</label>
                 <input type="number" name="documentUpdate" id="documentUpdate">
-                <label for="typeDocument">Type Document:</label>
-                <input type="text" name="typeDocumentUpdate" id="typeDocumentUpdate">
+                <label for="typeDocument" id="typeDocumentUpdate">Type Document:</label>
+                <select id="typeDocumentUpdate" >
+                    <option value="CC">CC</option>
+                    <option value="TI">TI</option>
+                </select>
                 <label for="username">Name:</label>
                 <input type="text" name="usernameUpdate" id="usernameUpdate">
                 <label for="last_name">Last Name:</label>
@@ -81,7 +84,11 @@
                 <label for="state">State:</label>
                 <input type="text" name="stateUpdate" id="stateUpdate">
                 <label for="rol">Rol:</label>
-                <input type="text" name="rolUpdate" id="rolUpdate">
+                <select name="rolUpdate" id="rolUpdate">
+                    <option value="user">user</option>
+                    <option value="admin">admin</option>
+                    <option value="manager">manager</option>
+                </select>
                 <label for="oldPassword">old Password:</label>
                 <input type="password" name="oldPassword" id="oldPassword">
                 <label for="password">Password:</label>

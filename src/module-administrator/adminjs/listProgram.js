@@ -61,12 +61,15 @@ async function getUserInfo() {
         programUpdateBtn.onclick = async () => {
             overlayUpdate.style.display = "block";
 
+        let name = document.getElementById("updateProgram");
+        name.value = listProgram.name;
+
             let updateFormBtn = document.getElementById("update-form-btn");
-            updateFormBtn.onclick = async (event) => {
+            updateFormBtn.onclick = async () => {
 
-                let name = document.getElementById("updateProgram").value;
+                
 
-                await updateProgram(listProgram.id, name);
+                await updateProgram(listProgram.id, name.value);
                 window.location.reload();
             };
         };

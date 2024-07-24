@@ -80,13 +80,16 @@
     <div id="overlay-create-content">
 
       <form id="create-form">
-        <label for="user">user:</label>
-        <select name="user" id="user-select"></select>
-        <label for="verification">verification:</label>
-        <input type="checkbox" id="verification" name="verification">
+        <label for="n°sheet">n°sheet:</label>
+        <input type="number" name="n°sheet" id="n°sheetCreate">
+        <label for="program">program:</label>
+        <select name="program" id="programCreate-select"></select>
+        <label for="end">endDate</label>
+        <input type="datetime-local" name="endDate" id="endCreate">
+
 
         <input type="submit" value="Create" id="create-form-btn">
-        <input type="button" value="Cancel" onclick="overlayCreate.style.display='none';">
+        <input type="button" value="Cancel" id="create-form-cancel">
       </form>
     </div>
   </div>

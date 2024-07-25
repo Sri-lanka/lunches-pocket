@@ -35,6 +35,7 @@ async function getUserInfo() {
 
 
     const resultList = await pb.collection('message').getList(1, 50, {
+        expand: 'Recipient'
     });
 
     for (let i = 0; i < resultList.items.length; i++) {
@@ -61,18 +62,29 @@ async function getUserInfo() {
         let fieldCell = document.createElement('td')
         //fieldCell.textContent = listMessage.field;
         let fileurl = `${pb.baseUrl}/api/files/${listMessage.collectionId}/${listMessage.id}/${listMessage.field}`;
-        let link = document.createElement('a');
-        link.href = fileurl;
-        link.textContent = 'Descargar archivo';
-        link.target = '_blank';
-        fieldCell.appendChild(link);
-        fieldCell.href = 
-        newRow.appendChild(fieldCell);
+        
+        if (!listMessage.field) {
+            fieldCell.textContent = 'No found file';
+            newRow.appendChild(fieldCell);
+        }else {
+            let link = document.createElement('a');
+            link.href = fileurl;
+            link.textContent = 'donwload archive';
+            link.target = '_blank';
+            fieldCell.appendChild(link);
+            fieldCell.href = 
+            newRow.appendChild(fieldCell);
+        }
 
         let Recipient = document.createElement('td')
-        Recipient.textContent = listMessage.Recipient;
-        newRow.appendChild(Recipient);
-
+        console.log(listMessage.Recipient);
+        if (!listMessage.Recipient ) {
+            Recipient.textContent = 'All administrators';
+            newRow.appendChild(Recipient);
+        }else{
+            Recipient.textContent = listMessage.Recipient;
+            newRow.appendChild(Recipient);
+        }
         let createdCell = document.createElement('td')
         createdCell.textContent = listMessage.created;
         newRow.appendChild(createdCell);

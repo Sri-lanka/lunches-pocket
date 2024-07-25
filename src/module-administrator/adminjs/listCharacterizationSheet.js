@@ -15,11 +15,11 @@ async function getUserInfo() {
     console.log(result);
   }
 
-  async function createCharacterizationSheet(N_sheet, id_program, end) {
+  async function createCharacterizationSheet(N_sheet, id_program, date_end) {
     let result = await pb.collection("characterization_sheet").create({
       N_sheet: N_sheet,
       id_program: id_program,
-      end: end,
+      date_end: date_end,
       
     });
     console.log(result);
@@ -56,7 +56,7 @@ async function getUserInfo() {
     newRow.appendChild(createdCell);
 
     let endCell = document.createElement("td");
-    endCell.textContent = listCharacterizationSheet.end;
+    endCell.textContent = listCharacterizationSheet.date_end;
     newRow.appendChild(endCell);
 
     let programUpdateBtn = document.createElement("a");
@@ -100,10 +100,9 @@ async function getUserInfo() {
     
     let N_sheet = document.getElementById("n°sheetCreate").value;
     let program = document.getElementById("programCreate-select").value;
-  
-    let endW = document.getElementById("endCreate").value;
-    
-    await createCharacterizationSheet(N_sheet, program, endW);
+    let date_end = document.getElementById("date_endCreate").value;
+    console.log(date_end);
+    await createCharacterizationSheet(N_sheet, program, date_end);
   }
 
   let createBtn = document.getElementById("create-btn");

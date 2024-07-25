@@ -11,5 +11,5 @@ document.querySelector('#login-form').addEventListener('submit', async (e) => {
         return;
     }
 
-    window.location.href = rol == "admin" ? "/src/module-administrator/users.html" : "/src/module-user/user.html";
+    window.location.href = rol == "admin" ? "/src/module-administrator/users" : "/src/user/home";
 });

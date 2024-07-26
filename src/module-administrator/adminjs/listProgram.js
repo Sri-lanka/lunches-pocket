@@ -3,12 +3,23 @@ import { pb, formatDate } from "../../../global.js";
 let overlayUpdate = document.getElementById("overlay-update");
 let overlayCreate = document.getElementById("overlay-create");
 let overlayDelete = document.getElementById("overlay-delete");
-
-async function getUserInfo() {
+async function isValid() {
     if (!pb.authStore.isValid) {
-        window.location.href = "index.html";
+        window.location.href = "../../../index";
         return;
+        
     }
+  
+    let user = await pb.collection('users').getOne(pb.authStore.model.id);
+    if (user.rol != 'admin') {
+      window.location.href = "home";
+      return;
+      }
+  }
+  
+  isValid();
+async function getUserInfo() {
+
 
     async function updateProgram(id, name) {
         let result = await pb.collection("program").update(id, {
@@ -73,7 +84,11 @@ async function getUserInfo() {
             let updateFormBtn = document.getElementById("update-form-btn");
             updateFormBtn.onclick = async () => {
                 await updateProgram(listProgram.id, name.value);
+                alert("Program updated successfully");
                 window.location.reload();
+                }catch(error){
+                    alert("Error updating program: " + error);
+                }
             };
         };
         //delate
@@ -90,8 +105,13 @@ async function getUserInfo() {
             let deleteFormBtn = document.getElementById("delete-form-btn");
             deleteFormBtn.onclick = async (event) => {
                 event.preventDefault();
+                try {
                 await deleteProgram(listProgram.id);
+                alert("Program deleted successfully");
                 window.location.reload();
+                } catch (e) {
+                    alert("Error deleting program: " + e);
+                }
             };
         };
 
@@ -110,9 +130,14 @@ async function getUserInfo() {
 
         let createForm = document.getElementById("create-form-btn");
         createForm.addEventListener("click", async (event) => {
-            event.preventDefault();
+            event.preventDefault();   
+            try {       
             await onCreateProgram();
+            alert("Program created successfully");
             window.location.reload();
+            } catch (error) {
+                alert("Error creating program: " + error);
+            }
         });
     };
 
@@ -128,6 +153,10 @@ async function getUserInfo() {
     deleteBtnCancel.onclick = () => {
         overlayDelete.style.display = "none";
     };
+    document.querySelector('#logout-btn').addEventListener('click', async () => {
+        pb.authStore.clear();
+        window.location.replace("../../../index");
+      });
 }
 
 getUserInfo();

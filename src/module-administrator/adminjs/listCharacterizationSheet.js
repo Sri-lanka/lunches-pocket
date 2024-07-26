@@ -3,18 +3,24 @@ import { pb, formatDate, convertDTLtoIso, convertIsoToDTL } from "../../../globa
 let overlayUpdate = document.getElementById("overlay-update");
 let overlayCreate = document.getElementById("overlay-create");
 let overlayDelete = document.getElementById("overlay-delete");
-
-async function getUserInfo() {
+async function isValid() {
   if (!pb.authStore.isValid) {
-    window.location.href = "index.html";
-    return;
+      window.location.href = "../../../index";
+      return;
+      
   }
-  async function updateCharacterizationSheet(
-    id,
-    N_sheet,
-    id_program,
-    date_end
-  ) {
+
+  let user = await pb.collection('users').getOne(pb.authStore.model.id);
+  if (user.rol != 'admin') {
+    window.location.href = "home";
+    return;
+    }
+}
+
+isValid();
+async function getUserInfo() {
+
+  async function updateCharacterizationSheet(id, name) {
     let result = await pb.collection("characterization_sheet").update(id, {
       N_sheet: N_sheet,
       id_program: id_program,
@@ -146,8 +152,9 @@ async function getUserInfo() {
     let program = document.getElementById("programCreate-select").value;
     let date_end = document.getElementById("date_endCreate");
     date_end = await convertDTLtoIso(date_end.value);
-    console.log(date_end);
+ 
     await createCharacterizationSheet(N_sheet, program, date_end);
+    window.location.reload();
   }
 
   let createBtn = document.getElementById("create-btn");
@@ -168,8 +175,10 @@ async function getUserInfo() {
     });
 
     let createForm = document.getElementById("create-form-btn");
-    createForm.addEventListener("click", async () => {
+    createForm.addEventListener("click", async (event) => {
+      event.preventDefault();
       await onCreateCharacterizationSheet();
+      window.reload();
     });
   };
 
@@ -187,6 +196,11 @@ async function getUserInfo() {
   deleteBtnCancel.onclick = () => {
     overlayDelete.style.display = "none";
   };
+
+  document.querySelector('#logout-btn').addEventListener('click', async () => {
+    pb.authStore.clear();
+    window.location.replace("../../../index");
+  });
 }
 
 getUserInfo();

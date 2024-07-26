@@ -1,7 +1,8 @@
-import { pb } from "../../../global.js";
+import { pb, formatDate } from "../../../global.js";
 
 let overlayUpdate = document.getElementById("overlay-update");
 let overlayCreate = document.getElementById("overlay-create");
+let overlayDelete = document.getElementById("overlay-delete");
 
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
@@ -44,11 +45,15 @@ async function getUserInfo() {
         newRow.appendChild(nameCell);
 
         let createdCell = document.createElement("td");
+        const createdFormat = await formatDate(listProgram.created);
         createdCell.textContent = listProgram.created;
+        createdCell.innerHTML +=  "<br>" + "("+ createdFormat + ")";
         newRow.appendChild(createdCell);
 
         let updateCell = document.createElement("td");
+        const updateFormat = await formatDate(listProgram.updated);
         updateCell.textContent = listProgram.updated;
+        updateCell.innerHTML +=  "<br>" + "("+ updateFormat + ")";
         newRow.appendChild(updateCell);
 
         let programUpdateBtn = document.createElement("a");
@@ -67,8 +72,6 @@ async function getUserInfo() {
             let updateFormBtn = document.getElementById("update-form-btn");
             updateFormBtn.onclick = async () => {
 
-                
-
                 await updateProgram(listProgram.id, name.value);
                 window.location.reload();
             };
@@ -83,8 +86,13 @@ async function getUserInfo() {
         newRow.appendChild(programDeleteTd);
 
         programDeleteBtn.onclick = async () => {
-            await deleteProgram(listProgram.id);
-            window.location.reload();
+            overlayDelete.style.display = "block";
+            let deleteFormBtn = document.getElementById("delete-form-btn");
+            deleteFormBtn.onclick = async (event) => {
+                event.preventDefault();
+                await deleteProgram(listProgram.id);
+                window.location.reload();
+            };
         };
 
         document.querySelector("#listProgram").appendChild(newRow);
@@ -114,6 +122,10 @@ async function getUserInfo() {
     let updateBtnCancel = document.getElementById("update-form-cancel");
     updateBtnCancel.onclick = () => {
         overlayUpdate.style.display = "none";
+    };
+    let deleteBtnCancel = document.getElementById("delete-form-cancel");
+    deleteBtnCancel.onclick = () => {
+        overlayDelete.style.display = "none";
     };
 }
 

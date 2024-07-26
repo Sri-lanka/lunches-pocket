@@ -1,7 +1,8 @@
-import { pb } from "../../../global.js";
+import { pb, formatDate } from "../../../global.js";
 
 let overlayUpdate = document.getElementById("overlay-update");
 let overlayCreate = document.getElementById("overlay-create");
+let overlayDelete = document.getElementById("overlay-delete");
 
 async function getUserInfo() {
   if (!pb.authStore.isValid) {
@@ -28,7 +29,9 @@ async function getUserInfo() {
     let result = await pb.collection("user_sheet").delete(id);
     console.log(result);
   }
-  const resultList = await pb.collection("user_sheet").getList(1, 50, {});
+  const resultList = await pb.collection("user_sheet").getList(1, 50, {
+    expand: 'id_user, id_sheet'
+  });
 
   for (let i = 0; i < resultList.items.length; i++) {
     let listUserSheet = resultList.items[i];
@@ -41,10 +44,12 @@ async function getUserInfo() {
 
     let id_sheetCell = document.createElement("td");
     id_sheetCell.textContent = listUserSheet.id_sheet;
+    id_sheetCell.innerHTML +=  "<br>" + "(#"+ listUserSheet.expand.id_sheet.N_sheet + ")";
     newRow.appendChild(id_sheetCell);
 
     let id_userCell = document.createElement("td");
     id_userCell.textContent = listUserSheet.id_user;
+    id_userCell.innerHTML +=  "<br>" + "("+ listUserSheet.expand.id_user.email + ")";
     newRow.appendChild(id_userCell);
 
     let stateCell = document.createElement("td");
@@ -52,7 +57,9 @@ async function getUserInfo() {
     newRow.appendChild(stateCell);
 
     let createdCell = document.createElement("td");
+    const createdFormat = await formatDate(listUserSheet.created);
     createdCell.textContent = listUserSheet.created;
+    createdCell.innerHTML +=  "<br>" + "("+ createdFormat + ")";
     newRow.appendChild(createdCell);
 
     //update button
@@ -86,8 +93,14 @@ async function getUserInfo() {
     newRow.appendChild(userSheetDeleteTd);
 
     userSheetDeleteBtn.onclick = async () => {
-      await deleteUserSheet(listUserSheet.id);
-      window.location.reload();
+      overlayDelete.style.display = "block";
+      let deleteFormBtn = document.getElementById("delete-form-btn");
+      deleteFormBtn.onclick = async (event) => {
+        event.preventDefault();
+        await deleteUserSheet(listUserSheet.id);
+        window.location.reload();
+      };
+ 
     };
 
     document.querySelector("#listUserSheet").appendChild(newRow);
@@ -99,6 +112,7 @@ async function getUserInfo() {
     let verification = document.getElementById("verificationCreate").checked;
 
     await createUserSheet(N_sheet, user, verification);
+    window.location.reload();
   }
 
   let createBtn = document.getElementById("create-btn");
@@ -134,9 +148,10 @@ async function getUserInfo() {
     });
 
     let createForm = document.getElementById("create-form-btn");
-    createForm.addEventListener("click", async () => {
-      
+    createForm.addEventListener("click", async (event) => {
+      event.preventDefault();
       await onCreateUserSheet();
+      window.location.reload();
     });
   };
 
@@ -147,6 +162,10 @@ async function getUserInfo() {
   let updateBtnCancel = document.getElementById("update-form-cancel");
   updateBtnCancel.onclick = () => {
     overlayUpdate.style.display = "none";
+  };
+  let deleteBtnCancel = document.getElementById("delete-form-cancel");
+  deleteBtnCancel.onclick = () => {
+    overlayDelete.style.display = "none";
   };
 }
 

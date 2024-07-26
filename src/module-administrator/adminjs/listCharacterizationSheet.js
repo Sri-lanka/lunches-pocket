@@ -1,7 +1,8 @@
-import { pb } from "../../../global.js";
+import { pb, formatDate, convertDTLtoIso } from "../../../global.js";
 
 let overlayUpdate = document.getElementById("overlay-update");
 let overlayCreate = document.getElementById("overlay-create");
+let overlayDelete = document.getElementById("overlay-delete");
 
 async function getUserInfo() {
   if (!pb.authStore.isValid) {
@@ -30,9 +31,9 @@ async function getUserInfo() {
     console.log(result);
   }
 
-  const resultList = await pb
-    .collection("characterization_sheet")
-    .getList(1, 50, {});
+  const resultList = await pb.collection("characterization_sheet").getList(1, 50, {
+    expand: 'id_program'
+  });
 
   for (let i = 0; i < resultList.items.length; i++) {
     let listCharacterizationSheet = resultList.items[i];
@@ -49,14 +50,19 @@ async function getUserInfo() {
 
     let id_programCell = document.createElement("td");
     id_programCell.textContent = listCharacterizationSheet.id_program;
+    id_programCell.innerHTML +=  "<br>" + "("+ listCharacterizationSheet.expand.id_program.name + ")";
     newRow.appendChild(id_programCell);
 
     let createdCell = document.createElement("td");
+    const createdFormat = await formatDate(listCharacterizationSheet.created);
     createdCell.textContent = listCharacterizationSheet.created;
+    createdCell.innerHTML +=  "<br>" + "("+ createdFormat + ")";
     newRow.appendChild(createdCell);
 
     let endCell = document.createElement("td");
+    const endFormat = await formatDate(listCharacterizationSheet.date_end);
     endCell.textContent = listCharacterizationSheet.date_end;
+    endCell.innerHTML +=  "<br>" + "("+ endFormat + ")";
     newRow.appendChild(endCell);
 
     let programUpdateBtn = document.createElement("a");
@@ -81,16 +87,20 @@ async function getUserInfo() {
     };
     //delete button
     let characterizationSheetDeleteBtn = document.createElement("a");
-    characterizationSheetDeleteBtn.innerHTML =
-      '<img src="/img/delate.webp" class="icon a-button">';
-
+    characterizationSheetDeleteBtn.innerHTML = '<img src="/img/delate.webp" class="icon a-button">';
     let characterizationSheetDeleteTd = document.createElement("td");
     characterizationSheetDeleteTd.appendChild(characterizationSheetDeleteBtn);
     newRow.appendChild(characterizationSheetDeleteTd);
 
     characterizationSheetDeleteBtn.onclick = async () => {
-      await deleteCharacterizationSheet(listCharacterizationSheet.id);
-      window.location.reload();
+      overlayDelete.style.display = "block";
+      let deleteFormBtn = document.getElementById("delete-form-btn");
+      deleteFormBtn.onclick = async (event) => {
+        event.preventDefault();
+        await deleteCharacterizationSheet(listCharacterizationSheet.id);
+        window.location.reload();
+      };
+   
     };
 
     document.querySelector("#listCharacterizationSheet").appendChild(newRow);
@@ -100,7 +110,8 @@ async function getUserInfo() {
     
     let N_sheet = document.getElementById("n°sheetCreate").value;
     let program = document.getElementById("programCreate-select").value;
-    let date_end = document.getElementById("date_endCreate").value;
+    let date_end = document.getElementById("date_endCreate");
+    date_end = await convertDTLtoIso(date_end.value);
     console.log(date_end);
     await createCharacterizationSheet(N_sheet, program, date_end);
   }
@@ -138,6 +149,10 @@ async function getUserInfo() {
   updateBtnCancel.onclick = () => {
     overlaypdate.style.display = "none";
   };*/
+  let deleteBtnCancel = document.getElementById("delete-form-cancel");
+  deleteBtnCancel.onclick = () => {
+    overlayDelete.style.display = "none";
+  };
 }
 
 getUserInfo();

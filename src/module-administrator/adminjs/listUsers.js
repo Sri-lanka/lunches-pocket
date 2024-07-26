@@ -2,6 +2,7 @@ import { pb } from '../../../global.js';
 
 let overlayUpdate = document.getElementById('overlay-update');
 let overlayCreate = document.getElementById('overlay-create');
+let overlayDelete = document.getElementById('overlay-delete');
 
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
@@ -30,7 +31,7 @@ async function getUserInfo() {
         console.log(result);
     }
 
-    async function createUsers(document, type_document, name, last_name, email, telephone, state, rol, password, passwordConfirm) {
+    async function createUsers(document, type_document, name, last_name, email, telephone, state, rol, password, passwordConfirm, emailVisibility ) {
         let result = await pb.collection('users').create({
             document: document,
             type_document: type_document,
@@ -41,7 +42,9 @@ async function getUserInfo() {
             state: state,
             rol: rol,
             password: password,
-            passwordConfirm: passwordConfirm
+            passwordConfirm: passwordConfirm,
+            emailVisibility: emailVisibility,
+            
         });
         console.log(result);
     }
@@ -134,6 +137,15 @@ async function getUserInfo() {
             let passwordUpdate = document.getElementById('passwordUpdate');
             let passwordConfirmUpdate = document.getElementById('passwordConfirmUpdate');
 
+            const togglePassword = document.getElementById('toggle-passwordUpdate');
+            const password = document.getElementById('passwordUpdate');
+            togglePassword.onclick = async () => {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                const newIcon = type === 'password' ? '/img/eye_icon.png' : '/img/eye-off-icon.png';
+                togglePassword.setAttribute('src', newIcon);
+            }
+
             let updateFormBtn = document.getElementById('update-form-btn');
             updateFormBtn.onclick = async (event) => {
                 event.preventDefault();
@@ -152,8 +164,14 @@ async function getUserInfo() {
         
 
         userDeleteBtn.onclick = async () => {
-            await deleteUser(listUser.id);
-            window.location.reload();
+            overlayDelete.style.display = 'block';
+            let deleteFormBtn = document.getElementById('delete-form-btn');
+            deleteFormBtn.onclick = async (event) => {
+                event.preventDefault();
+                await deleteUser(listUser.id);
+                window.location.reload();
+            }
+      
         }
 
         document.querySelector('#listUsers').appendChild(newRow);
@@ -172,17 +190,27 @@ async function getUserInfo() {
         let rolCreate = document.getElementById('rolCreate').value;
         let passwordCreate = document.getElementById('passwordCreate').value;
         let passwordConfirmCreate = document.getElementById('passwordConfirmCreate').value;
-
-        await createUsers(documentCreate, typeDocumentCreate, usernameCreate, last_nameCreate, emailCreate, telephoneCreate, stateCreate, rolCreate, passwordCreate, passwordConfirmCreate);
+        let emailVisibility = true;
+        
+        await createUsers(documentCreate, typeDocumentCreate, usernameCreate, last_nameCreate, emailCreate, telephoneCreate, stateCreate, rolCreate, passwordCreate, passwordConfirmCreate, emailVisibility);
+        window.location.reload();
     }
 
     let createBtn = document.getElementById('create-btn');
     createBtn.onclick = async () => {
         overlayCreate.style.display = 'block';
+        const togglePassword = document.getElementById('toggle-password');
+        const password = document.getElementById('passwordCreate');
+        togglePassword.onclick = async () => {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            const newIcon = type === 'password' ? '/img/eye_icon.png' : '/img/eye-off-icon.png';
+            togglePassword.setAttribute('src', newIcon);
+        }
 
         let createForm = document.getElementById('create-form-btn');
-        createForm.addEventListener( 'click', async () => {
-            
+        createForm.addEventListener( 'click', async (event) => {
+            event.preventDefault();
             await onCreateUsers();
             window.location.reload();
         })
@@ -196,6 +224,10 @@ async function getUserInfo() {
     let updateBtnCancel = document.getElementById('update-form-cancel');
     updateBtnCancel.onclick = () => {
         overlayUpdate.style.display = 'none';
+    }
+    let deleteBtnCancel = document.getElementById('delete-form-cancel');
+    deleteBtnCancel.onclick = () => {
+        overlayDelete.style.display = 'none';
     }
 }
 

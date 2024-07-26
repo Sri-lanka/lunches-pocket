@@ -82,7 +82,10 @@
                 <label for="telephone">Telephone:</label>
                 <input type="number" id="telephoneUpdate" name="telephoneUpdate">
                 <label for="state">State:</label>
-                <input type="text" name="stateUpdate" id="stateUpdate">
+                <select name="stateUpdate" id="stateUpdate">
+                    <option value="active">active</option>
+                    <option value="disable">disable</option>
+                </select>
                 <label for="rol">Rol:</label>
                 <select name="rolUpdate" id="rolUpdate">
                     <option value="user">user</option>
@@ -93,6 +96,7 @@
                 <input type="password" name="oldPassword" id="oldPassword">
                 <label for="password">Password:</label>
                 <input type="password" name="passwordUpdate" id="passwordUpdate">
+                <img src="/img/eye_icon.png" alt="show password" id="toggle-passwordUpdate" class="toggle-password">
                 <label for="passwordConfirm">Confirm Password:</label>
                 <input type="password" name="passwordConfirmUpdate" id="passwordConfirmUpdate">
                 <br>
@@ -106,25 +110,36 @@
         <div id="overlay-create-content">
             <form id="create-form">
                 <label for="document">Document:</label>
-                <input type="number" name="documentCreate" id="documentCreate">
+                <input type="number" name="documentCreate" id="documentCreate" required>
                 <label for="type_document">Type Document:</label>
-                <input type="text" name="typeDocumentCreate" id="typeDocumentCreate">
+                <select name="typeDocumentCreate" id="typeDocumentCreate">
+                    <option value="CC">CC</option>
+                    <option value="TI">TI</option>
+                </select>
                 <label for="username">Name:</label>
                 <input type="text" name="usernameCreate" id="usernameCreate">
                 <label for="last_name">Last Name:</label>
                 <input type="text" name="last_nameCreate" id="last_nameCreate">
                 <label for="email">E-mail:</label>
-                <input type="email" name="emailCreateCreate" id="emailCreateCreate">
+                <input type="email" name="emailCreateCreate" id="emailCreateCreate" required>
                 <label for="telephone">Telephone:</label>
                 <input type="number" id="telephoneCreate" name="telephoneCreate">
                 <label for="state">State:</label>
-                <input type="text" name="stateCreate" id="stateCreate">
+                <select name="stateCreate" id="stateCreate">
+                    <option value="active">active</option>
+                    <option value="disable">disable</option>
+                </select>
                 <label for="rol">Rol:</label>
-                <input type="text" name="rolCreate" id="rolCreate">
-                <label for="password">Password:</label>
-                <input type="password" name="passwordCreate" id="passwordCreate">
+                <select name="rolCreate" id="rolCreate">
+                    <option value="user">user</option>
+                    <option value="admin">admin</option>
+                    <option value="manager">manager</option>
+                </select>
+                <label for="password">Password(minium 8 characters):</label>
+                <input type="password" name="passwordCreate" id="passwordCreate" placeholder="******" >
+                <img src="/img/eye_icon.png" alt="show password" id="toggle-password" class="toggle-password">
                 <label for="passwordConfirm">Confirm Password:</label>
-                <input type="password" name="passwordConfirmCreate" id="passwordConfirmCreate">
+                <input type="password" name="passwordConfirmCreate" id="passwordConfirmCreate" placeholder="******">
                 <br>
                 <input type="submit" value="Create" id="create-form-btn">
                 <br>
@@ -132,6 +147,15 @@
             </form>
         </div>
     </div>
+    <div id="overlay-delete" style="display: none;">
+        <div id="overlay-delete-content">
+            <form>
+            <label>Are you sure you want to delete this record?</label>
+            <input type="submit" value="Delete" id="delete-form-btn">
+            <input type="button" value="Cancel" id="delete-form-cancel">
+            </form>
+        </div>
+      </div>
 </body>
 
 </html>

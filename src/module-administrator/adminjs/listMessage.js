@@ -1,8 +1,10 @@
-import { pb } from '../../../global.js';
+
+import { pb, formatDate } from '../../../global.js';
 
 let overlayUpdate = document.getElementById('overlay-update');
 let overlayCreate = document.getElementById('overlay-create');
-
+let overlayDelete = document.getElementById('overlay-delete');
+let overlayShowMessage = document.getElementById('overlay-show-message');
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
         window.location.href = "index.html";
@@ -28,14 +30,14 @@ async function getUserInfo() {
         console.log(result);
     }
 
-    async function deleteUser(id) {
+    async function deleteMessage(id) {
         let result = await pb.collection('message').delete(id);
         console.log(result);
     }
 
 
     const resultList = await pb.collection('message').getList(1, 50, {
-        expand: 'Recipient'
+        expand: 'Recipient, idUser'
     });
 
     for (let i = 0; i < resultList.items.length; i++) {
@@ -49,6 +51,7 @@ async function getUserInfo() {
 
         let idUserCell = document.createElement('td')
         idUserCell.textContent = listMessage.idUser;
+        idUserCell.innerHTML += "<br>" + "(" + listMessage.expand.idUser.email + ")";
         newRow.appendChild(idUserCell);
 
         let typeMessageCell = document.createElement('td')
@@ -56,42 +59,123 @@ async function getUserInfo() {
         newRow.appendChild(typeMessageCell);
 
         let descriptionCell = document.createElement('td')
-        descriptionCell.textContent = listMessage.description;
+        let description = listMessage.description;
+        if (description.length > 20) {
+            description = description.substring(0, 17) + '...';
+        }
+        descriptionCell.textContent = description;
         newRow.appendChild(descriptionCell);
 
         let fieldCell = document.createElement('td')
-        //fieldCell.textContent = listMessage.field;
         let fileurl = `${pb.baseUrl}/api/files/${listMessage.collectionId}/${listMessage.id}/${listMessage.field}`;
-        
+
         if (!listMessage.field) {
-            fieldCell.textContent = 'No found file';
+            fieldCell.textContent = 'NO FILE ATTACHED';
             newRow.appendChild(fieldCell);
-        }else {
+        } else {
             let link = document.createElement('a');
             link.href = fileurl;
-            link.textContent = 'donwload archive';
+            link.textContent = 'DOWNLOAD';
             link.target = '_blank';
             fieldCell.appendChild(link);
-            fieldCell.href = 
-            newRow.appendChild(fieldCell);
+            fieldCell.href =
+                newRow.appendChild(fieldCell);
         }
-
         let Recipient = document.createElement('td')
-        console.log(listMessage.Recipient);
-        if (!listMessage.Recipient ) {
+        if (!listMessage.Recipient) {
             Recipient.textContent = 'All administrators';
-            newRow.appendChild(Recipient);
-        }else{
+        } else {
             Recipient.textContent = listMessage.Recipient;
-            newRow.appendChild(Recipient);
+            Recipient.innerHTML += " (" + listMessage.expand.Recipient.email + ")";
         }
+       
+        newRow.appendChild(Recipient);
+
+
+
         let createdCell = document.createElement('td')
+        const createdFormat = await formatDate(listMessage.created);
         createdCell.textContent = listMessage.created;
+        createdCell.innerHTML += "<br>" + "(" + createdFormat + ")";
         newRow.appendChild(createdCell);
 
         let updateCell = document.createElement('td')
+        const updateFormat = await formatDate(listMessage.updated);
         updateCell.textContent = listMessage.updated;
+        updateCell.innerHTML += "<br>" + "(" + updateFormat + ")";
         newRow.appendChild(updateCell);
+
+        let showMessage = document.createElement('a');
+        showMessage.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
+        let showMessageTd = document.createElement('td');
+
+        showMessageTd.appendChild(showMessage);
+        newRow.appendChild(showMessageTd);
+
+        showMessage.onclick = async () => {
+            const cardContainer = document.getElementById('cardContainer');
+
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const senderElement = document.createElement('h3');
+            senderElement.textContent = listMessage.expand.idUser.email;
+            card.appendChild(senderElement);
+
+            const typeMessageElement = document.createElement('p');
+            typeMessageElement.textContent = listMessage.type_message;
+            card.appendChild(typeMessageElement);
+
+            const descriptionElement = document.createElement('p');
+            descriptionElement.className = 'description';
+            descriptionElement.textContent = listMessage.description;
+            card.appendChild(descriptionElement);
+
+            if (listMessage.field) {
+                const attachmentElement = document.createElement('a');
+                attachmentElement.className = 'attachment';
+                attachmentElement.href = `${pb.baseUrl}/api/files/${listMessage.collectionId}/${listMessage.id}/${listMessage.field}`;
+                attachmentElement.textContent = 'show file';
+                attachmentElement.target = '_blank';
+                card.appendChild(attachmentElement);
+            }else{
+                const attachmentElement = document.createElement('p');
+                attachmentElement.textContent = 'NO FILE ATTACHED';
+                card.appendChild(attachmentElement);
+            }
+
+
+            const RecipientElement = document.createElement('p');
+            if (!listMessage.Recipient) {
+                RecipientElement.textContent = 'All administrators';
+            } else {
+                RecipientElement.textContent = listMessage.Recipient;
+                RecipientElement.innerHTML += " (" + listMessage.expand.Recipient.email + ")";
+            }
+            card.appendChild(RecipientElement);
+
+            const createdElement = document.createElement('p');
+            const createdFormat = await formatDate(listMessage.created);
+            createdElement.textContent = listMessage.created;
+            createdElement.innerHTML += "<br>" + "(" + createdFormat + ")";
+
+
+
+            const closeElement = document.createElement('button');
+            closeElement.innerHTML = 'close';
+            closeElement.onclick = () => {
+                overlayShowMessage.style.display = 'none';
+            }
+
+            card.appendChild(closeElement);
+           
+            
+            cardContainer.appendChild(card);
+
+            overlayShowMessage.style.display = 'block';
+
+
+        }
 
         let messageUpdateBtn = document.createElement('a');
         messageUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
@@ -99,26 +183,41 @@ async function getUserInfo() {
 
         messageUpdateTd.appendChild(messageUpdateBtn);
         newRow.appendChild(messageUpdateTd);
-    
+
 
         messageUpdateBtn.onclick = async () => {
             overlayUpdate.style.display = 'block';
 
             let description = document.getElementById('descriptionUpdate');
-            description.value = listMessage.description;            
+            description.value = listMessage.description;
             let fieldUpdate = document.getElementById('fieldUpdate');
-            fieldUpdate.files = listMessage.field;
-           
+
             let updateFormBtn = document.getElementById('update-form-btn');
             updateFormBtn.onclick = async (event) => {
                 event.preventDefault();
                 await updateMessage(listMessage.id, description.value, fieldUpdate.files[0]);
                 window.location.reload();
-               
+
             }
-        
+
         }
-    
+
+        let messageDeleteBtn = document.createElement('a');
+        messageDeleteBtn.innerHTML = '<img src="/img/delate.webp" class="icon a-button">';
+        let messageDeleteTd = document.createElement('td');
+        messageDeleteTd.appendChild(messageDeleteBtn);
+        newRow.appendChild(messageDeleteTd);
+
+        messageDeleteBtn.onclick = async () => {
+            overlayDelete.style.display = 'block';
+            let deleteFormBtn = document.getElementById('delete-form-btn');
+            deleteFormBtn.onclick = async (event) => {
+                event.preventDefault();
+                await deleteMessage(listMessage.id);
+                window.location.reload();
+            }
+        }
+
         document.querySelector('#listMessage').appendChild(newRow);
 
     }
@@ -131,6 +230,7 @@ async function getUserInfo() {
         let fieldCreate = document.getElementById('fieldCreate').files[0];
 
         await createMessage(userSenderCreate, type_messageCreate, descriptionCreate, fieldCreate, userReciepientCreate);
+        window.location.reload();
     }
 
     let createBtn = document.getElementById('create-btn');
@@ -164,8 +264,10 @@ async function getUserInfo() {
 
         let createForm = document.getElementById('create-form-btn');
         createForm.addEventListener('click', async (event) => {
-            event.preventDefault();
+            event.preventDefault(event);
             await onCreateMessage();
+            window.location.reload();
+
         })
 
 
@@ -178,6 +280,10 @@ async function getUserInfo() {
     let updateBtnCancel = document.getElementById('update-form-cancel');
     updateBtnCancel.onclick = () => {
         overlayUpdate.style.display = 'none';
+    }
+    let deleteBtnCancel = document.getElementById('delete-form-cancel');
+    deleteBtnCancel.onclick = () => {
+        overlayDelete.style.display = 'none';
     }
 }
 

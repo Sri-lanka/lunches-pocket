@@ -1,7 +1,8 @@
-import { pb } from '../../../global.js';
+import { pb,formatDate } from '../../../global.js';
 
 let overlayUpdate = document.getElementById('overlay-update');
 let overlayCreate = document.getElementById('overlay-create');
+let overlayDelete = document.getElementById('overlay-delete');
 
 async function getUserInfo() {
     if (!pb.authStore.isValid) {
@@ -34,6 +35,7 @@ async function getUserInfo() {
 
 
     const resultList = await pb.collection('assistance').getList(1, 50, {
+        expand: 'idUser'
     });
 
     for (let i = 0; i < resultList.items.length; i++) {
@@ -46,7 +48,8 @@ async function getUserInfo() {
         newRow.appendChild(idCell);
 
         let idUserCell = document.createElement('td');
-        idUserCell.textContent = listAssistance.idUser;
+        idUserCell.textContent = listAssistance.idUser ;
+        idUserCell.innerHTML +=  "<br>" + "("+ listAssistance.expand.idUser.email + ")";
         newRow.appendChild(idUserCell);
 
         let verificationCell = document.createElement('td');
@@ -54,7 +57,9 @@ async function getUserInfo() {
         newRow.appendChild(verificationCell);
 
         let createdCell = document.createElement('td');
+        const createdFormat = await formatDate(listAssistance.created);
         createdCell.textContent = listAssistance.created;
+        createdCell.innerHTML +=  "<br>" + "("+ createdFormat + ")";
         newRow.appendChild(createdCell);
 
         let assistanceUpdateBtn = document.createElement('a');
@@ -87,9 +92,16 @@ async function getUserInfo() {
         assistanceDeleteTd.appendChild(assistanceDeleteBtn);
         newRow.appendChild(assistanceDeleteTd);
         
+
         assistanceDeleteBtn.onclick = async () => {
-            await deleteAssistance(listAssistance.id);
-            window.location.reload();
+            overlayDelete.style.display = 'block';
+            let deleteFormBtn = document.getElementById('delete-form-btn');
+            deleteFormBtn.onclick = async (event) => {
+                event.preventDefault();
+                await deleteAssistance(listAssistance.id);
+                window.location.reload();
+            }
+           
         }
 
         document.querySelector('#listAssistence').appendChild(newRow);
@@ -137,6 +149,9 @@ async function getUserInfo() {
     updateBtnCancel.onclick = () => {
         overlayUpdate.style.display = 'none';
     }
-
+    let deleteBtnCancel = document.getElementById('delete-form-cancel');
+    deleteBtnCancel.onclick = () => {
+        overlayDelete.style.display = 'none';
+    }
 }
 getUserInfo();

@@ -5,11 +5,23 @@ let overlayUpdate = document.getElementById('overlay-update');
 let overlayCreate = document.getElementById('overlay-create');
 let overlayDelete = document.getElementById('overlay-delete');
 let overlayShowMessage = document.getElementById('overlay-show-message');
-async function getUserInfo() {
+async function isValid() {
     if (!pb.authStore.isValid) {
-        window.location.href = "index.html";
+        window.location.href = "../../../index";
         return;
+        
     }
+  
+    let user = await pb.collection('users').getOne(pb.authStore.model.id);
+    if (user.rol != 'admin') {
+      window.location.href = "home";
+      return;
+      }
+  }
+  
+  isValid();
+async function getUserInfo() {
+
 
     async function updateMessage(id, description, field) {
         let result = await pb.collection('message').update(id, {
@@ -115,6 +127,8 @@ async function getUserInfo() {
         showMessage.onclick = async () => {
             const cardContainer = document.getElementById('cardContainer');
 
+            cardContainer.innerHTML = '';
+
             const card = document.createElement('div');
             card.className = 'card';
 
@@ -195,8 +209,13 @@ async function getUserInfo() {
             let updateFormBtn = document.getElementById('update-form-btn');
             updateFormBtn.onclick = async (event) => {
                 event.preventDefault();
+                try{
                 await updateMessage(listMessage.id, description.value, fieldUpdate.files[0]);
+                alert("Message updated successfully");
                 window.location.reload();
+                }catch(error){
+                    alert("Error updating message: " + error);
+                }
 
             }
 
@@ -213,12 +232,17 @@ async function getUserInfo() {
             let deleteFormBtn = document.getElementById('delete-form-btn');
             deleteFormBtn.onclick = async (event) => {
                 event.preventDefault();
+                try{
                 await deleteMessage(listMessage.id);
+                alert("Message deleted successfully");
                 window.location.reload();
+                }catch(error){
+                alert("Error deleting message: " + error);
             }
         }
 
         document.querySelector('#listMessage').appendChild(newRow);
+    }
 
     }
     async function onCreateMessage() {
@@ -229,9 +253,15 @@ async function getUserInfo() {
         let descriptionCreate = document.getElementById('descriptionCreate').value;
         let fieldCreate = document.getElementById('fieldCreate').files[0];
 
+        try {
         await createMessage(userSenderCreate, type_messageCreate, descriptionCreate, fieldCreate, userReciepientCreate);
+           alert('Message created successfully');
         window.location.reload();
+        }catch(error){
+            alert("Error creating message: " + error);
+        }
     }
+
 
     let createBtn = document.getElementById('create-btn');
     createBtn.onclick = async () => {
@@ -266,7 +296,7 @@ async function getUserInfo() {
         createForm.addEventListener('click', async (event) => {
             event.preventDefault(event);
             await onCreateMessage();
-            window.location.reload();
+           
 
         })
 
@@ -283,8 +313,16 @@ async function getUserInfo() {
     }
     let deleteBtnCancel = document.getElementById('delete-form-cancel');
     deleteBtnCancel.onclick = () => {
+        cardContainer.innerHTML = '';
         overlayDelete.style.display = 'none';
+        
     }
+
+    document.querySelector('#logout-btn').addEventListener('click', async () => {
+        pb.authStore.clear();
+        window.location.replace("../../../index");
+      });
+ 
 }
 
 getUserInfo();

@@ -3,12 +3,24 @@ import { pb, formatDate } from "../../../global.js";
 let overlayUpdate = document.getElementById("overlay-update");
 let overlayCreate = document.getElementById("overlay-create");
 let overlayDelete = document.getElementById("overlay-delete");
+async function isValid() {
+  if (!pb.authStore.isValid) {
+      window.location.href = "../../../index";
+      return;
+      
+  }
+
+  let user = await pb.collection('users').getOne(pb.authStore.model.id);
+  if (user.rol != 'admin') {
+    window.location.href = "home";
+    return;
+    }
+}
+
+isValid();
 
 async function getUserInfo() {
-  if (!pb.authStore.isValid) {
-    window.location.href = "updateUser.html";
-    return;
-  }
+
   async function updateUserSheet(id, state) {
     let result = await pb.collection("user_sheet").update(id, {
       state: state,
@@ -79,8 +91,13 @@ async function getUserInfo() {
       updateFormBtn.onclick = async () => {
   
         let verification = document.getElementById("verificationCreate").value;
+        try {
         await updateUserSheet(listUserSheet.id, verification);
+        alert("Updated user sheet successfully");
         window.location.reload();
+        }catch(error){
+            alert("Error updating user sheet: " + error);
+        }
       };
     };
     //delete button
@@ -97,8 +114,13 @@ async function getUserInfo() {
       let deleteFormBtn = document.getElementById("delete-form-btn");
       deleteFormBtn.onclick = async (event) => {
         event.preventDefault();
+        try {
         await deleteUserSheet(listUserSheet.id);
+        alert("Deleted user sheet successfully");
         window.location.reload();
+        }catch(error){
+            alert("Error deleting user sheet: " + error);
+        }
       };
  
     };
@@ -150,8 +172,12 @@ async function getUserInfo() {
     let createForm = document.getElementById("create-form-btn");
     createForm.addEventListener("click", async (event) => {
       event.preventDefault();
+      try {
       await onCreateUserSheet();
       window.location.reload();
+      }catch(error){
+          alert("Error creating user sheet: " + error);
+      }
     });
   };
 
@@ -167,6 +193,12 @@ async function getUserInfo() {
   deleteBtnCancel.onclick = () => {
     overlayDelete.style.display = "none";
   };
+  
+  document.querySelector('#logout-btn').addEventListener('click', async () => {
+    pb.authStore.clear();
+    window.location.replace("../../../index");
+  });
+
 }
 
 getUserInfo();

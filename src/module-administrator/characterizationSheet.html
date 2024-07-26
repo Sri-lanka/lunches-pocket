@@ -60,22 +60,29 @@
         </div>
     </div>
 </div>
+
+
+
 <div id="overlay-update" style="display: none;">
     <div id="overlay-update-content">
         <form id="update-form">
-            <label for="N°Sheet">N° Sheet:</label>
-            <input type="number" name="N°Sheet" id="N°Sheet">
+            <label for="n°Sheet">N° Sheet:</label>
+            <input type="number" name="n°Sheet" id="n_sheetUpdate">
 
             <label for="program">program:</label>
-            <select name="" id=""></select>
+            <select name="program" id="programUpdate-select"></select>
 
             <label for="endDate">endDate</label>
-            <input type="datetime" name="endDate" id="endDate">
+            <input type="datetime-local" name="date_endUpdate" id="date_endUpdate">
 
             <input type="submit" value="update" id="update-form-btn">
+            <input type="button" value="Cancel" id="update-form-cancel">
         </form>
     </div>
   </div>
+
+
+
   <div id="overlay-create" style="display: none;">
     <div id="overlay-create-content">
 

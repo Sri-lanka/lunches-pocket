@@ -1,4 +1,4 @@
-import { pb, formatDate, convertDTLtoIso } from "../../../global.js";
+import { pb, formatDate, convertDTLtoIso, convertIsoToDTL } from "../../../global.js";
 
 let overlayUpdate = document.getElementById("overlay-update");
 let overlayCreate = document.getElementById("overlay-create");
@@ -9,9 +9,16 @@ async function getUserInfo() {
     window.location.href = "index.html";
     return;
   }
-  async function updateCharacterizationSheet(id, name) {
+  async function updateCharacterizationSheet(
+    id,
+    N_sheet,
+    id_program,
+    date_end
+  ) {
     let result = await pb.collection("characterization_sheet").update(id, {
-      name: name,
+      N_sheet: N_sheet,
+      id_program: id_program,
+      date_end: date_end,
     });
     console.log(result);
   }
@@ -21,7 +28,6 @@ async function getUserInfo() {
       N_sheet: N_sheet,
       id_program: id_program,
       date_end: date_end,
-      
     });
     console.log(result);
   }
@@ -31,9 +37,11 @@ async function getUserInfo() {
     console.log(result);
   }
 
-  const resultList = await pb.collection("characterization_sheet").getList(1, 50, {
-    expand: 'id_program'
-  });
+  const resultList = await pb
+    .collection("characterization_sheet")
+    .getList(1, 50, {
+      expand: "id_program",
+    });
 
   for (let i = 0; i < resultList.items.length; i++) {
     let listCharacterizationSheet = resultList.items[i];
@@ -50,44 +58,72 @@ async function getUserInfo() {
 
     let id_programCell = document.createElement("td");
     id_programCell.textContent = listCharacterizationSheet.id_program;
-    id_programCell.innerHTML +=  "<br>" + "("+ listCharacterizationSheet.expand.id_program.name + ")";
+    id_programCell.innerHTML +=
+      "<br>" + "(" + listCharacterizationSheet.expand.id_program.name + ")";
     newRow.appendChild(id_programCell);
 
     let createdCell = document.createElement("td");
     const createdFormat = await formatDate(listCharacterizationSheet.created);
     createdCell.textContent = listCharacterizationSheet.created;
-    createdCell.innerHTML +=  "<br>" + "("+ createdFormat + ")";
+    createdCell.innerHTML += "<br>" + "(" + createdFormat + ")";
     newRow.appendChild(createdCell);
 
     let endCell = document.createElement("td");
     const endFormat = await formatDate(listCharacterizationSheet.date_end);
     endCell.textContent = listCharacterizationSheet.date_end;
-    endCell.innerHTML +=  "<br>" + "("+ endFormat + ")";
+    endCell.innerHTML += "<br>" + "(" + endFormat + ")";
     newRow.appendChild(endCell);
 
-    let programUpdateBtn = document.createElement("a");
-    programUpdateBtn.innerHTML =
+    //update
+
+    let characterizationSheetUpdateBtn = document.createElement("a");
+    characterizationSheetUpdateBtn.innerHTML =
       '<img src="/img/edit.png" class="icon a-button">';
-    let programUpdateTd = document.createElement("td");
+    let characterizationSheetUpdateTd = document.createElement("td");
 
-    programUpdateTd.appendChild(programUpdateBtn);
-    newRow.appendChild(programUpdateTd);
-
-    programUpdateBtn.onclick = async () => {
+    characterizationSheetUpdateTd.appendChild(characterizationSheetUpdateBtn);
+    newRow.appendChild(characterizationSheetUpdateTd);
+ 
+    characterizationSheetUpdateBtn.onclick = async () => {
       overlayUpdate.style.display = "block";
 
-      let updateFormBtn = document.getElementById("update-form-btn");
-      updateFormBtn.onclick = async (
-      ) => {
-        let name = document.getElementById("updateCharacterizationSheet").value;
+      let n_sheetUpdate = document.getElementById("n_sheetUpdate");
+      n_sheetUpdate.value = listCharacterizationSheet.N_sheet;
 
-        await updateCharacterizationSheet(listProgram.id, name);
+      let program = await pb.collection("program").getFullList();
+      let programSelect = document.getElementById("programUpdate-select");
+      programSelect.innerHTML = "";
+      program.forEach((program) => {
+        console.log(program);
+        let option = document.createElement("option");
+        option.value = program.id;
+        option.innerHTML = program.name;
+        console.log(program.name);
+        programSelect.appendChild(option);
+      });
+      programSelect.value = listCharacterizationSheet.id_program;
+       
+      let date_endUpdate = document.getElementById("date_endUpdate");
+
+      const  dateValue = await convertIsoToDTL(listCharacterizationSheet.date_end.value);
+      console.log(dateValue);
+      date_endUpdate.value = dateValue;
+
+      let updateFormBtn = document.getElementById("update-form-btn");
+      updateFormBtn.onclick = async () => {
+        await updateCharacterizationSheet(
+          listCharacterizationSheet.id,
+          n_sheetUpdate.value,
+          id_programUpdate.value,
+          date_endUpdate.value
+        );
         window.location.reload();
       };
     };
     //delete button
     let characterizationSheetDeleteBtn = document.createElement("a");
-    characterizationSheetDeleteBtn.innerHTML = '<img src="/img/delate.webp" class="icon a-button">';
+    characterizationSheetDeleteBtn.innerHTML =
+      '<img src="/img/delate.webp" class="icon a-button">';
     let characterizationSheetDeleteTd = document.createElement("td");
     characterizationSheetDeleteTd.appendChild(characterizationSheetDeleteBtn);
     newRow.appendChild(characterizationSheetDeleteTd);
@@ -100,14 +136,12 @@ async function getUserInfo() {
         await deleteCharacterizationSheet(listCharacterizationSheet.id);
         window.location.reload();
       };
-   
     };
 
     document.querySelector("#listCharacterizationSheet").appendChild(newRow);
   }
 
   async function onCreateCharacterizationSheet() {
-    
     let N_sheet = document.getElementById("n°sheetCreate").value;
     let program = document.getElementById("programCreate-select").value;
     let date_end = document.getElementById("date_endCreate");
@@ -134,8 +168,7 @@ async function getUserInfo() {
     });
 
     let createForm = document.getElementById("create-form-btn");
-    createForm.addEventListener("click", async (event) => {
-        event.preventDefault();
+    createForm.addEventListener("click", async () => {
       await onCreateCharacterizationSheet();
     });
   };
@@ -145,10 +178,11 @@ async function getUserInfo() {
     overlayCreate.style.display = "none";
   };
 
-  /*let updateBtnCancel = document.getElementById("update-form-cancel");
+  let updateBtnCancel = document.getElementById("update-form-cancel");
   updateBtnCancel.onclick = () => {
-    overlaypdate.style.display = "none";
-  };*/
+    overlayUpdate.style.display = "none";
+  };
+
   let deleteBtnCancel = document.getElementById("delete-form-cancel");
   deleteBtnCancel.onclick = () => {
     overlayDelete.style.display = "none";

@@ -47,17 +47,18 @@ async function getUserInfo() {
         let createdCell = document.createElement("td");
         const createdFormat = await formatDate(listProgram.created);
         createdCell.textContent = listProgram.created;
-        createdCell.innerHTML +=  "<br>" + "("+ createdFormat + ")";
+        createdCell.innerHTML += "<br>" + "(" + createdFormat + ")";
         newRow.appendChild(createdCell);
 
         let updateCell = document.createElement("td");
         const updateFormat = await formatDate(listProgram.updated);
         updateCell.textContent = listProgram.updated;
-        updateCell.innerHTML +=  "<br>" + "("+ updateFormat + ")";
+        updateCell.innerHTML += "<br>" + "(" + updateFormat + ")";
         newRow.appendChild(updateCell);
-
+        //update
         let programUpdateBtn = document.createElement("a");
-        programUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
+        programUpdateBtn.innerHTML =
+            '<img src="/img/edit.png" class="icon a-button">';
         let programUpdateTd = document.createElement("td");
 
         programUpdateTd.appendChild(programUpdateBtn);
@@ -66,17 +67,16 @@ async function getUserInfo() {
         programUpdateBtn.onclick = async () => {
             overlayUpdate.style.display = "block";
 
-        let name = document.getElementById("updateProgram");
-        name.value = listProgram.name;
+            let name = document.getElementById("updateProgram");
+            name.value = listProgram.name;
 
             let updateFormBtn = document.getElementById("update-form-btn");
             updateFormBtn.onclick = async () => {
-
                 await updateProgram(listProgram.id, name.value);
                 window.location.reload();
             };
         };
-
+        //delate
         let programDeleteBtn = document.createElement("a");
         programDeleteBtn.innerHTML =
             '<img src="/img/delate.webp" class="icon a-button">';
@@ -110,7 +110,8 @@ async function getUserInfo() {
 
         let createForm = document.getElementById("create-form-btn");
         createForm.addEventListener("click", async (event) => {
-            event.preventDefault();            await onCreateProgram();
+            event.preventDefault();
+            await onCreateProgram();
             window.location.reload();
         });
     };

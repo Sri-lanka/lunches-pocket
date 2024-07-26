@@ -64,8 +64,7 @@ async function getUserInfo() {
 
     //update button
 
-    let userSheetUpdateBtn = document.createElement("a");
-    userSheetUpdateBtn.innerHTML =
+    let userSheetUpdateBtn = document.createElement("a");userSheetUpdateBtn.innerHTML =
       '<img src="/img/edit.png" class="icon a-button">';
     let userSheetUpdateTd = document.createElement("td");
 

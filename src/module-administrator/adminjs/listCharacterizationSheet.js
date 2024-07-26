@@ -20,7 +20,7 @@ async function isValid() {
 isValid();
 async function getUserInfo() {
 
-  async function updateCharacterizationSheet(id, name) {
+  async function updateCharacterizationSheet(id, N_sheet, id_program, date_end) {
     let result = await pb.collection("characterization_sheet").update(id, {
       N_sheet: N_sheet,
       id_program: id_program,
@@ -96,6 +96,7 @@ async function getUserInfo() {
       let n_sheetUpdate = document.getElementById("n_sheetUpdate");
       n_sheetUpdate.value = listCharacterizationSheet.N_sheet;
 
+
       let program = await pb.collection("program").getFullList();
       let programSelect = document.getElementById("programUpdate-select");
       programSelect.innerHTML = "";
@@ -110,18 +111,20 @@ async function getUserInfo() {
       programSelect.value = listCharacterizationSheet.id_program;
        
       let date_endUpdate = document.getElementById("date_endUpdate");
-
-      const  dateValue = await convertIsoToDTL(listCharacterizationSheet.date_end.value);
-      console.log(dateValue);
-      date_endUpdate.value = dateValue;
-
+      date_endUpdate.value = await convertIsoToDTL(listCharacterizationSheet.date_end);
+     
+      
       let updateFormBtn = document.getElementById("update-form-btn");
-      updateFormBtn.onclick = async () => {
+      updateFormBtn.onclick = async (event) => {
+        let date_endValue = await convertDTLtoIso(date_endUpdate.value);
+        event.preventDefault();
+        console.log(date_endValue);
+        console.log(listCharacterizationSheet.date_end);
         await updateCharacterizationSheet(
           listCharacterizationSheet.id,
           n_sheetUpdate.value,
-          id_programUpdate.value,
-          date_endUpdate.value
+          programSelect.value,
+          date_endValue
         );
         window.location.reload();
       };

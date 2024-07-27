@@ -86,3 +86,11 @@ export async function convertIsoToDTL(isoDate) {
     const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}`;
     return formattedDate;
 }
+
+export async function sendAssistance(id, verification) {
+    let result = await pb.collection('assistance').create({
+        idUser: id,
+        verification: verification,
+    });
+    console.log(result);
+}

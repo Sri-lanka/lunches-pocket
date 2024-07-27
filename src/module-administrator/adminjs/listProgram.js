@@ -83,6 +83,7 @@ async function getUserInfo() {
 
             let updateFormBtn = document.getElementById("update-form-btn");
             updateFormBtn.onclick = async () => {
+                try {
                 await updateProgram(listProgram.id, name.value);
                 alert("Program updated successfully");
                 window.location.reload();

@@ -328,3 +328,6 @@ input[type="file"]::before {
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(37, 223, 62, 0.589);
 }
+.a-button {
+    cursor: pointer;
+}

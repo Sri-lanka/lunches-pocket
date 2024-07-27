@@ -9,17 +9,17 @@ async function isValid() {
     if (!pb.authStore.isValid) {
         window.location.href = "../../../index";
         return;
-        
+
     }
-  
+
     let user = await pb.collection('users').getOne(pb.authStore.model.id);
     if (user.rol != 'admin') {
-      window.location.href = "home";
-      return;
-      }
-  }
-  
-  isValid();
+        window.location.href = "home";
+        return;
+    }
+}
+
+isValid();
 async function getUserInfo() {
 
 
@@ -54,6 +54,7 @@ async function getUserInfo() {
 
     for (let i = 0; i < resultList.items.length; i++) {
         let listMessage = resultList.items[i];
+        console.log(listMessage);
 
         let newRow = document.createElement('tr');
 
@@ -100,7 +101,7 @@ async function getUserInfo() {
             Recipient.textContent = listMessage.Recipient;
             Recipient.innerHTML += " (" + listMessage.expand.Recipient.email + ")";
         }
-       
+
         newRow.appendChild(Recipient);
 
 
@@ -152,7 +153,7 @@ async function getUserInfo() {
                 attachmentElement.textContent = 'show file';
                 attachmentElement.target = '_blank';
                 card.appendChild(attachmentElement);
-            }else{
+            } else {
                 const attachmentElement = document.createElement('p');
                 attachmentElement.textContent = 'NO FILE ATTACHED';
                 card.appendChild(attachmentElement);
@@ -182,12 +183,11 @@ async function getUserInfo() {
             }
 
             card.appendChild(closeElement);
-           
-            
+
+
             cardContainer.appendChild(card);
 
             overlayShowMessage.style.display = 'block';
-
 
         }
 
@@ -209,11 +209,11 @@ async function getUserInfo() {
             let updateFormBtn = document.getElementById('update-form-btn');
             updateFormBtn.onclick = async (event) => {
                 event.preventDefault();
-                try{
-                await updateMessage(listMessage.id, description.value, fieldUpdate.files[0]);
-                alert("Message updated successfully");
-                window.location.reload();
-                }catch(error){
+                try {
+                    await updateMessage(listMessage.id, description.value, fieldUpdate.files[0]);
+                    alert("Message updated successfully");
+                    window.location.reload();
+                } catch (error) {
                     alert("Error updating message: " + error);
                 }
 
@@ -232,19 +232,20 @@ async function getUserInfo() {
             let deleteFormBtn = document.getElementById('delete-form-btn');
             deleteFormBtn.onclick = async (event) => {
                 event.preventDefault();
-                try{
-                await deleteMessage(listMessage.id);
-                alert("Message deleted successfully");
-                window.location.reload();
-                }catch(error){
-                alert("Error deleting message: " + error);
+                try {
+                    await deleteMessage(listMessage.id);
+                    alert("Message deleted successfully");
+                    window.location.reload();
+                } catch (error) {
+                    alert("Error deleting message: " + error);
+                }
             }
-        }
 
+
+        }
         document.querySelector('#listMessage').appendChild(newRow);
     }
 
-    }
     async function onCreateMessage() {
 
         let userSenderCreate = document.getElementById('user-select').value;
@@ -254,10 +255,10 @@ async function getUserInfo() {
         let fieldCreate = document.getElementById('fieldCreate').files[0];
 
         try {
-        await createMessage(userSenderCreate, type_messageCreate, descriptionCreate, fieldCreate, userReciepientCreate);
-           alert('Message created successfully');
-        window.location.reload();
-        }catch(error){
+            await createMessage(userSenderCreate, type_messageCreate, descriptionCreate, fieldCreate, userReciepientCreate);
+            alert('Message created successfully');
+            window.location.reload();
+        } catch (error) {
             alert("Error creating message: " + error);
         }
     }
@@ -296,8 +297,6 @@ async function getUserInfo() {
         createForm.addEventListener('click', async (event) => {
             event.preventDefault(event);
             await onCreateMessage();
-           
-
         })
 
 
@@ -315,14 +314,14 @@ async function getUserInfo() {
     deleteBtnCancel.onclick = () => {
         cardContainer.innerHTML = '';
         overlayDelete.style.display = 'none';
-        
+
     }
 
     document.querySelector('#logout-btn').addEventListener('click', async () => {
         pb.authStore.clear();
         window.location.replace("../../../index");
-      });
- 
+    });
+
 }
 
 getUserInfo();

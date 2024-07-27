@@ -3,6 +3,7 @@ import { pb,formatDate } from '../../../global.js';
 let overlayUpdate = document.getElementById('overlay-update');
 let overlayCreate = document.getElementById('overlay-create');
 let overlayDelete = document.getElementById('overlay-delete');
+
 async function isValid() {
     if (!pb.authStore.isValid) {
         window.location.href = "../../../index";
@@ -13,14 +14,13 @@ async function isValid() {
     let user = await pb.collection('users').getOne(pb.authStore.model.id);
     if (user.rol != 'admin') {
       window.location.href = "home";
-      return;
-      }
-  }
+      return false;
+    }
+}
   
-  isValid();
-async function getUserInfo() {
- 
+isValid();
 
+async function getUserInfo() {
 
     async function deleteAssistance(id) {
         let result = await pb.collection('assistance').delete(id);
@@ -164,9 +164,11 @@ async function getUserInfo() {
     deleteBtnCancel.onclick = () => {
         overlayDelete.style.display = 'none';
     }
-    document.querySelector('#logout-btn').addEventListener('click', async () => {
-        pb.authStore.clear();
-        window.location.replace("../../../index");
-      });
+   
 }
 getUserInfo();
+
+document.querySelector('#logout-btn').addEventListener('click', async () => {
+    pb.authStore.clear();
+    window.location.replace("../../../index");
+  });

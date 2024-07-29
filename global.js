@@ -51,27 +51,7 @@ export async function convertDTLtoIso(dateTimeLocal) {
     return isoDate;
 
 }
-//cosa de faiber
-/*export async function convertIsoToDTL(isoDate) {
 
-    const date = new Date(isoDate);
-
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-
-    let hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // La hora '0' debe ser '12'
-    const formattedHours = String(hours).padStart(2, '0');
-
-    const dateTimeLocal = `${year }/${month}/${day}T${formattedHours}:${minutes}`;
-console.log(dateTimeLocal)
-    return dateTimeLocal;
-}*/
 
 export async function convertIsoToDTL(isoDate) {
     const date = new Date(isoDate);

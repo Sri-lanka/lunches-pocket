@@ -90,13 +90,31 @@ p {
 .icon {
     color: rgb(5, 5, 5);
     height: 25px;
-    -webkit-filter: invert();
-    filter: invert();
+
 }
+
+.nav2{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+a:link{
+    color: white;
+
+}
+a:visited{
+    color: white;
+}
+a {
+    color: rgb(253 59 13);
+    text-decoration: underline;
+}
+
 .icon2 {
 
     height: 25px;
-
+    -webkit-filter: invert();
+    filter: invert();
 }
 
 #button {

@@ -98,17 +98,20 @@ p {
     flex-direction: column;
     color: white;
 }
+a{
+    text-decoration-line: none;
+
+}
 a:link{
     color: white;
+    text-decoration-line: none;
 
 }
 a:visited{
     color: white;
+    text-decoration-line: none;
 }
-a {
-    color: rgb(253 59 13);
-    text-decoration: underline;
-}
+
 
 .icon2 {
 

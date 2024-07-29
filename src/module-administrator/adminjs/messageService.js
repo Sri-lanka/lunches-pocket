@@ -448,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.querySelector('#logout-btn').addEventListener('click', async () => {
   pb.authStore.clear();
-  window.location.replace("../../../index");
+  window.location.replace("../../../login.html");
 });
 
 document.querySelector('#home-btn').addEventListener('click', async () => {

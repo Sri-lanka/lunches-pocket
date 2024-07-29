@@ -136,6 +136,10 @@ async function getUserInfo() {
             const senderElement = document.createElement('h3');
             senderElement.textContent = listMessage.expand.idUser.email;
             card.appendChild(senderElement);
+            
+            const div = document.createElement('hr');
+            card.appendChild(div);
+      
 
             const typeMessageElement = document.createElement('p');
             typeMessageElement.textContent = listMessage.type_message;
@@ -146,7 +150,13 @@ async function getUserInfo() {
             descriptionElement.textContent = listMessage.description;
             card.appendChild(descriptionElement);
 
+            const div1 = document.createElement('hr');
+            card.appendChild(div1)
+
             if (listMessage.field) {
+                const nameFile = document.createElement('p');
+                nameFile.textContent = "Name: " + listMessage.field;
+                card.appendChild(nameFile);
                 const attachmentElement = document.createElement('a');
                 attachmentElement.className = 'attachment';
                 attachmentElement.href = `${pb.baseUrl}/api/files/${listMessage.collectionId}/${listMessage.id}/${listMessage.field}`;
@@ -158,6 +168,11 @@ async function getUserInfo() {
                 attachmentElement.textContent = 'NO FILE ATTACHED';
                 card.appendChild(attachmentElement);
             }
+
+            const div2 = document.createElement('hr');
+            card.appendChild(div2);
+      
+      
 
 
             const RecipientElement = document.createElement('p');

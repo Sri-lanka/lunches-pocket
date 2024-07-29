@@ -312,7 +312,19 @@ input[type="file"]:hover::before {
     border-radius: 10px; /* Esquinas redondeadas */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
   }
-  
+  #user-info {
+   
+    padding: 0; 
+}
+#user-info li {
+    margin: 10px 0;
+    font-size: 1.2em; 
+}
+
+#user-info li:nth-child(3) {
+    font-size: 1em; 
+    font-style: italic;
+}
  
   
   label {

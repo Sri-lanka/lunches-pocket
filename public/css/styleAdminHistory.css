@@ -303,7 +303,31 @@ form {
     cursor: pointer;
 }
 
+#overlay-show-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+#overlay-show-message-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
 
 #cardContainer {
     display: flex;
@@ -314,22 +338,31 @@ form {
 .card {
     background-color: white;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
+    border-radius: 12px;
+    padding: 24px;
     margin: 16px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
+    text-align: left;
+    font-family: Arial, sans-serif;
 }
 
 .card h3 {
     margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
 }
 
 .card p {
     margin: 8px 0;
-    color: black; /* Establece el color del texto en negro */
+    color: #666;
+    font-size: 1em;
+}
 
+.card .description {
+    font-weight: bold;
+    color: #333;
 }
 
 .card .attachment {
@@ -339,27 +372,153 @@ form {
     text-decoration: underline;
     cursor: pointer;
 }
-#overlay-show-message {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    /* Establecer un valor alto para que sea visible sobre el contenido */
+
+.card hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
 }
-#overlay-show-message-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
+
+.card button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
     border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
 }
+
+.card button:hover {
+    background-color: #0056b3;
+}
+
 .icon2 {
 
     height: 25px;
 
+}
+
+.cont {
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+  }
+  
+  #history {
+    font-size: 16px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Ancho fijo para el select */
+    margin-bottom: 10px;
+  }
+  
+  #tables {
+    width: 100%;
+    max-height: 500px; /* Altura máxima del contenedor de tablas */
+    overflow-y: auto; /* Hace que el contenedor tenga scroll vertical si es necesario */
+  }
+  
+  .tableView {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .tableView caption {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .tableView th, .tableView td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .tableView th[colspan="2"] {
+    text-align: center;
+  }
+  
+  .tableView tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  #user-info {
+   
+    padding: 0; 
+}
+#user-info li {
+    margin: 10px 0;
+    font-size: 1.2em; 
+}
+
+#user-info li:nth-child(3) {
+    font-size: 1em; 
+    font-style: italic;
+}
+/*my Css david*/
+#create-form {
+    background-color: #f7f7f7; /* Fondo claro */
+    padding: 20px; /* Espacio alrededor del contenido */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    max-width: 400px; /* Ancho máximo del formulario */
+    margin: auto; /* Centrar el formulario */
+    font-family: Arial, sans-serif; /* Fuente */
+}
+
+/* Estilos para las etiquetas */
+#create-form label {
+    display: block; /* Mostrar las etiquetas como bloques */
+    margin-bottom: 8px; /* Espacio debajo de las etiquetas */
+    font-weight: bold; /* Texto en negrita */
+    color: #333; /* Color del texto */
+}
+
+/* Estilos para los campos de entrada */
+#create-form input[type="text"],
+#create-form input[type="file"],
+#create-form select,
+#create-form textarea {
+    width: calc(100% - 22px); /* Ancho completo menos padding */
+    padding: 10px; /* Padding dentro de los campos */
+    margin-bottom: 20px; /* Espacio debajo de los campos */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1em; /* Tamaño de fuente */
+    box-sizing: border-box; /* Incluir padding y border en el tamaño total */
+}
+
+/* Estilos para los botones */
+#create-form input[type="submit"],
+#create-form input[type="button"] {
+    width: calc(50% - 12px); 
+    padding: 10px; 
+    margin-top: 10px; 
+    border: none;
+    border-radius: 5px; 
+    font-size: 1em; 
+    cursor: pointer; 
+}
+
+/* Estilo para el botón de "Create" */
+#create-form input[type="submit"] {
+    background-color: #4CAF50; /* Fondo verde */
+    color: white; /* Texto blanco */
+   
+}
+
+/* Estilo para el botón de "Cancel" */
+#create-form input[type="button"] {
+    background-color: #f44336; /* Fondo rojo */
+    color: white; /* Texto blanco */
+    
+}
+
+
+#create-form br {
+    clear: both; 
 }

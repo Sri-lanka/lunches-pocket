@@ -1,4 +1,4 @@
-import { pb,formatDate } from '../../../global.js';
+import { pb, formatDate } from '../../../global.js';
 
 let overlayUpdate = document.getElementById('overlay-update');
 let overlayCreate = document.getElementById('overlay-create');
@@ -8,16 +8,16 @@ async function isValid() {
     if (!pb.authStore.isValid) {
         window.location.href = "../../../index";
         return;
-        
+
     }
-  
+
     let user = await pb.collection('users').getOne(pb.authStore.model.id);
     if (user.rol != 'admin') {
-      window.location.href = "home";
-      return false;
+        window.location.href = "home";
+        return false;
     }
 }
-  
+
 isValid();
 
 async function getUserInfo() {
@@ -59,8 +59,8 @@ async function getUserInfo() {
         newRow.appendChild(idCell);
 
         let idUserCell = document.createElement('td');
-        idUserCell.textContent = listAssistance.idUser ;
-        idUserCell.innerHTML +=  "<br>" + "("+ listAssistance.expand.idUser.email + ")";
+        idUserCell.textContent = listAssistance.idUser;
+        idUserCell.innerHTML += "<br>" + "(" + listAssistance.expand.idUser.email + ")";
         newRow.appendChild(idUserCell);
 
         let verificationCell = document.createElement('td');
@@ -70,7 +70,7 @@ async function getUserInfo() {
         let createdCell = document.createElement('td');
         const createdFormat = await formatDate(listAssistance.created);
         createdCell.textContent = listAssistance.created;
-        createdCell.innerHTML +=  "<br>" + "("+ createdFormat + ")";
+        createdCell.innerHTML += "<br>" + "(" + createdFormat + ")";
         newRow.appendChild(createdCell);
 
         let assistanceUpdateBtn = document.createElement('a');
@@ -79,7 +79,7 @@ async function getUserInfo() {
 
         assistanceUpdateTd.appendChild(assistanceUpdateBtn);
         newRow.appendChild(assistanceUpdateTd);
-    
+
 
         assistanceUpdateBtn.onclick = async () => {
             overlayUpdate.style.display = 'block';
@@ -102,7 +102,7 @@ async function getUserInfo() {
         let assistanceDeleteTd = document.createElement('td');
         assistanceDeleteTd.appendChild(assistanceDeleteBtn);
         newRow.appendChild(assistanceDeleteTd);
-        
+
 
         assistanceDeleteBtn.onclick = async () => {
             overlayDelete.style.display = 'block';
@@ -112,12 +112,51 @@ async function getUserInfo() {
                 await deleteAssistance(listAssistance.id);
                 window.location.reload();
             }
-           
+
         }
 
         document.querySelector('#listAssistence').appendChild(newRow);
 
 
+    }
+    let applyFilterBtn = document.getElementById('apply-filter-btn');
+    let filterInput = document.getElementById('filter-input');
+    let userSelectReciepient = document.getElementById('user-select');
+
+    async function updateUserSelect(filter) {
+        try {
+
+            let userReciepient = await pb.collection('users').getFullList({
+                filter: filter,
+            });
+
+
+            userSelectReciepient.innerHTML = '';
+
+            if (userReciepient.length == 0) {
+                alert("No users found");
+                let filter = 'rol = "user"';
+                updateUserSelect(filter);
+                userReciepient.forEach(userReciepient => {
+                    console.log(userReciepient);
+                    let option = document.createElement('option');
+                    option.value = userReciepient.id;
+                    option.innerHTML = userReciepient.email;
+                    userSelectReciepient.appendChild(option);
+                });
+            } else {
+                alert("Users found: " + " " + userReciepient.length);
+                userReciepient.forEach(userReciepient => {
+                    console.log(userReciepient);
+                    let option = document.createElement('option');
+                    option.value = userReciepient.id;
+                    option.innerHTML = userReciepient.email;
+                    userSelectReciepient.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
     }
 
     async function onCreateAssistance() {
@@ -132,7 +171,7 @@ async function getUserInfo() {
     createBtn.onclick = async () => {
         overlayCreate.style.display = 'block';
 
-        let users = await pb.collection('users').getFullList({
+        /*let users = await pb.collection('users').getFullList({
             filter: `rol = "user"`,
         });
         let userSelect = document.getElementById('user-select');
@@ -144,8 +183,17 @@ async function getUserInfo() {
             option.value = user.id;
             option.innerHTML = user.email;
             userSelect.appendChild(option);
-        });
+        });*/
+        let filter = 'rol = "user"';
+        await updateUserSelect(filter);
+        applyFilterBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            let filterValue = filterInput.value;
+            let filter = `rol = "user" && document = "${filterValue}"`;
 
+            await updateUserSelect(filter);
+
+        });
         let createForm = document.getElementById('create-form-btn');
         createForm.addEventListener('click', async () => {
             await onCreateAssistance();
@@ -164,11 +212,11 @@ async function getUserInfo() {
     deleteBtnCancel.onclick = () => {
         overlayDelete.style.display = 'none';
     }
-   
+
 }
 getUserInfo();
 
 document.querySelector('#logout-btn').addEventListener('click', async () => {
     pb.authStore.clear();
     window.location.replace("../../../login.html");
-  });
+});

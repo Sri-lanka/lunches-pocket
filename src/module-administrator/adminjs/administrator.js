@@ -128,6 +128,35 @@ async function getUserInfo() {
         document.querySelector('#messageInbox').appendChild(newRow);
     }
 
+    async function createMessage(id, typeMessage = "excuse", description, field) {
+        let resultCreate = await pb.collection('message').create({
+           
+            idUser: id,
+            type_message: typeMessage,
+            description: description,
+            field: field,
+           
+        });
+        console.log(resultCreate);
+    }
+
+    async function onCreateMessage() {
+
+        let idUser = userData.id;
+        let typeMessage = "message";
+        let description = document.getElementById('description').value;
+        let field = document.getElementById('field').files[0];
+
+        await createMessage( idUser, typeMessage, description, field);
+        window.location.reload();
+    }
+
+   let createBtn = document.getElementById('send-btn');
+    createBtn.onclick = async (event) => {
+        event.preventDefault();
+        await onCreateMessage();
+        window.location.reload();
+    }
 }
 getUserInfo();
 

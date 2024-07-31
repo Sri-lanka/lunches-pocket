@@ -6,7 +6,7 @@ let overlayDelete = document.getElementById('overlay-delete');
 
 async function isValid() {
     if (!pb.authStore.isValid) {
-        window.location.href = "../../../index";
+        window.location.href = "../../../login";
         return;
         
     }

@@ -7,7 +7,7 @@ let overlayDelete = document.getElementById('overlay-delete');
 let overlayShowMessage = document.getElementById('overlay-show-message');
 async function isValid() {
     if (!pb.authStore.isValid) {
-        window.location.href = "../../../index";
+        window.location.href = "../../../login";
         return;
 
     }

@@ -2,7 +2,7 @@ import { pb } from '../../../global.js';
 
 async function isValid() {
     if (!pb.authStore.isValid) {
-        window.location.href = "../../../index";
+        window.location.href = "../../../login";
         return;
         
     }

@@ -116,13 +116,12 @@ async function getUserInfo() {
 
       const RecipientElement = document.createElement('p');
       RecipientElement.textContent = "Recipient :";
-      RecipientElement.innerHTML += listReports.Recipient +" (" + listReports.expand.Recipient.email + ")";
+      RecipientElement.innerHTML += listReports.Recipient + " (" + listReports.expand.Recipient.email + ")";
       card.appendChild(RecipientElement);
 
       const createdElement = document.createElement('p');
       const createdFormat = await formatDate(listReports.created);
-      createdElement.textContent = listReports.created;
-      createdElement.innerHTML += "<br>" + "(" + createdFormat + ")";
+      createdElement.textContent =  createdFormat;
       card.appendChild(createdElement);
 
 
@@ -137,7 +136,7 @@ async function getUserInfo() {
 
 
       cardContainer.appendChild(card);
-      
+
       overlayShowMessage.style.display = 'block';
 
     });
@@ -229,7 +228,7 @@ async function getUserInfo() {
 
       const RecipientElement = document.createElement('p');
       RecipientElement.textContent = "Recipient :";
-      RecipientElement.innerHTML += reports.Recipient +" (" + reports.expand.Recipient.email + ")";
+      RecipientElement.innerHTML += reports.Recipient + " (" + reports.expand.Recipient.email + ")";
       card.appendChild(RecipientElement);
 
       const createdElement = document.createElement('p');
@@ -250,7 +249,7 @@ async function getUserInfo() {
 
 
       cardContainer.appendChild(card);
-      
+
       overlayShowMessage.style.display = 'block';
 
     });
@@ -272,7 +271,7 @@ async function getUserInfo() {
 
     let senderCell = document.createElement('td');
     senderCell.textContent = excuses.sender;
-    senderCell.innerHTML +=  "<br>" + "("+ excuses.expand.idUser.email + ")";
+    senderCell.innerHTML += "<br>" + "(" + excuses.expand.idUser.email + ")";
     newRow.appendChild(senderCell);
 
     let descriptionCell = document.createElement('td');
@@ -281,8 +280,8 @@ async function getUserInfo() {
 
     let createdCell = document.createElement('td');
     const createdFormat = await formatDate(excuses.created);
-    createdCell.textContent = excuses.created;
-    createdCell.innerHTML +=  "<br>" + "("+ createdFormat + ")";
+
+    createdCell.innerHTML += createdFormat;
     newRow.appendChild(createdCell);
 
     let showTd = document.createElement('td');
@@ -359,7 +358,7 @@ async function getUserInfo() {
 
 
       cardContainer.appendChild(card);
-      
+
       overlayShowMessage.style.display = 'block';
 
     });
@@ -379,42 +378,45 @@ async function getUserInfo() {
     let fieldCreate = document.getElementById('fieldCreate').files[0];
 
     try {
-        await createMessage(idUser, type_message, descriptionCreate, fieldCreate, userReciepientCreate);
-        alert('Message created successfully');
-        window.location.reload();
+      await createMessage(idUser, type_message, descriptionCreate, fieldCreate, userReciepientCreate);
+      alert('Message created successfully');
+      window.location.reload();
     } catch (error) {
-        alert("Error creating message: " + error);
+      alert("Error creating message: " + error);
     }
-}
+  }
 
-let createBtn = document.getElementById('create-btn');
-createBtn.onclick = async () => {
+  let createBtn = document.getElementById('create-btn');
+  createBtn.onclick = async () => {
     overlayCreate.style.display = 'block';
 
     let userReciepient = await pb.collection('users').getFullList({
-        filter: `rol = "user"`,
+      filter: `rol = "user"`,
     });
     let userReciepientSelect = document.getElementById('user-select-reciepient');
     userReciepientSelect.innerHTML = '';
     userReciepient.forEach(userReciepient => {
-        console.log(userReciepient);
-        let option = document.createElement('option');
-        option.value = userReciepient.id;
-        option.innerHTML = userReciepient.email;
-        userReciepientSelect.appendChild(option);
+      console.log(userReciepient);
+      let option = document.createElement('option');
+      option.value = userReciepient.id;
+      option.innerHTML = userReciepient.email;
+      userReciepientSelect.appendChild(option);
     });
 
     let createForm = document.getElementById('create-form-btn');
     createForm.addEventListener('click', async (event) => {
-        event.preventDefault(event);
-        await onCreateMessage();
+      event.preventDefault(event);
+      await onCreateMessage();
 
 
     })
 
 
-}
-
+  }
+  let createBtnCancel = document.getElementById('create-form-cancel');
+  createBtnCancel.onclick = async () => {
+    overlayCreate.style.display = 'none';
+  }
 }
 
 getUserInfo();

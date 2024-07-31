@@ -261,6 +261,19 @@ a:link {
     z-index: 10;
     /* Establecer un valor alto para que sea visible sobre el contenido */
 }
+#user-info {
+   
+    padding: 0; 
+}
+#user-info li {
+    margin: 10px 0;
+    font-size: 1.2em; 
+}
+
+#user-info li:nth-child(3) {
+    font-size: 1em; 
+    font-style: italic;
+}
 
 #overlay-update-content {
     position: absolute;

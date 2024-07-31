@@ -24,7 +24,7 @@
     <div class="navegate">
       <div class="nav1">
         <a id="home-btn" class="nav1Icon"><img src="/img/home.png" class="icon" />Home</a>
-        <a id="data-btn" class="nav1Icon"><img src="/img/data.png" class="icon" />Data</a>
+        <a id="data-btn" class="nav1Icon"><img src="/img/data.png" class="icon" />Mail</a>
         <a id="module-btn" class="nav1Icon"><img src="/img/history.webp" class="icon" />Module</a>
       </div>
       <div class="nav2">
@@ -44,11 +44,10 @@
           <option value="1" selected>Your Reports</option>
           <option value="2">Reports</option>
           <option value="3">Excuses</option>
-         
         </select>
 
         <div id="tables">
-          <table id="tableYourReport">
+          <table class="tableView" id="tableYourReport">
             <caption>your Reports </caption>
             <thead>
               <tr>
@@ -63,14 +62,14 @@
             </tbody>
           </table>
 
-          <table id="tableReports">
+          <table  class="tableView" id="tableReports">
             <caption>Reports</caption>
             <thead>
               <tr>
                 <th>Sender</th>
                 <th>Description</th>
                 <th>Recipient</th>
-                <th>Date sent</th>
+                <th colspan="2">Date sent</th>
               </tr>
             </thead>
 
@@ -79,13 +78,13 @@
             </tbody>
           </table>
 
-          <table id="tableExcuses">
+          <table class="tableView" id="tableExcuses">
             <caption>table excuses</caption>
             <thead>
               <tr>
                 <th>Sender</th>
                 <th>Description</th>
-                <th>Date sent</th>
+                <th colspan="2">Date sent</th>
               </tr>
             </thead>
 
@@ -112,13 +111,12 @@
   <div id="overlay-create" style="display: none;">
     <div id="overlay-create-content">
       <form id="create-form">
-        <label for="description">description:</label>
-        <input type="text" id="descriptionCreate" name="descriptionCreate">
+        <label for="description">Description:</label>
+        <textarea id="descriptionCreate" name="descriptionCreate" cols="38" rows="10"></textarea>
         <label for="field">field:</label>
         <input type="file" id="fieldCreate" name="fieldCreate">
         <label for="Recipient">Recipient:</label>
         <select name="recipient" id="user-select-reciepient"></select>
-        <br>
         <input type="submit" value="Create" id="create-form-btn">
         <input type="button" value="Cancel" id="create-form-cancel">
       </form>

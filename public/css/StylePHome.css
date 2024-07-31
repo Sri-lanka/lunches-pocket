@@ -331,3 +331,133 @@ input[type="file"]::before {
 .a-button {
     cursor: pointer;
 }
+.inbox {
+    background-color: transparent; /* Color verde del cuadro */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .inbox table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .inbox th, .inbox td {
+    background-color: transparent; /* Coincide con el color del cuadro */
+    padding: 10px;
+    color: white; /* Color de texto blanco para mejor visibilidad */
+  }
+  
+  .inbox th {
+    text-align: left;
+  }
+  
+  .inbox td {
+    text-align: center;
+  }
+  
+  .inbox .icon-eye {
+    color: white; /* Ajustar el color del ícono si es necesario */
+  }
+  #overlay-show-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#overlay-show-message-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+#cardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.card p {
+    margin: 8px 0;
+    color: #666;
+    font-size: 1em;
+}
+
+.card .description {
+    font-weight: bold;
+    color: #333;
+}
+
+.card .attachment {
+    text-align: center;
+    margin: 8px 0;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.card hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.card button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.card button:hover {
+    background-color: #0056b3;
+}
+#user-info {
+   
+    padding: 0; 
+}
+#user-info li {
+    margin: 10px 0;
+    font-size: 1.2em; 
+}
+
+#user-info li:nth-child(3) {
+    font-size: 1em; 
+    font-style: italic;
+}

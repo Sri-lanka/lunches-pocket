@@ -452,11 +452,15 @@ async function getUserInfo() {
   };
 
 
+
   let createBtnCancel = document.getElementById('create-form-cancel');
   createBtnCancel.onclick = async () => {
     overlayCreate.style.display = 'none';
   }
+
+
 }
+
 
 getUserInfo();
 

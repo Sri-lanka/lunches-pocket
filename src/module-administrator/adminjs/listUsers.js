@@ -81,182 +81,207 @@ async function getUserInfo() {
         let result = await pb.collection("users").delete(id);
         console.log(result);
     }
+    async function fetchAndDisplayUser(userDocument = '') {
 
-    const resultList = await pb.collection("users").getList(1, 100, {});
-    //console.log(resultList);
+        const resultList = await pb.collection('users').getList(1, 50, {
+            sort: '-created'
+        });
 
-    for (let i = 0; i < resultList.items.length; i++) {
-        let listUser = resultList.items[i];
-        //console.log(listUser);
-        let newRow = document.createElement("tr");
 
-        let idCell = document.createElement("td");
-        idCell.textContent = listUser.id;
-        newRow.appendChild(idCell);
+        let filteredResults = resultList.items;
+        if (userDocument !== '') {
+            filteredResults = resultList.items.filter(item => item.document == userDocument);
+            console.log(filteredResults);
+        }
 
-        let documentCell = document.createElement("td");
-        documentCell.textContent = listUser.document;
-        newRow.appendChild(documentCell);
 
-        let typeDocumentCell = document.createElement("td");
-        typeDocumentCell.textContent = listUser.type_document;
-        newRow.appendChild(typeDocumentCell);
+        document.querySelector('#listUsers').innerHTML = '';
 
-        let usernameCell = document.createElement("td");
-        usernameCell.textContent = listUser.username;
-        newRow.appendChild(usernameCell);
+        //const resultList = await pb.collection("users").getList(1, 100, {});
 
-        let nameCell = document.createElement("td");
-        nameCell.textContent = listUser.name;
-        newRow.appendChild(nameCell);
 
-        let lastNameCell = document.createElement("td");
-        lastNameCell.textContent = listUser.last_name;
-        newRow.appendChild(lastNameCell);
+        for (let i = 0; i < filteredResults.length; i++) {
+            let listUser = filteredResults[i];
 
-        let emailCell = document.createElement("td");
-        emailCell.textContent = listUser.email;
-        newRow.appendChild(emailCell);
-        console.log(listUser.email);
+            let newRow = document.createElement("tr");
 
-        let telephoneCell = document.createElement("td");
-        telephoneCell.textContent = listUser.telephone;
-        newRow.appendChild(telephoneCell);
+            let idCell = document.createElement("td");
+            idCell.textContent = listUser.id;
+            newRow.appendChild(idCell);
 
-        let stateCell = document.createElement("td");
-        stateCell.textContent = listUser.state;
-        newRow.appendChild(stateCell);
+            let documentCell = document.createElement("td");
+            documentCell.textContent = listUser.document;
+            newRow.appendChild(documentCell);
 
-        let rolCell = document.createElement("td");
-        rolCell.textContent = listUser.rol;
-        newRow.appendChild(rolCell);
+            let typeDocumentCell = document.createElement("td");
+            typeDocumentCell.textContent = listUser.type_document;
+            newRow.appendChild(typeDocumentCell);
 
-        let userUpdateBtn = document.createElement("a");
-        userUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
-        let userUpdateTd = document.createElement("td");
+            let usernameCell = document.createElement("td");
+            usernameCell.textContent = listUser.username;
+            newRow.appendChild(usernameCell);
 
-        userUpdateTd.appendChild(userUpdateBtn);
-        newRow.appendChild(userUpdateTd);
+            let nameCell = document.createElement("td");
+            nameCell.textContent = listUser.name;
+            newRow.appendChild(nameCell);
 
-        userUpdateBtn.onclick = async () => {
-            overlayUpdate.style.display = "block";
+            let lastNameCell = document.createElement("td");
+            lastNameCell.textContent = listUser.last_name;
+            newRow.appendChild(lastNameCell);
 
-            let documentUpdate = document.getElementById("documentUpdate");
-            documentUpdate.value = listUser.document;
-            let typeDocumentUpdate = document.getElementById("typeDocumentUpdate");
-            typeDocumentUpdate.value = listUser.type_document;
-            let usernameUpdate = document.getElementById("usernameUpdate");
-            usernameUpdate.value = listUser.username;
-            let last_nameUpdate = document.getElementById("last_nameUpdate");
-            last_nameUpdate.value = listUser.last_name;
-            let emailUpdate = document.getElementById("emailUpdate");
-            emailUpdate.value = listUser.email;
-            let telephoneUpdate = document.getElementById("telephoneUpdate");
-            telephoneUpdate.value = listUser.telephone;
-            let stateUpdate = document.getElementById("stateUpdate");
-            stateUpdate.value = listUser.state;
-            let rolUpdate = document.getElementById("rolUpdate");
-            rolUpdate.value = listUser.rol;
-            let oldPassword = document.getElementById("oldPassword");
-            let passwordUpdate = document.getElementById("passwordUpdate");
-            let passwordConfirmUpdate = document.getElementById(
-                "passwordConfirmUpdate"
-            );
+            let emailCell = document.createElement("td");
+            emailCell.textContent = listUser.email;
+            newRow.appendChild(emailCell);
+            console.log(listUser.email);
 
-            const togglePassword = document.getElementById("toggle-passwordUpdate");
-            const password = document.getElementById("passwordUpdate");
-            togglePassword.onclick = async () => {
-                if (
-                    !documentUpdate.value ||
-                    !typeDocumentUpdate.value ||
-                    !usernameUpdate.value ||
-                    !last_nameUpdate.value ||
-                    !emailUpdate.value ||
-                    !telephoneUpdate.value ||
-                    !stateUpdate.value ||
-                    !rolUpdate.value ||
-                    !passwordUpdate.value ||
-                    !passwordConfirmUpdate.value
-                ) {
-                    alert("Please fill all the fields");
-                    return;
-                }
-                if (passwordUpdate.value !== passwordConfirmUpdate.value) {
-                    alert("Passwords do not match");
-                    return;
-                }
-                if (passwordUpdate.value.length < 8) {
-                    alert("Password must be at least 8 characters");
-                    return;
-                }
-                if (passwordUpdate.value.length > 100) {
-                    alert("Password must be less than 100 characters");
-                    return;
-                }
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(emailUpdate.value)) {
-                    alert("Invalid email format");
-                    return;
-                }
-                const type =
-                    password.getAttribute("type") === "password" ? "text" : "password";
-                password.setAttribute("type", type);
-                const newIcon =
-                    type === "password" ? "/img/eye_icon.png" : "/img/eye-off-icon.png";
-                togglePassword.setAttribute("src", newIcon);
+            let telephoneCell = document.createElement("td");
+            telephoneCell.textContent = listUser.telephone;
+            newRow.appendChild(telephoneCell);
+
+            let stateCell = document.createElement("td");
+            stateCell.textContent = listUser.state;
+            newRow.appendChild(stateCell);
+
+            let rolCell = document.createElement("td");
+            rolCell.textContent = listUser.rol;
+            newRow.appendChild(rolCell);
+
+            let userUpdateBtn = document.createElement("a");
+            userUpdateBtn.innerHTML = '<img src="/img/edit.png" class="icon a-button">';
+            let userUpdateTd = document.createElement("td");
+
+            userUpdateTd.appendChild(userUpdateBtn);
+            newRow.appendChild(userUpdateTd);
+
+            userUpdateBtn.onclick = async () => {
+                overlayUpdate.style.display = "block";
+
+                let documentUpdate = document.getElementById("documentUpdate");
+                documentUpdate.value = listUser.document;
+                let typeDocumentUpdate = document.getElementById("typeDocumentUpdate");
+                typeDocumentUpdate.value = listUser.type_document;
+                let usernameUpdate = document.getElementById("usernameUpdate");
+                usernameUpdate.value = listUser.username;
+                let last_nameUpdate = document.getElementById("last_nameUpdate");
+                last_nameUpdate.value = listUser.last_name;
+                let emailUpdate = document.getElementById("emailUpdate");
+                emailUpdate.value = listUser.email;
+                let telephoneUpdate = document.getElementById("telephoneUpdate");
+                telephoneUpdate.value = listUser.telephone;
+                let stateUpdate = document.getElementById("stateUpdate");
+                stateUpdate.value = listUser.state;
+                let rolUpdate = document.getElementById("rolUpdate");
+                rolUpdate.value = listUser.rol;
+                let oldPassword = document.getElementById("oldPassword");
+                let passwordUpdate = document.getElementById("passwordUpdate");
+                let passwordConfirmUpdate = document.getElementById(
+                    "passwordConfirmUpdate"
+                );
+
+                const togglePassword = document.getElementById("toggle-passwordUpdate");
+                const password = document.getElementById("passwordUpdate");
+                togglePassword.onclick = async () => {
+                    if (
+                        !documentUpdate.value ||
+                        !typeDocumentUpdate.value ||
+                        !usernameUpdate.value ||
+                        !last_nameUpdate.value ||
+                        !emailUpdate.value ||
+                        !telephoneUpdate.value ||
+                        !stateUpdate.value ||
+                        !rolUpdate.value ||
+                        !passwordUpdate.value ||
+                        !passwordConfirmUpdate.value
+                    ) {
+                        alert("Please fill all the fields");
+                        return;
+                    }
+                    if (passwordUpdate.value !== passwordConfirmUpdate.value) {
+                        alert("Passwords do not match");
+                        return;
+                    }
+                    if (passwordUpdate.value.length < 8) {
+                        alert("Password must be at least 8 characters");
+                        return;
+                    }
+                    if (passwordUpdate.value.length > 100) {
+                        alert("Password must be less than 100 characters");
+                        return;
+                    }
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(emailUpdate.value)) {
+                        alert("Invalid email format");
+                        return;
+                    }
+                    const type =
+                        password.getAttribute("type") === "password" ? "text" : "password";
+                    password.setAttribute("type", type);
+                    const newIcon =
+                        type === "password" ? "/img/eye_icon.png" : "/img/eye-off-icon.png";
+                    togglePassword.setAttribute("src", newIcon);
+                };
+
+                let updateFormBtn = document.getElementById("update-form-btn");
+                updateFormBtn.onclick = async (event) => {
+                    event.preventDefault();
+                    try {
+                        await updateUser(
+                            listUser.id,
+                            documentUpdate.value,
+                            typeDocumentUpdate.value,
+                            usernameUpdate.value,
+                            last_nameUpdate.value,
+                            emailUpdate.value,
+                            telephoneUpdate.value,
+                            stateUpdate.value,
+                            rolUpdate.value,
+                            oldPassword.value,
+                            passwordUpdate.value,
+                            passwordConfirmUpdate.value
+                        );
+                        alert("User updated successfully");
+                        window.location.reload();
+                    } catch (error) {
+                        alert("Error updating user: " + error);
+                    }
+                };
             };
 
-            let updateFormBtn = document.getElementById("update-form-btn");
-            updateFormBtn.onclick = async (event) => {
-                event.preventDefault();
-                try {
-                    await updateUser(
-                        listUser.id,
-                        documentUpdate.value,
-                        typeDocumentUpdate.value,
-                        usernameUpdate.value,
-                        last_nameUpdate.value,
-                        emailUpdate.value,
-                        telephoneUpdate.value,
-                        stateUpdate.value,
-                        rolUpdate.value,
-                        oldPassword.value,
-                        passwordUpdate.value,
-                        passwordConfirmUpdate.value
-                    );
-                    alert("User updated successfully");
-                    window.location.reload();
-                } catch (error) {
-                    alert("Error updating user: " + error);
-                }
+            let userDeleteBtn = document.createElement("a");
+            userDeleteBtn.innerHTML =
+                '<img src="/img/delate.webp" class="icon a-button">';
+
+            let userDeleteTd = document.createElement("td");
+            userDeleteTd.appendChild(userDeleteBtn);
+            newRow.appendChild(userDeleteTd);
+
+            userDeleteBtn.onclick = async () => {
+                overlayDelete.style.display = "block";
+                let deleteFormBtn = document.getElementById("delete-form-btn");
+                deleteFormBtn.onclick = async (event) => {
+                    event.preventDefault();
+                    try {
+                        await deleteUser(listUser.id);
+                        alert("User deleted successfully");
+                        window.location.reload();
+                    } catch (error) {
+                        alert("Error deleting user: " + error);
+                    }
+                };
             };
-        };
 
-        let userDeleteBtn = document.createElement("a");
-        userDeleteBtn.innerHTML =
-            '<img src="/img/delate.webp" class="icon a-button">';
-
-        let userDeleteTd = document.createElement("td");
-        userDeleteTd.appendChild(userDeleteBtn);
-        newRow.appendChild(userDeleteTd);
-
-        userDeleteBtn.onclick = async () => {
-            overlayDelete.style.display = "block";
-            let deleteFormBtn = document.getElementById("delete-form-btn");
-            deleteFormBtn.onclick = async (event) => {
-                event.preventDefault();
-                try {
-                    await deleteUser(listUser.id);
-                    alert("User deleted successfully");
-                    window.location.reload();
-                } catch (error) {
-                    alert("Error deleting user: " + error);
-                }
-            };
-        };
-
-        document.querySelector("#listUsers").appendChild(newRow);
+            document.querySelector("#listUsers").appendChild(newRow);
+        }
     }
+    window.addEventListener('load', () => {
+        fetchAndDisplayUser();
+    });
+
+    document.getElementById('filterBtn').addEventListener('click', () => {
+        let userDocument = document.getElementById('userDocumentInput').value.trim();
+        fetchAndDisplayUser(userDocument);
+    });
+
 
     async function onCreateUsers() {
         let documentCreate = document.getElementById("documentCreate").value;

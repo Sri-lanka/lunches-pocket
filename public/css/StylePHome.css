@@ -348,13 +348,15 @@ input[type="file"]::before {
   }
   
 
-  .inbox th {
-    position:sticky;
-    background-color: transparent; /* Coincide con el color del cuadro */
-    padding: 10px;
-    text-align: left;
-    z-index: 10;
-    color: white; /* Color de texto blanco para mejor visibilidad */
+  thead th {
+
+    position: sticky; /* Hace que el th sea pegajoso */
+    top: 0; /* Lo fija en la parte superior */
+    background: transparent; /* Color de fondo para el encabezado */
+    color: white; /* Color del texto */
+    z-index: 1;
+
+
   }
   
   .inbox td {
@@ -368,6 +370,9 @@ input[type="file"]::before {
     height: 100px;
 
   }
+  .inbox tbody::-webkit-scrollbar {
+    width: 12px;
+}
   
   .inbox .icon-eye {
     color: white; /* Ajustar el color del ícono si es necesario */

@@ -331,10 +331,15 @@ input[type="file"]::before {
 .a-button {
     cursor: pointer;
 }
+#inbox.table{
+    overflow-y: auto;
+}
 .inbox {
     background-color: transparent; /* Color verde del cuadro */
     padding: 10px;
     border-radius: 5px;
+    height: 100px;
+
   }
   
   .inbox table {
@@ -342,18 +347,26 @@ input[type="file"]::before {
     border-collapse: collapse;
   }
   
-  .inbox th, .inbox td {
+
+  .inbox th {
+    position:sticky;
     background-color: transparent; /* Coincide con el color del cuadro */
     padding: 10px;
+    text-align: left;
+    z-index: 10;
     color: white; /* Color de texto blanco para mejor visibilidad */
   }
   
-  .inbox th {
-    text-align: left;
-  }
-  
   .inbox td {
+    background-color: transparent; /* Coincide con el color del cuadro */
+    padding: 10px;
     text-align: center;
+
+  }
+  .inbox tbody{
+    overflow-y: scroll;
+    height: 100px;
+
   }
   
   .inbox .icon-eye {

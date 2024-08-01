@@ -58,7 +58,6 @@ async function getUserInfo() {
     for (let i = 0; i < resultInbox.items.length; i++) {
         let listInbox = resultInbox.items[i];
 
-
         let newRow = document.createElement('tr');
 
         let senderCell = document.createElement('td');

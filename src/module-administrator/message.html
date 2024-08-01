@@ -40,6 +40,13 @@
         </div>
         <div class="container">
             <table class="table table-dark" >
+                <select id="dataFilter">
+                    <option value="1" selected>All</option>
+                    <option value="2">Recipient</option>
+                    <option value="3">Sender</option>
+                </select>
+                <input type="number" id="userDocumentInput" placeholder="Find by document">
+                <button id="filterBtn">Filter</button>
                 <p>list Message</p>
                 <thead class="thead-dark">
                 <tr>

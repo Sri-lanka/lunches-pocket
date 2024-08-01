@@ -40,6 +40,8 @@
         </div>
         <div class="container">
             <table class="table table-dark" >
+                <input type="text" id="nameProgramInput" placeholder="Find by name program">	
+                <button id="filterBtn">Filter</button>
                 <p>list Characterization Sheet</p>
                 <thead class="thead-dark">
                 <tr>
@@ -48,8 +50,7 @@
                     <th>Id Program</th>
                     <th>Created Date</th>
                     <th>End Date</th>
-                    
-
+                
                     <th colspan="2"><center><a id="create-btn"><img src="/img/add.webp" class="icon2 a-button"></a></center></th>
                     </th>
                 </tr>
@@ -66,6 +67,9 @@
 <div id="overlay-update" style="display: none;">
     <div id="overlay-update-content">
         <form id="update-form">
+            <input type="text" id="filter-input-update" placeholder="find by program">	
+            <input type="button" value="Apply Filter" id="apply-filter-btn-update">
+            <br>
             <label for="n°Sheet">N° Sheet:</label>
             <input type="number" name="n°Sheet" id="n_sheetUpdate">
 
@@ -87,6 +91,9 @@
     <div id="overlay-create-content">
 
       <form id="create-form">
+        <input type="text" id="filter-input" placeholder="find by program">
+        <input type="button" value="Apply Filter" id="apply-filter-btn">
+        <br>
         <label for="n°sheet">n°sheet:</label>
         <input type="number" name="n°sheet" id="n°sheetCreate">
         <label for="program">program:</label>

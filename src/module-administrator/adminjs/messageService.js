@@ -121,7 +121,7 @@ async function getUserInfo() {
 
       const createdElement = document.createElement('p');
       const createdFormat = await formatDate(listReports.created);
-      createdElement.textContent =  createdFormat;
+      createdElement.textContent = createdFormat;
       card.appendChild(createdElement);
 
 
@@ -386,38 +386,81 @@ async function getUserInfo() {
     }
   }
 
+
   let createBtn = document.getElementById('create-btn');
+  let applyFilterBtn = document.getElementById('apply-filter-btn');
+  let filterInput = document.getElementById('filter-input');
+  let userSelectReciepient = document.getElementById('user-select-reciepient');
+  let createForm = document.getElementById('create-form-btn');
+
+ 
+  async function updateUserSelect(filter) {
+    try {
+    
+      let userReciepient = await pb.collection('users').getFullList({
+        filter: filter,
+      });
+
+    
+      userSelectReciepient.innerHTML = '';
+
+      if (userReciepient.length == 0) {
+        alert("No users found");
+        let filter = 'rol = "user"';
+        updateUserSelect(filter);
+        userReciepient.forEach(userReciepient => {
+          console.log(userReciepient);
+          let option = document.createElement('option');
+          option.value = userReciepient.id;
+          option.innerHTML = userReciepient.email;
+          userSelectReciepient.appendChild(option);
+        });
+      } else {
+        alert("Users found: " + " " + userReciepient.length );
+        userReciepient.forEach(userReciepient => {
+          console.log(userReciepient);
+          let option = document.createElement('option');
+          option.value = userReciepient.id;
+          option.innerHTML = userReciepient.email;
+          userSelectReciepient.appendChild(option);
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  }
+
+  
   createBtn.onclick = async () => {
     overlayCreate.style.display = 'block';
 
-    let userReciepient = await pb.collection('users').getFullList({
-      filter: `rol = "user"`,
-    });
-    let userReciepientSelect = document.getElementById('user-select-reciepient');
-    userReciepientSelect.innerHTML = '';
-    userReciepient.forEach(userReciepient => {
-      console.log(userReciepient);
-      let option = document.createElement('option');
-      option.value = userReciepient.id;
-      option.innerHTML = userReciepient.email;
-      userReciepientSelect.appendChild(option);
-    });
+   
+    let filter = 'rol = "user"';
+    await updateUserSelect(filter);
 
-    let createForm = document.getElementById('create-form-btn');
+
+    applyFilterBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      let filterValue = filterInput.value;
+      let filter = `rol = "user" && document = "${filterValue}"`;
+      await updateUserSelect(filter);
+    });
     createForm.addEventListener('click', async (event) => {
-      event.preventDefault(event);
+      event.preventDefault();
       await onCreateMessage();
+    });
+  };
 
 
-    })
 
-
-  }
   let createBtnCancel = document.getElementById('create-form-cancel');
   createBtnCancel.onclick = async () => {
     overlayCreate.style.display = 'none';
   }
+
+
 }
+
 
 getUserInfo();
 

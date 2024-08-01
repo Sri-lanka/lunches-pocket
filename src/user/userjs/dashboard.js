@@ -85,15 +85,13 @@ async function getUserInfo() {
 
     async function onCreateMessage() {
 
-        
         let idUser = user.id;
         let typeMessage = "excuse";
         let description = document.getElementById('description').value;
         let field = document.getElementById('field').files[0];
 
         await createMessage( idUser, typeMessage, description, field);
-
-       
+        window.reload();   
     }
 
    let createBtn = document.getElementById('send-btn');

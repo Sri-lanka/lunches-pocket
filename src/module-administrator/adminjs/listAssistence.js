@@ -51,7 +51,7 @@ async function getUserInfo() {
     
        
         let filteredResults = resultList.items;
-        if (userDocument !== '') {
+        if (userDocument !== '' ) {
             filteredResults = resultList.items.filter(item => item.expand.idUser.document == userDocument);
             console.log(filteredResults);
         }

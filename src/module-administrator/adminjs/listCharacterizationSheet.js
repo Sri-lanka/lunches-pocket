@@ -52,7 +52,8 @@ async function getUserInfo() {
 
     let filteredResults = resultList.items;
     if (nameProgram !== '') {
-      filteredResults = resultList.items.filter(item => item.expand.id_program.name.toLowerCase() == nameProgram.toLowerCase());
+      filteredResults = resultList.items.filter(item =>
+         item.expand.id_program.name.toLowerCase() == nameProgram.toLowerCase());
       console.log(filteredResults);
     }
 
@@ -208,7 +209,7 @@ async function getUserInfo() {
     let nameProgram = document.getElementById('nameProgramInput').value.trim();
     fetchAndDisplaySheet(nameProgram);
   });
-  
+
   let applyFilterBtn = document.getElementById('apply-filter-btn');
   let filterInput = document.getElementById('filter-input');
   let programSelect = document.getElementById("programCreate-select");
@@ -254,7 +255,7 @@ async function getUserInfo() {
         });
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error('Error fetching programs:', error);
     }
   }
 
@@ -268,7 +269,7 @@ async function getUserInfo() {
     applyFilterBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       let filterValue = filterInput.value;
-      let filter = `name = "${filterValue}"`;
+      let filter = `name ~  "${filterValue}"`;
       await updateUserSelect(filter);
     });
 

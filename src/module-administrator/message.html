@@ -76,6 +76,14 @@
             <input type="text" id="descriptionUpdate" name="description">
             <label for="field">field:</label>
             <input type="file" id="fieldUpdate" name="field">
+           
+            <div id="approvedDiv2" style="display: none;">
+                <label for="approved">Approved:</label>
+                <select name="approved" id="approvedUpdate">
+                    <option value="Yes">yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
 
             <input type="submit" value="update" id="update-form-btn">
             <input type="button" value="Cancel" id="update-form-cancel">
@@ -84,8 +92,15 @@
   </div>
   <div id="overlay-create" style="display: none;">
     <div id="overlay-create-content">
-
       <form id="create-form">
+        <select name="user" id="type_user">
+            <option value="all">All</option>
+            <option value="sender">Sender</option>
+            <option value="recipient">Recipient</option>
+        </select>
+        <input type="text" id="filter-input" placeholder="find by document">
+        <input type="button" value="Apply Filter" id="apply-filter-btn">
+        <br>
         <label for="user">Sender:</label>
         <select name="user" id="user-select"></select>
 
@@ -94,13 +109,20 @@
             <option value="excuse">excuse</option>
             <option value="report">report</option>
        </select>
-
         <label for="description">description:</label>
         <input type="text" id="descriptionCreate" name="description">
         <label for="field">field:</label>
         <input type="file" id="fieldCreate" name="field">
         <label for="Recipient">Recipient:</label>
         <select name="recipient" id="user-select-reciepient"></select>
+        <div id="approvedDiv" style="display: none;">
+        <label for="approved">Approved:</label>
+        <select name="approved" id="approvedCreate">
+            <option value="Yes">yes</option>
+            <option value="No">No</option>
+        </select>
+        </div>
+
         <br>
         <input type="submit" value="Create" id="create-form-btn">
         <input type="button" value="Cancel" id="create-form-cancel">

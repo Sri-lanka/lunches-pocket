@@ -187,6 +187,7 @@ async function getUserInfo() {
 
         let filter = 'rol = "user"';
         await updateUserSelect(filter);
+        
         applyFilterBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             let filterValue = filterInput.value;

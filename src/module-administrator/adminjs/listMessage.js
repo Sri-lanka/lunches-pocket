@@ -23,21 +23,23 @@ isValid();
 async function getUserInfo() {
 
 
-    async function updateMessage(id, description, field) {
+    async function updateMessage(id, description, field, approved) {
         let result = await pb.collection('message').update(id, {
             description: description,
             field: field,
+            approved: approved,
         });
         console.log(result);
     }
 
-    async function createMessage(idUser, type_message, description, field, Recipient) {
+    async function createMessage(idUser, type_message, description, field, Recipient, approved) {
         let result = await pb.collection('message').create({
             idUser: idUser,
             type_message: type_message,
             description: description,
             field: field,
             Recipient: Recipient,
+            approved: approved,
         });
         console.log(result);
     }
@@ -51,30 +53,49 @@ async function getUserInfo() {
 
         const resultList = await pb.collection('message').getList(1, 50, {
             sort: '-created',
-            expand: 'idUser, Recipient',
+            expand: 'Recipient, idUser',
         });
 
         let dataSelector = document.getElementById('dataFilter').value;
         let filteredResults = resultList.items;
-        if (userDocument !== '' && dataSelector == '2') {
-            filteredResults = resultList.items.filter(item => item.expand.Recipient.document == userDocument);
-            console.log(filteredResults);
+
+        if (userDocument == '' && dataSelector == '2') {
+            filteredResults = resultList.items.filter(item => {
+                if (item.expand && !item.expand.Recipient) {
+                    return true;
+                } else if (!item.expand) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        } else if (userDocument !== '' && dataSelector == '2') {
+            filteredResults = resultList.items.filter(item => {
+                if (item.expand && item.expand.Recipient) {
+                    return item.expand.Recipient.document == userDocument;
+                } else {
+                    return false;
+                }
+            });
         } else if (userDocument !== '' && dataSelector == '3') {
-            filteredResults = resultList.items.filter(item => item.expand.idUser.document == userDocument);
-            console.log(filteredResults);
+            filteredResults = resultList.items.filter(item => {
+                if (item.expand && item.expand.idUser) {
+                    return item.expand.idUser.document == userDocument;
+                } else {
+                    return false;
+                }
+            });
         } else if (dataSelector == '1') {
-            filteredResults = resultList.items;
-            console.log(filteredResults);
+
         }
 
-        /*const resultList = await pb.collection('message').getList(1, 50, {
-            expand: 'Recipient, idUser'
-        });*/
+        console.log(filteredResults);
+
         document.querySelector('#listMessage').innerHTML = '';
 
         for (let i = 0; i < filteredResults.length; i++) {
             let listMessage = filteredResults[i];
-            console.log(listMessage);
+            //console.log(listMessage);
 
             let newRow = document.createElement('tr');
 
@@ -89,6 +110,9 @@ async function getUserInfo() {
 
             let typeMessageCell = document.createElement('td')
             typeMessageCell.textContent = listMessage.type_message;
+            if (listMessage.type_message == 'excuse') {
+                typeMessageCell.innerHTML += "<br>" + "(Approved:" + listMessage.approved + ")";
+            }
             newRow.appendChild(typeMessageCell);
 
             let descriptionCell = document.createElement('td')
@@ -163,6 +187,9 @@ async function getUserInfo() {
 
                 const typeMessageElement = document.createElement('p');
                 typeMessageElement.textContent = listMessage.type_message;
+                if (listMessage.type_message == 'excuse') {
+                    typeMessageElement.innerHTML += "<br>" + "(Approved:" + listMessage.approved + ")";
+                }
                 card.appendChild(typeMessageElement);
 
                 const descriptionElement = document.createElement('p');
@@ -241,11 +268,21 @@ async function getUserInfo() {
                 description.value = listMessage.description;
                 let fieldUpdate = document.getElementById('fieldUpdate');
 
+                let selectApproved = document.getElementById('approvedDiv2');
+                if (listMessage.type_message == 'excuse') {
+                    selectApproved.style.display = 'block';
+                } else {
+                    selectApproved.style.display = 'none';
+                }
+                let approvedUpdate = document.getElementById('approvedUpdate');
+                approvedUpdate.value = listMessage.approved;
+
+
                 let updateFormBtn = document.getElementById('update-form-btn');
                 updateFormBtn.onclick = async (event) => {
                     event.preventDefault();
                     try {
-                        await updateMessage(listMessage.id, description.value, fieldUpdate.files[0]);
+                        await updateMessage(listMessage.id, description.value, fieldUpdate.files[0], approvedUpdate.value);
                         alert("Message updated successfully");
                         window.location.reload();
                     } catch (error) {
@@ -292,6 +329,79 @@ async function getUserInfo() {
         fetchAndDisplayMessage(userDocument);
     });
 
+    async function updateUserSelect(filter) {
+        try {
+
+            let userSelectSender = document.getElementById('user-select');
+
+            let userSender = await pb.collection('users').getFullList({
+                filter: filter,
+            }
+            );
+
+            userSelectSender.innerHTML = '';
+            if (userSender.length == 0) {
+                alert("No users found");
+                let filter = "";
+                updateUserSelect(filter);
+                userSender.forEach(userSender => {
+                    console.log(userSender);
+                    let option = document.createElement('option');
+                    option.value = userSender.id;
+                    option.innerHTML = userSender.email;
+                    userSelectSender.appendChild(option);
+                });
+            } else {
+                alert("Users found: " + " " + userSender.length);
+                userSender.forEach(userSender => {
+                    console.log(userSender);
+                    let option = document.createElement('option');
+                    option.value = userSender.id;
+                    option.innerHTML = userSender.email;
+                    userSelectSender.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    }
+    async function updateRecipientSelect(filter) {
+        try {
+
+            let userReciepientSelect = document.getElementById('user-select-reciepient');
+
+            let userReciepient = await pb.collection('users').getFullList({
+                filter: filter,
+            }
+            );
+
+            userReciepientSelect.innerHTML = '';
+            if (userReciepient.length == 0) {
+                alert("No users found");
+                let filter = 'rol = "user"';
+                updateRecipientSelect(filter);
+                userReciepient.forEach(userReciepient => {
+                    console.log(userReciepient);
+                    let option = document.createElement('option');
+                    option.value = userReciepient.id;
+                    option.innerHTML = userReciepient.email;
+                    userReciepientSelect.appendChild(option);
+                });
+            } else {
+                alert("Users found: " + " " + userReciepient.length);
+                userReciepient.forEach(userReciepient => {
+                    console.log(userReciepient);
+                    let option = document.createElement('option');
+                    option.value = userReciepient.id;
+                    option.innerHTML = userReciepient.email;
+                    userReciepientSelect.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    }
+
     async function onCreateMessage() {
 
         let userSenderCreate = document.getElementById('user-select').value;
@@ -299,9 +409,10 @@ async function getUserInfo() {
         let type_messageCreate = document.getElementById('type_message').value;
         let descriptionCreate = document.getElementById('descriptionCreate').value;
         let fieldCreate = document.getElementById('fieldCreate').files[0];
+        let approvedCreate = document.getElementById('approvedCreate').value;
 
         try {
-            await createMessage(userSenderCreate, type_messageCreate, descriptionCreate, fieldCreate, userReciepientCreate);
+            await createMessage(userSenderCreate, type_messageCreate, descriptionCreate, fieldCreate, userReciepientCreate, approvedCreate);
             alert('Message created successfully');
             window.location.reload();
         } catch (error) {
@@ -312,32 +423,54 @@ async function getUserInfo() {
 
     let createBtn = document.getElementById('create-btn');
     createBtn.onclick = async () => {
+
         overlayCreate.style.display = 'block';
+        let applyFilterBtn = document.getElementById('apply-filter-btn');
+        let filterInput = document.getElementById('filter-input');
 
-        let userSender = await pb.collection('users').getFullList(
-        );
-        let userSelect = document.getElementById('user-select');
-        userSelect.innerHTML = '';
-        userSender.forEach(userSender => {
-            console.log(userSender);
-            let option = document.createElement('option');
-            option.value = userSender.id;
-            option.innerHTML = userSender.email;
-            userSelect.appendChild(option);
+  
+
+        let filter = '';
+        await updateUserSelect(filter);
+
+        let filterRecipient = 'rol = "user"';
+        await updateRecipientSelect(filterRecipient);
+
+        applyFilterBtn.addEventListener('click', async (e) => {
+            let typeUser = document.getElementById('type_user').value;
+            e.preventDefault();
+            if (typeUser == 'sender') {
+                let filterValue = filterInput.value;
+                let filter = `document = "${filterValue}"`;
+                await updateUserSelect(filter);
+            } else if (typeUser == 'recipient') {
+                let filterValue = filterInput.value;
+                let filter = `rol = "user" && document = "${filterValue}"`;
+                await updateRecipientSelect(filter);
+            } else {
+                let filterRecipient = 'rol = "user"';
+                let filter = "";
+                await updateRecipientSelect(filterRecipient);
+                await updateUserSelect(filter);
+            }
+            
         });
 
-        let userReciepient = await pb.collection('users').getFullList({
-            filter: `rol = "user"`,
-        });
-        let userReciepientSelect = document.getElementById('user-select-reciepient');
-        userReciepientSelect.innerHTML = '';
-        userReciepient.forEach(userReciepient => {
-            console.log(userReciepient);
-            let option = document.createElement('option');
-            option.value = userReciepient.id;
-            option.innerHTML = userReciepient.email;
-            userReciepientSelect.appendChild(option);
-        });
+
+
+        let type_messageCreate = document.getElementById('type_message');
+        let selectApproved = document.getElementById('approvedDiv');
+        type_messageCreate.onclick = async (e) => {
+            e.preventDefault();
+            if (type_messageCreate.value == 'excuse') {
+                selectApproved.style.display = 'block';
+            } else {
+                selectApproved.style.display = 'none';
+            }
+        }
+
+
+
 
         let createForm = document.getElementById('create-form-btn');
         createForm.addEventListener('click', async (event) => {

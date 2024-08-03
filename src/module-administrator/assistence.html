@@ -12,92 +12,101 @@
 </head>
 
 <body class="body">
-<div id="tableContainer">
-    <div class="header">
-        <img src="/img/logo.png" class="logo">
-        <p class="title">Administration module</p>
+    <div id="tableContainer">
+        <div class="header">
+            <img src="/img/logo.png" class="logo">
+            <p class="title">Administration module</p>
 
-    </div>
-    <div class="scream">
-        <div class="display">
-            <div class="button">
-                <label for="databaseTables">
-                    <p>Select a table:</p>
-                </label>
-                <select id="databaseTables" onchange="window.location.href = this.value;">
-                    <option value="/src/module-administrator/users" >User</option>
-                    <option value="/src/module-administrator/assistence" selected >Assistance</option>
-                    <option value="/src/module-administrator/authorization">Authorization</option>
-                    <option value="/src/module-administrator/characterizationSheet" >Characterization sheet</option>
-                    <option value="/src/module-administrator/message" >Message</option>
-                    <option value="/src/module-administrator/program" >Program</option>
-                    <option value="/src/module-administrator/userSheet" >User Sheet</option>
-                </select>
+        </div>
+        <div class="scream">
+            <div class="display">
+                <div class="button">
+                    <label for="databaseTables">
+                        <p>Select a table:</p>
+                    </label>
+                    <select class="filter" id="databaseTables" onchange="window.location.href = this.value;">
+                        <option value="/src/module-administrator/users">User</option>
+                        <option value="/src/module-administrator/assistence" selected>Assistance</option>
+                        <option value="/src/module-administrator/authorization">Authorization</option>
+                        <option value="/src/module-administrator/characterizationSheet">Characterization sheet</option>
+                        <option value="/src/module-administrator/message">Message</option>
+                        <option value="/src/module-administrator/program">Program</option>
+                        <option value="/src/module-administrator/userSheet">User Sheet</option>
+                    </select>
+                </div>
+                <div class="nav2">
+                    <a href="administratorHome.html" class="logOut"><img src="/img/home.png" class="icon2" />home</a>
+                    <a id="logout-btn" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
+                </div>
             </div>
-            <div class="nav2">
-                <a  id="logout-btn" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
+            <div class="container">
+                <table class="table table-dark">
+                    <h2 class="titleTable">lIST ASSISTENCE</h2>
+                    <div class="filter-bar">
+                        <input class="filter" type="number" id="userDocumentInput" placeholder="Find by document"
+                            min="0">
+                        <input type="button" class="filter" id="filterBtn" value="Filter">
+                    </div>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Id User</th>
+                            <th>verification</th>
+                            <th>Date</th>
+
+                            <th colspan="2">
+                                <center><a id="create-btn"><img src="/img/add.webp" class="icon2 a-button"></a></center>
+                            </th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="listAssistence">
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="container">
-            <table class="table table-dark" >
-                <input type="number" id="userDocumentInput" placeholder="Find by document">
-                <button id="filterBtn">Filter</button>
-                <p>list Assistance</p>
-                <thead class="thead-dark">
-                <tr>
-                    <th>Id</th>
-                    <th>Id User</th>
-                    <th>verification</th>
-                    <th>Date</th>
+    </div>
 
-                    <th colspan="2"><center><a id="create-btn"><img src="/img/add.webp" class="icon2 a-button"></a></center></th>
-                    </th>
-                </tr>
-                </thead>
-                <tbody id="listAssistence">
-                </tbody>
-            </table>
+    <div id="overlay-update" style="display: none;">
+        <div id="overlay-update-content">
+            <form class="styled-form" id="update-form">
+                <label for="verification">verification:</label>
+                <input type="checkbox" id="verificationUpdate" name="verification">
+
+                <input type="submit" value="update" id="update-form-btn">
+                <input type="button" value="Cancel" id="update-form-cancel">
+            </form>
         </div>
     </div>
-</div>
 
-<div id="overlay-update" style="display: none;">
-    <div id="overlay-update-content">
-        <form id="update-form">
-            <label for="verification">verification:</label>
-            <input type="checkbox" id="verificationUpdate" name="verification">    
+    <div id="overlay-create" style="display: none;">
+        <div id="overlay-create-content">
+            <form class="styled-form" id="create-form">
+                <div class="horizontal-container">
+                    <input type="number" id="filter-input" placeholder="find by document">
+                    <input type="button" value="Apply Filter" id="apply-filter-btn">
+                </div>
 
-            <input type="submit" value="update" id="update-form-btn">
-            <input type="button" value="Cancel" id="update-form-cancel">
-        </form>
+                <label for="user">user:</label>
+                <select name="user" id="user-select"></select>
+
+                <label for="verification">verification:</label>
+                <input type="checkbox" id="verificationCreate" name="verification">
+
+                <input type="submit" value="Create" id="create-form-btn">
+                <input type="button" value="Cancel" id="create-form-cancel">
+            </form>
+        </div>
     </div>
-  </div>
-
-  <div id="overlay-create" style="display: none;">
-    <div id="overlay-create-content">
-      <form id="create-form">
-        <input type="text" id="filter-input" placeholder="find by document">
-        <input type="button" value="Apply Filter" id="apply-filter-btn">
-        <br>
-        <label for="user">user:</label>
-        <select name="user" id="user-select"></select>
-
-        <label for="verification">verification:</label>
-        <input type="checkbox" id="verificationCreate" name="verification">
-
-        <input type="submit" value="Create" id="create-form-btn">
-        <input type="button" value="Cancel" id="create-form-cancel">
-      </form>
+    <div id="overlay-delete" style="display: none;">
+        <div id="overlay-delete-content">
+            <form class="styled-form">
+                <label>Are you sure you want to delete this record?</label>
+                <input type="submit" value="Delete" id="delete-form-btn">
+                <input type="button" value="Cancel" id="delete-form-cancel">
+            </form>
+        </div>
     </div>
-  </div>
-  <div id="overlay-delete" style="display: none;">
-    <div id="overlay-delete-content">
-        <form>
-        <label>Are you sure you want to delete this record?</label>
-        <input type="submit" value="Delete" id="delete-form-btn">
-        <input type="button" value="Cancel" id="delete-form-cancel">
-        </form>
-    </div>
-  </div>
 </body>
+
 </html>

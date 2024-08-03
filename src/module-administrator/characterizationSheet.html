@@ -24,7 +24,7 @@
                 <label for="databaseTables">
                     <p>Select a table:</p>
                 </label>
-                <select id="databaseTables" onchange="window.location.href = this.value;">
+                <select class="filter" id="databaseTables" onchange="window.location.href = this.value;">
                     <option value="/src/module-administrator/users" >User</option>
                     <option value="/src/module-administrator/assistence"  >Assistance</option>
                     <option value="/src/module-administrator/authorization"  >Authorization</option>
@@ -35,14 +35,17 @@
                 </select>
             </div>
             <div class="nav2">
+                <a href="administratorHome.html" class="logOut"><img src="/img/home.png" class="icon2" />home</a>
                 <a id="logout-btn" class="logOut"><img src="/img/logout.png" class="icon" />Log Out</a>
             </div>
         </div>
         <div class="container">
             <table class="table table-dark" >
-                <input type="text" id="nameProgramInput" placeholder="Find by name program">	
-                <button id="filterBtn">Filter</button>
-                <p>list Characterization Sheet</p>
+                <h2 class="titleTable">lIST CHARACTERIZATION SHEET</h2>
+                <div class="filter-bar">
+                <input  class="filter" type="text" id="nameProgramInput" placeholder="Find by name program">	
+                <input  class="filter" type="button" id="filterBtn" value="Filter">
+                </div>
                 <thead class="thead-dark">
                 <tr>
                     <th>Id</th>
@@ -66,10 +69,13 @@
 
 <div id="overlay-update" style="display: none;">
     <div id="overlay-update-content">
-        <form id="update-form">
-            <input type="text" id="filter-input-update" placeholder="find by program">	
-            <input type="button" value="Apply Filter" id="apply-filter-btn-update">
-            <br>
+        <form class="styled-form" id="update-form">
+            <div class="horizontal-container">
+                <input type="text" id="filter-input-update" placeholder="find by program">	
+                <input type="button" value="Apply Filter" id="apply-filter-btn-update">
+            </div>
+            
+          
             <label for="n°Sheet">N° Sheet:</label>
             <input type="number" name="n°Sheet" id="n_sheetUpdate">
 
@@ -90,10 +96,12 @@
   <div id="overlay-create" style="display: none;">
     <div id="overlay-create-content">
 
-      <form id="create-form">
-        <input type="text" id="filter-input" placeholder="find by program">
-        <input type="button" value="Apply Filter" id="apply-filter-btn">
-        <br>
+      <form class="styled-form" id="create-form">
+        <div class="horizontal-container">
+            <input type="text" id="filter-input" placeholder="find by program">
+            <input type="button" value="Apply Filter" id="apply-filter-btn">
+        </div>
+      
         <label for="n°sheet">n°sheet:</label>
         <input type="number" name="n°sheet" id="n°sheetCreate">
         <label for="program">program:</label>
@@ -108,7 +116,7 @@
   </div>
   <div id="overlay-delete" style="display: none;">
     <div id="overlay-delete-content">
-        <form>
+        <form class="styled-form">
         <label>Are you sure you want to delete this record?</label>
         <input type="submit" value="Delete" id="delete-form-btn">
         <input type="button" value="Cancel" id="delete-form-cancel">

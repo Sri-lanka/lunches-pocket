@@ -132,6 +132,7 @@ a:visited{
     overflow: hidden;
 }
 
+/* david*/
 #overlay-update {
     position: fixed;
     top: 0;
@@ -140,7 +141,7 @@ a:visited{
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
-    /* Establecer un valor alto para que sea visible sobre el contenido */
+    
 }
 
 #overlay-update-content {
@@ -167,7 +168,7 @@ form {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
-    /* Establecer un valor alto para que sea visible sobre el contenido */
+    
 }
 
 #overlay-create-content {
@@ -187,7 +188,7 @@ form {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 90;
-    /* Establecer un valor alto para que sea visible sobre el contenido */
+   
 }
 #overlay-delete-content {
     position: absolute;
@@ -216,7 +217,7 @@ td{
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
-    /* Establecer un valor alto para que sea visible sobre el contenido */
+    
 }
 #overlay-show-message-content {
     position: absolute;
@@ -257,7 +258,7 @@ body {
 
 .card p {
     margin: 8px 0;
-    color: black; /* Establece el color del texto en negro */
+    color: black; 
 
 }
 
@@ -362,4 +363,135 @@ body {
 
     border-top: 1px solid #000000;
     margin: 20px 0;
+}
+.filter-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.filter[type="number"] {
+    width: 200px;
+}
+
+.filter[type="button"] {
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+}
+
+.filter[type="button"]:hover {
+    background-color: #4cae4c;
+}
+select.filter {
+    background-color:  #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.titleTable {
+    text-align: center;
+    font-size: 25px;
+    color: white;
+}
+/* Forms */
+.styled-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.styled-form label {
+    font-size: 20px;
+    color: #000000;
+}
+
+.styled-form input[type="number"],
+.styled-form input[type="text"],
+.styled-form input[type="datetime-local"],
+.styled-form input[type="password"],
+.styled-form input[type="email"],
+.styled-form select,
+.styled-form input[type="submit"],
+.styled-form input[type="button"] {
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.styled-form input[type="number"],
+.styled-form input[type="text"],
+.styled-form input[type="datetime-local"],
+.styled-form input[type="password"],
+.styled-form input[type="email"],
+.styled-form select {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgb(0, 0, 0);
+}
+
+.styled-form input[type="submit"],
+.styled-form input[type="button"] {
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+}
+
+.styled-form input[type="submit"]:hover,
+.styled-form input[type="button"]:hover {
+    background-color: #4cae4c;
+}
+
+.styled-form input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #5cb85c;
+}
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input[type="password"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.password-container img.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.horizontal-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.horizontal-container select,
+.horizontal-container input[type="text"],
+.horizontal-container input[type="button"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
 }

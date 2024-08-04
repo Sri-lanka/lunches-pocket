@@ -1,9 +1,7 @@
-import { pb } from '../../../global.js';
-import { deleteAssistance, updateAssistance, createAssistance } from './assitancecrud.js';
+import { pb, formatDate } from '../../../global.js';
 
-let overlayUpdate = document.getElementById('overlay-update');
-let overlayCreate = document.getElementById('overlay-create');
 
+let overlayShowMessage = document.getElementById('overlay-show-message');
 async function getUserInfo() {
   if (!pb.authStore.isValid) {
     window.location.href = "history.html";
@@ -26,6 +24,7 @@ async function getUserInfo() {
 
   const resultReports = await pb.collection('message_user_report').getList(1, 50, {
     filter: `Recipient = "${user.id}"`,
+    expand: 'idUser,Recipient',
   });
 
   for (let i = 0; i < resultReports.items.length; i++) {
@@ -43,8 +42,89 @@ async function getUserInfo() {
     newRow.appendChild(descriptionCell);
 
     let createdReport = document.createElement('td');
-    createdReport.textContent = listReports.created;
+    let createdFormat = await formatDate(listReports.created);
+    createdReport.textContent = createdFormat;
     newRow.appendChild(createdReport);
+
+    let showTd = document.createElement('td');
+    let showBtn = document.createElement('a');
+    showBtn.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
+    showTd.appendChild(showBtn);
+    newRow.appendChild(showTd);
+    showBtn.addEventListener('click', async () => {
+
+
+      const cardContainer = document.getElementById('cardContainer');
+
+      cardContainer.innerHTML = '';
+
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const senderElement = document.createElement('h3');
+      senderElement.textContent = listReports.expand.idUser.email;
+      card.appendChild(senderElement);
+
+      const div = document.createElement('hr');
+      card.appendChild(div);
+
+      const typeMessageElement = document.createElement('p');
+      typeMessageElement.textContent = "Message";
+      card.appendChild(typeMessageElement);
+
+      const descriptionElement = document.createElement('p');
+      descriptionElement.className = 'description';
+      descriptionElement.textContent = listReports.description;
+      card.appendChild(descriptionElement);
+
+      const div1 = document.createElement('hr');
+      card.appendChild(div1)
+
+      if (listReports.field) {
+        const nameFile = document.createElement('p');
+        nameFile.textContent = listReports.field;
+        card.appendChild(nameFile);
+        const attachmentElement = document.createElement('a');
+        attachmentElement.className = 'attachment';
+        attachmentElement.href = `${pb.baseUrl}/api/files/${listReports.collectionId}/${listReports.id}/${listReports.field}`;
+        attachmentElement.textContent = 'show file';
+        attachmentElement.target = '_blank';
+        card.appendChild(attachmentElement);
+      } else {
+        const attachmentElement = document.createElement('p');
+        attachmentElement.textContent = 'NO FILE ATTACHED';
+        card.appendChild(attachmentElement);
+      }
+
+      const div2 = document.createElement('hr');
+      card.appendChild(div2);
+
+
+      const RecipientElement = document.createElement('p');
+      RecipientElement.textContent = "Recipient : You";
+      card.appendChild(RecipientElement);
+
+      const createdElement = document.createElement('p');
+      const createdFormat = await formatDate(listReports.created);
+
+      createdElement.innerHTML += createdFormat;
+      card.appendChild(createdElement);
+
+
+
+      const closeElement = document.createElement('button');
+      closeElement.innerHTML = 'close';
+      closeElement.onclick = () => {
+        overlayShowMessage.style.display = 'none';
+      }
+
+      card.appendChild(closeElement);
+
+
+      cardContainer.appendChild(card);
+
+      overlayShowMessage.style.display = 'block';
+    });
 
     document.querySelector('#reportHistory').appendChild(newRow);
   }
@@ -52,6 +132,7 @@ async function getUserInfo() {
 
   const resultExcuses = await pb.collection('message_user').getList(1, 50, {
     filter: `idUser = "${user.id}"`,
+    expand: 'idUser,Recipient',
   });
 
 
@@ -65,8 +146,101 @@ async function getUserInfo() {
     newRow.appendChild(descriptionCell);
 
     let createdCell = document.createElement('td');
-    createdCell.textContent = listExcuses.created;
+    let createdFormat = await formatDate(listExcuses.created);
+    createdCell.textContent = createdFormat;
     newRow.appendChild(createdCell);
+    let showTd = document.createElement('td');
+    let showBtn = document.createElement('a');
+    showBtn.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
+    showTd.appendChild(showBtn);
+    newRow.appendChild(showTd);
+    showBtn.addEventListener('click', async () => {
+
+
+      const cardContainer = document.getElementById('cardContainer');
+
+      cardContainer.innerHTML = '';
+
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const senderElement = document.createElement('h3');
+      senderElement.textContent = listExcuses.expand.idUser.email;
+      card.appendChild(senderElement);
+
+      const div = document.createElement('hr');
+      card.appendChild(div);
+
+      const typeMessageElement = document.createElement('p');
+      typeMessageElement.textContent = "Message";
+      card.appendChild(typeMessageElement);
+
+      const descriptionElement = document.createElement('p');
+      descriptionElement.className = 'description';
+      descriptionElement.textContent = listExcuses.description;
+      card.appendChild(descriptionElement);
+
+      const div1 = document.createElement('hr');
+      card.appendChild(div1)
+
+      if (listExcuses.field) {
+        const nameFile = document.createElement('p');
+        nameFile.textContent = listExcuses.field;
+        card.appendChild(nameFile);
+        const attachmentElement = document.createElement('a');
+        attachmentElement.className = 'attachment';
+        attachmentElement.href = `${pb.baseUrl}/api/files/${listExcuses.collectionId}/${listExcuses.id}/${listExcuses.field}`;
+        attachmentElement.textContent = 'show file';
+        attachmentElement.target = '_blank';
+        card.appendChild(attachmentElement);
+      } else {
+        const attachmentElement = document.createElement('p');
+        attachmentElement.textContent = 'NO FILE ATTACHED';
+        card.appendChild(attachmentElement);
+      }
+
+      const div2 = document.createElement('hr');
+      card.appendChild(div2);
+
+
+      const RecipientElement = document.createElement('p');
+      RecipientElement.textContent = "Recipient : All adminstrators";
+      card.appendChild(RecipientElement);
+
+      const stateElement = document.createElement('p');
+      if (listExcuses.approved == "Yes") {
+        stateElement.textContent = "State : Approved";
+      } else if (listExcuses.approved == "No") {
+        stateElement.textContent = "State : Rejected";
+      }else {
+        stateElement.textContent = "State : Pending";
+      }
+     
+      card.appendChild(stateElement);
+
+      const createdElement = document.createElement('p');
+      const createdFormat = await formatDate(listExcuses.created);
+
+      createdElement.innerHTML += createdFormat;
+      card.appendChild(createdElement);
+
+
+
+      const closeElement = document.createElement('button');
+      closeElement.innerHTML = 'close';
+      closeElement.onclick = () => {
+        overlayShowMessage.style.display = 'none';
+      }
+
+      card.appendChild(closeElement);
+
+
+      cardContainer.appendChild(card);
+
+      overlayShowMessage.style.display = 'block';
+    });
+
+
 
     document.querySelector('#excuseHistory').appendChild(newRow);
   }
@@ -82,41 +256,14 @@ async function getUserInfo() {
     let newRow = document.createElement('tr');
 
     let createdCell = document.createElement('td');
-    createdCell.textContent = listAssistances.created;
+    let createdFormat = await formatDate(listAssistances.created);
+    createdCell.textContent = createdFormat;
+
     newRow.appendChild(createdCell);
 
     let verificationCell = document.createElement('td');
     verificationCell.textContent = listAssistances.verification;
     newRow.appendChild(verificationCell);
-
-    let updateTd = document.createElement('td');
-    let updateBtn = document.createElement('button');
-    updateBtn.innerHTML = 'Update';
-    updateBtn.onclick = async () => {
-      let verification = document.getElementById('verification');
-      verification.checked = listAssistances.verification;
-      overlayUpdate.style.display = 'block';
-
-      let updateFormBtn = document.getElementById('update-form-btn');
-      updateFormBtn.onclick = async (event) => {
-        event.preventDefault();
-        await updateAssistance(listAssistances.id, verification.checked);
-        window.location.reload();
-      }
-    }
-   
-    updateTd.appendChild(updateBtn);
-    newRow.appendChild(updateTd);
-
-    let delete_td = document.createElement('td');
-    let delete_btn = document.createElement('button');
-    delete_btn.innerText = 'Delete';
-    delete_btn.onclick = async () => {
-      await deleteAssistance(listAssistances.id);
-      window.location.reload();
-    }
-    delete_td.appendChild(delete_btn);
-    newRow.appendChild(delete_td);
 
 
     document.querySelector('#assistanceHistory').appendChild(newRow);
@@ -125,43 +272,6 @@ async function getUserInfo() {
 
 }
 
-export async function onCreateAssistance() {
-  let verification = document.getElementById('verification');
-  verification.checked = false;
-
-  let users = await pb.collection('users').getFullList();
-  let userSelect = document.getElementById('user-select');
-  userSelect.innerHTML = '';
-  users.forEach(user => {
-    console.log(user);
-    let option = document.createElement('option');
-    option.value = user.id;
-    option.innerHTML = user.email;
-    userSelect.appendChild(option);
-  });
-  overlayCreate.style.display = 'block';
-
-  let createForm = document.getElementById('create-form');
-
-  createForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    let formData = new FormData(createForm);
-    var data = {};
-    formData.forEach(function (value, key) {
-      data[key] = value;
-    });
-
-    console.log(data);
-
-    await createAssistance(data.user, data.verification === 'on');
-    window.location.reload();
-  });
-  
-  let createBtnCancel = document.getElementById('create-form-cancel');
-  createBtnCancel.onclick = () => {
-    overlayCreate.style.display = 'none';
-  }
-}
 
 getUserInfo();
 
@@ -193,10 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  let createBtn = document.getElementById('create-btn');
-  createBtn.onclick = async () => {
-    await onCreateAssistance();
-  }
+
 });
 
 

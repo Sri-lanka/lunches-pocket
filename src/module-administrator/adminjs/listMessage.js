@@ -423,6 +423,7 @@ async function getUserInfo() {
 
     let createBtn = document.getElementById('create-btn');
     createBtn.onclick = async () => {
+        
 
         overlayCreate.style.display = 'block';
         let applyFilterBtn = document.getElementById('apply-filter-btn');
@@ -460,6 +461,7 @@ async function getUserInfo() {
 
         let type_messageCreate = document.getElementById('type_message');
         let selectApproved = document.getElementById('approvedDiv');
+        selectApproved.style.display = 'block';
         type_messageCreate.onclick = async (e) => {
             e.preventDefault();
             if (type_messageCreate.value == 'excuse') {

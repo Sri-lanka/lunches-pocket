@@ -15,7 +15,7 @@ async function isValid() {
 }
 
 isValid();
-let overlayShowMessage = document.getElementById('overlay-show-message');;
+let overlayShowMessage = document.getElementById('overlay-show-message');
 async function getUserInfo() {
     let userData = await pb.collection('users').getOne(pb.authStore.model.id);
 

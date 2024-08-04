@@ -41,14 +41,14 @@
       </div>
       <div class="cont">
         <select name="history" id="history">
-          <option value="1" selected>1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+          <option value="1" selected>Your Reports</option>
+          <option value="2">Your Excuses</option>
+          <option value="3">Your Assistance</option>
         </select>
 
         <div id="tables">
-          <table id="tableReport">
-            <caption>Report Table</caption>
+          <table class="tableView" id="tableReport">
+            <caption>Reports</caption>
             <thead>
               <tr>
                 <th>Sender</th>
@@ -61,8 +61,8 @@
             </tbody>
           </table>
 
-          <table id="tableExcuse">
-            <caption>Excuses Report</caption>
+          <table class="tableView" id="tableExcuse">
+            <caption>Excuses</caption>
             <thead>
               <tr>
                 <th>Description</th>
@@ -75,13 +75,12 @@
             </tbody>
           </table>
 
-          <table id="tableAssistance">
-            <caption>table Assistance</caption>
+          <table class="tableView" id="tableAssistance">
+            <caption>Assistances</caption>
             <thead>
               <tr>
                 <th>Date</th>
                 <th>Verification</th>
-                <th><button class="logOut" id="create-btn"><img src="/img/add.webp" class="icon" />Add</button></th>
               </tr>
             </thead>
 
@@ -93,31 +92,14 @@
       </div>
     </div>
   </div>
-  <div id="overlay-update" style="display: none;">
-    <div id="overlay-update-content">
-      <form id="update-form">
-        <label for="verification">verification:</label>
-        <input type="checkbox" id="verification" name="verification" required>
-
-        <input type="submit" value="Update" id="update-form-btn">
-        <input type="button" value="Cancel" onclick="overlayUpdate.style.display='none';">
-      </form>
+  <div id="overlay-show-message" style="display: none;">
+    <div id="overlay-show-message-content">
+      <div id="cardContainer">
+      </div>
     </div>
-  </div>
-  <div id="overlay-create" style="display: none;">
-    <div id="overlay-create-content">
 
-      <form id="create-form">
-        <label for="user">user:</label>
-        <select name="user" id="user-select"></select>
-        <label for="verification">verification:</label>
-        <input type="checkbox" id="verification" name="verification">
-
-        <input type="submit" value="Create" id="create-form-btn">
-        <input type="button" value="Cancel" id="create-form-cancel">
-      </form>
-    </div>
   </div>
+
   <script src="userjs/history.js" type="module" defer></script>
 </body>
 

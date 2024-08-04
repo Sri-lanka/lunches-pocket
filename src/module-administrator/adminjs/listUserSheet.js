@@ -103,8 +103,8 @@ async function getUserInfo() {
 
       let createdCell = document.createElement("td");
       const createdFormat = await formatDate(listUserSheet.created);
-      createdCell.textContent = listUserSheet.created;
-      createdCell.innerHTML += "<br>" + "(" + createdFormat + ")";
+      createdCell.textContent = createdFormat;
+      
       newRow.appendChild(createdCell);
 
       //update button

@@ -37,6 +37,7 @@
 
 
                 <div class="nav2">
+                    <a href="administratorHome.html" class="logOut"><img src="/img/home.png" class="icon2" />home</a>
                     <a class="logOut" id="logout-btn"><img src="/img/logout.png" class="icon" />Log Out</a>
                 </div>
             </div>
@@ -80,8 +81,11 @@
         <div id="overlay-update-content">
             <form class="styled-form" id="update-form">
 
+                <div class="checkbox-container">
                 <label for="verificationCreate">State:</label>
+                <br>
                 <input type="checkbox" id="verificationCreate" name="verificationCreate">
+                </div>
 
                 <input type="submit" value="update" id="update-form-btn">
                 <input type="button" value="Cancel" id="update-form-cancel">
@@ -109,9 +113,11 @@
                 <label for="user">User:</label>
                 <select name="user" id="user-select"></select>
 
-
+                <div class="checkbox-container">
                 <label for="verificationCreate">State:</label>
+                <br>
                 <input type="checkbox" id="verificationCreate" name="verificationCreate">
+                </div>
 
                 <input type="submit" value="Create" id="create-form-btn">
                 <input type="button" value="Cancel" id="create-form-cancel">

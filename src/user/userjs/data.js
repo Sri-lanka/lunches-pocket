@@ -50,21 +50,23 @@ async function getUserInfo() {
 
     //let updateBtn = document.getElementById('updateUser')
     userUpdateBtn.onclick = async () => {
+        let type_document = document.getElementById('type_document');
+        type_document.value = user.type_document;
+        let telephone = document.getElementById('telephone');
+        telephone.value = user.telephone;
+
         overlayUpdate.style.display = 'block';
 
         let createBtnCancel = document.getElementById('update-form-cancel');
         createBtnCancel.onclick = () => {
             overlayUpdate.style.display = 'none';
         }
-        let updateFormBtn = document.getElementById('update-form-btn');
 
+        let updateFormBtn = document.getElementById('update-form-btn');
         updateFormBtn.onclick = async (event) => {
             event.preventDefault();
-            let type_document = document.getElementsByName('type_document');
-            let telephone = document.getElementById('telephone');
-
-            //console.log(email.value);
-            console.log(telephone.value);
+           
+          
             await updateUser(user.id, type_document.value, telephone.value);
             
             window.location.reload();

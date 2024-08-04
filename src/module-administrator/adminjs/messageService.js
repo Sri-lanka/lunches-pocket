@@ -233,8 +233,8 @@ async function getUserInfo() {
 
       const createdElement = document.createElement('p');
       const createdFormat = await formatDate(reports.created);
-      createdElement.textContent = reports.created;
-      createdElement.innerHTML += "<br>" + "(" + createdFormat + ")";
+      createdElement.textContent = createdFormat;
+
       card.appendChild(createdElement);
 
 
@@ -260,6 +260,12 @@ async function getUserInfo() {
 
   }
 
+  async function updateState(id, approved) {
+    let result = await pb.collection('message').update(id, {
+      approved: approved,
+    });
+    console.log(result);
+  }
   let listExcuses = await pb.collection('message_user').getList(1, 50, {
     sort: '-created',
     expand: 'idUser',
@@ -278,9 +284,19 @@ async function getUserInfo() {
     descriptionCell.textContent = excuses.description;
     newRow.appendChild(descriptionCell);
 
+    let stateCell = document.createElement('td');
+    if (excuses.approved == 'Yes') {
+      stateCell.textContent = "Approved";
+    } else if (excuses.approved == 'No') {
+      stateCell.textContent = "Rejected";
+    } else {
+      stateCell.textContent = "Pending";
+    }
+
+    newRow.appendChild(stateCell);
+
     let createdCell = document.createElement('td');
     const createdFormat = await formatDate(excuses.created);
-
     createdCell.innerHTML += createdFormat;
     newRow.appendChild(createdCell);
 
@@ -289,6 +305,7 @@ async function getUserInfo() {
     showBtn.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
     showTd.appendChild(showBtn);
     newRow.appendChild(showTd);
+
     showBtn.addEventListener('click', async () => {
       const cardContainer = document.getElementById('cardContainer');
 
@@ -314,7 +331,7 @@ async function getUserInfo() {
       card.appendChild(descriptionElement);
 
       const div1 = document.createElement('hr');
-      card.appendChild(div1)
+      card.appendChild(div1);
 
       if (excuses.field) {
         const nameFile = document.createElement('p');
@@ -335,18 +352,77 @@ async function getUserInfo() {
       const div2 = document.createElement('hr');
       card.appendChild(div2);
 
-
-      const RecipientElement = document.createElement('p');
-      RecipientElement.textContent = "All administrators";
-      card.appendChild(RecipientElement);
+      const recipientElement = document.createElement('p');
+      recipientElement.textContent = "All administrators";
+      card.appendChild(recipientElement);
 
       const createdElement = document.createElement('p');
       const createdFormat = await formatDate(excuses.created);
-      createdElement.textContent = excuses.created;
-      createdElement.innerHTML += "<br>" + "(" + createdFormat + ")";
+      createdElement.textContent = createdFormat;
       card.appendChild(createdElement);
 
 
+
+      const stateLabel = document.createElement('label');
+      stateLabel.innerHTML = 'You can change the state of the message: ';
+      card.appendChild(stateLabel);
+
+      const br = document.createElement('br');
+      card.appendChild(br);
+
+      const formState = document.createElement('form');
+      const stateElement = document.createElement('select');
+      stateElement.id = 'state';
+      stateElement.innerHTML = '<option value="Pending">Pending</option>';
+      stateElement.innerHTML += '<option value="Yes">Approved</option>';
+      stateElement.innerHTML += '<option value="No">Rejected</option>';
+      formState.appendChild(stateElement);
+
+      const br2 = document.createElement('br');
+      formState.appendChild(br2);
+
+      const stateBtn = document.createElement('input');
+      stateBtn.type = 'submit';
+      stateBtn.value = 'Update state';
+      stateBtn.id = 'state-btn';
+      formState.appendChild(stateBtn);
+
+      card.appendChild(formState);
+
+   
+
+
+
+      const brElement = document.createElement('br');
+      card.appendChild(brElement);
+
+
+
+      cardContainer.appendChild(card);
+      
+      let stateUpdate = document.getElementById('state');
+      console.log(stateUpdate);
+      console.log(excuses.approved);
+
+
+      if (stateUpdate) {
+        stateUpdate.value = excuses.approved;
+      } else {
+        console.error("Element with id 'state' not found");
+      }
+
+      stateBtn.onclick = async (event) => {
+        event.preventDefault();
+
+        await updateState(excuses.idMessage, stateUpdate.value);
+        alert('State updated successfully');
+        window.location.reload();
+      }
+
+
+
+      const brElement2 = document.createElement('br');
+      card.appendChild(brElement2);
 
       const closeElement = document.createElement('button');
       closeElement.innerHTML = 'close';
@@ -356,13 +432,11 @@ async function getUserInfo() {
 
       card.appendChild(closeElement);
 
-
       cardContainer.appendChild(card);
 
+
       overlayShowMessage.style.display = 'block';
-
     });
-
 
 
 
@@ -393,15 +467,15 @@ async function getUserInfo() {
   let userSelectReciepient = document.getElementById('user-select-reciepient');
   let createForm = document.getElementById('create-form-btn');
 
- 
+
   async function updateUserSelect(filter) {
     try {
-    
+
       let userReciepient = await pb.collection('users').getFullList({
         filter: filter,
       });
 
-    
+
       userSelectReciepient.innerHTML = '';
 
       if (userReciepient.length == 0) {
@@ -416,7 +490,7 @@ async function getUserInfo() {
           userSelectReciepient.appendChild(option);
         });
       } else {
-        alert("Users found: " + " " + userReciepient.length );
+        alert("Users found: " + " " + userReciepient.length);
         userReciepient.forEach(userReciepient => {
           console.log(userReciepient);
           let option = document.createElement('option');
@@ -430,11 +504,11 @@ async function getUserInfo() {
     }
   }
 
-  
+
   createBtn.onclick = async () => {
     overlayCreate.style.display = 'block';
 
-   
+
     let filter = 'rol = "user"';
     await updateUserSelect(filter);
 

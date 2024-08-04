@@ -152,13 +152,10 @@ a:visited{
     background-color: white;
     padding: 20px;
     border-radius: 5px;
+   
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 
 #overlay-create {
     position: fixed;
@@ -168,6 +165,7 @@ form {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
+   
     
 }
 
@@ -179,6 +177,7 @@ form {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
+    
 }
 #overlay-delete {
     position: fixed;
@@ -406,11 +405,29 @@ select.filter {
     color: white;
 }
 /* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+
+}
+
 .styled-form {
+
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: 400px; 
+    overflow-y: auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding-left: 50px;
+    padding-right: 50px;
+   
 }
+
 
 .styled-form label {
     font-size: 20px;
@@ -443,6 +460,7 @@ select.filter {
     color: rgb(0, 0, 0);
 }
 
+
 .styled-form input[type="submit"],
 .styled-form input[type="button"] {
     background-color: #5cb85c;
@@ -454,10 +472,17 @@ select.filter {
 .styled-form input[type="button"]:hover {
     background-color: #4cae4c;
 }
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+}
 
 .styled-form input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+   
+    width: 30px;
+    height: 30px;
     accent-color: #5cb85c;
 }
 .password-container {

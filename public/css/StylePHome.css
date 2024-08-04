@@ -328,56 +328,73 @@ input[type="file"]::before {
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(37, 223, 62, 0.589);
 }
+
 .a-button {
     cursor: pointer;
 }
-#inbox.table{
+
+#inbox.table {
     overflow-y: auto;
 }
+
+#outbox.table {
+    overflow-y: auto;
+}
+
 .inbox {
-    background-color: transparent; /* Color verde del cuadro */
+    background-color: transparent;
+    /* Color verde del cuadro */
     padding: 10px;
     border-radius: 5px;
     height: 100px;
 
-  }
-  
-  .inbox table {
+}
+
+.inbox table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
+}
 
-  thead th {
 
-    position: sticky; /* Hace que el th sea pegajoso */
-    top: 0; /* Lo fija en la parte superior */
-    background: transparent; /* Color de fondo para el encabezado */
-    color: white; /* Color del texto */
+thead th {
+
+    position: sticky;
+    /* Hace que el th sea pegajoso */
+    top: 0;
+    /* Lo fija en la parte superior */
+    background: transparent;
+    /* Color de fondo para el encabezado */
+    color: white;
+    /* Color del texto */
     z-index: 1;
 
 
-  }
-  
-  .inbox td {
-    background-color: transparent; /* Coincide con el color del cuadro */
+}
+
+.inbox td {
+    background-color: transparent;
+    /* Coincide con el color del cuadro */
     padding: 10px;
     text-align: center;
 
-  }
-  .inbox tbody{
+}
+
+.inbox tbody {
     overflow-y: scroll;
     height: 100px;
 
-  }
-  .inbox tbody::-webkit-scrollbar {
+}
+
+.inbox tbody::-webkit-scrollbar {
     width: 12px;
 }
-  
-  .inbox .icon-eye {
-    color: white; /* Ajustar el color del ícono si es necesario */
-  }
-  #overlay-show-message {
+
+.inbox .icon-eye {
+    color: white;
+    /* Ajustar el color del ícono si es necesario */
+}
+
+#overlay-show-message {
     position: fixed;
     top: 0;
     left: 0;
@@ -466,16 +483,18 @@ input[type="file"]::before {
 .card button:hover {
     background-color: #0056b3;
 }
+
 #user-info {
-   
-    padding: 0; 
+
+    padding: 0;
 }
+
 #user-info li {
     margin: 10px 0;
-    font-size: 1.2em; 
+    font-size: 1.2em;
 }
 
 #user-info li:nth-child(3) {
-    font-size: 1em; 
+    font-size: 1em;
     font-style: italic;
 }

@@ -1,22 +1,26 @@
 import { pb, formatDate } from '../../../global.js';
-async function isValid() {
-  if (!pb.authStore.isValid) {
-    window.location.href = "../../../login";
-    return;
 
-  }
-
-  let user = await pb.collection('users').getOne(pb.authStore.model.id);
-  if (user.rol != 'admin') {
-    window.location.href = "home";
-    return false;
-  }
-}
-
-isValid();
 
 let overlayShowMessage = document.querySelector('#overlay-show-message');
 let overlayCreate = document.getElementById('overlay-create');
+
+async function isValid() {
+
+  if (!pb.authStore.isValid) {
+    window.location.href = "../../../login";
+    return;
+  }
+
+    let user = await pb.collection('users').getOne(pb.authStore.model.id);
+    if (user.rol != 'admin') {
+      window.location.href = "../user/home";
+      return;
+    }
+  }
+
+
+await isValid();
+
 async function getUserInfo() {
 
   async function createMessage(idUser, type_message, description, field, Recipient) {
@@ -389,7 +393,7 @@ async function getUserInfo() {
 
       card.appendChild(formState);
 
-   
+
 
 
 
@@ -399,7 +403,7 @@ async function getUserInfo() {
 
 
       cardContainer.appendChild(card);
-      
+
       let stateUpdate = document.getElementById('state');
       console.log(stateUpdate);
       console.log(excuses.approved);

@@ -340,6 +340,19 @@ input[type="file"]::before {
 #outbox.table {
     overflow-y: auto;
 }
+.outbox {
+    background-color: transparent;
+    /* Color verde del cuadro */
+    padding: 10px;
+    border-radius: 5px;
+    height: 100px;
+}
+
+.outbox table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-y: auto;
+}
 
 .inbox {
     background-color: transparent;
@@ -353,6 +366,8 @@ input[type="file"]::before {
 .inbox table {
     width: 100%;
     border-collapse: collapse;
+    overflow-y: auto;
+
 }
 
 
@@ -379,7 +394,20 @@ thead th {
 
 }
 
+.outbox td {
+    background-color: transparent;
+    /* Coincide con el color del cuadro */
+    padding: 10px;
+    text-align: center;
+}
+
 .inbox tbody {
+    overflow-y: scroll;
+    height: 100px;
+
+}
+
+.outbox tbody {
     overflow-y: scroll;
     height: 100px;
 
@@ -389,7 +417,16 @@ thead th {
     width: 12px;
 }
 
+.outbox tbody::-webkit-scrollbar {
+    width: 12px;
+}
+
 .inbox .icon-eye {
+    color: white;
+    /* Ajustar el color del ícono si es necesario */
+}
+
+.outbox .icon-eye {
     color: white;
     /* Ajustar el color del ícono si es necesario */
 }

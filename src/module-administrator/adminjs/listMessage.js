@@ -14,7 +14,7 @@ async function isValid() {
 
     let user = await pb.collection('users').getOne(pb.authStore.model.id);
     if (user.rol != 'admin') {
-        window.location.href = "home";
+        window.location.href = "../user/home";
         return;
     }
 }

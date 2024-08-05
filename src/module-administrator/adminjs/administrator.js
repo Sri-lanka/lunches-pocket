@@ -1,22 +1,26 @@
 import { pb, formatDate } from '../../../global.js';
-
 async function isValid() {
+
     if (!pb.authStore.isValid) {
         window.location.href = "../../../login";
         return;
-
     }
 
     let user = await pb.collection('users').getOne(pb.authStore.model.id);
     if (user.rol != 'admin') {
-        window.location.href = "home";
-        return false;
+        window.location.href = "../user/home";
+        return;
     }
 }
 
-isValid();
+
+await isValid();
+
 let overlayShowMessage = document.getElementById('overlay-show-message');
 async function getUserInfo() {
+
+
+
     let userData = await pb.collection('users').getOne(pb.authStore.model.id);
 
     let userInfo = document.querySelector('#user-info');
@@ -104,8 +108,8 @@ async function getUserInfo() {
 
             const createdElement = document.createElement('p');
             const createdFormat = await formatDate(listInbox.created);
-           
-            createdElement.innerHTML +=   createdFormat;
+
+            createdElement.innerHTML += createdFormat;
             card.appendChild(createdElement);
 
 
@@ -130,12 +134,12 @@ async function getUserInfo() {
 
     async function createMessage(id, typeMessage = "excuse", description, field) {
         let resultCreate = await pb.collection('message').create({
-           
+
             idUser: id,
             type_message: typeMessage,
             description: description,
             field: field,
-           
+
         });
         console.log(resultCreate);
     }
@@ -147,11 +151,11 @@ async function getUserInfo() {
         let description = document.getElementById('description').value;
         let field = document.getElementById('field').files[0];
 
-        await createMessage( idUser, typeMessage, description, field);
+        await createMessage(idUser, typeMessage, description, field);
         window.location.reload();
     }
 
-   let createBtn = document.getElementById('send-btn');
+    let createBtn = document.getElementById('send-btn');
     createBtn.onclick = async (event) => {
         event.preventDefault();
         await onCreateMessage();

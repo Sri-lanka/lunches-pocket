@@ -19,7 +19,7 @@ async function isValid() {
   }
 
 
-await isValid();
+//await isValid();
 
 async function getUserInfo() {
 
@@ -536,19 +536,23 @@ async function getUserInfo() {
     overlayCreate.style.display = 'none';
   }
 
+  
 
 }
 
 
-getUserInfo();
+//getUserInfo();
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+  await isValid();
+  await getUserInfo();
+
   var select = document.getElementById("history");
   var tableYourReport = document.getElementById("tableYourReport");
   var tableExcuses = document.getElementById("tableExcuses");
   var tableReports = document.getElementById("tableReports")
 
-  select.addEventListener("change", function () {
+  select.addEventListener("change", async function () {
     if (select.value === "1") {
       tableYourReport.style.display = "table";
       tableExcuses.style.display = "none";

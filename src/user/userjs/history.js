@@ -145,6 +145,17 @@ async function getUserInfo() {
     descriptionCell.textContent = listExcuses.description;
     newRow.appendChild(descriptionCell);
 
+    let stateCell = document.createElement('td');
+    if (listExcuses.approved == 'Yes') {
+      stateCell.textContent = "Approved";
+    } else if (listExcuses.approved == 'No') {
+      stateCell.textContent = "Rejected";
+    } else {
+      stateCell.textContent = "Pending";
+    }
+
+    newRow.appendChild(stateCell);
+
     let createdCell = document.createElement('td');
     let createdFormat = await formatDate(listExcuses.created);
     createdCell.textContent = createdFormat;

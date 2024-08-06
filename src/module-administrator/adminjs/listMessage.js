@@ -152,14 +152,12 @@ async function getUserInfo() {
 
             let createdCell = document.createElement('td')
             const createdFormat = await formatDate(listMessage.created);
-            createdCell.textContent = listMessage.created;
-            createdCell.innerHTML += "<br>" + "(" + createdFormat + ")";
+            createdCell.textContent = createdFormat;
             newRow.appendChild(createdCell);
 
             let updateCell = document.createElement('td')
             const updateFormat = await formatDate(listMessage.updated);
-            updateCell.textContent = listMessage.updated;
-            updateCell.innerHTML += "<br>" + "(" + updateFormat + ")";
+            updateCell.textContent = updateFormat;
             newRow.appendChild(updateCell);
 
             let showMessage = document.createElement('a');

@@ -79,6 +79,7 @@
     padding-right: 1px;
     padding-left: 1px;
     align-items: center;
+    overflow-y: auto;
 }
 
 p {

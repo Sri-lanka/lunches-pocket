@@ -48,7 +48,7 @@ async function getUserInfo() {
 
     let showTd = document.createElement('td');
     let showBtn = document.createElement('a');
-    showBtn.innerHTML = '<img src="/img/eye.png" class="icon-table a-button">';
+    showBtn.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
     showTd.appendChild(showBtn);
     newRow.appendChild(showTd);
     showBtn.addEventListener('click', async () => {
@@ -162,7 +162,7 @@ async function getUserInfo() {
     newRow.appendChild(createdCell);
     let showTd = document.createElement('td');
     let showBtn = document.createElement('a');
-    showBtn.innerHTML = '<img src="/img/eye.png" class="icon-table a-button">';
+    showBtn.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
     showTd.appendChild(showBtn);
     newRow.appendChild(showTd);
     showBtn.addEventListener('click', async () => {
@@ -223,10 +223,10 @@ async function getUserInfo() {
         stateElement.textContent = "State : Approved";
       } else if (listExcuses.approved == "No") {
         stateElement.textContent = "State : Rejected";
-      } else {
+      }else {
         stateElement.textContent = "State : Pending";
       }
-
+     
       card.appendChild(stateElement);
 
       const createdElement = document.createElement('p');

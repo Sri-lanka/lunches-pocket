@@ -161,7 +161,7 @@ async function getUserInfo() {
             newRow.appendChild(updateCell);
 
             let showMessage = document.createElement('a');
-            showMessage.innerHTML = '<img src="/img/eye.png" class="icon a-button">';
+            showMessage.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
             let showMessageTd = document.createElement('td');
 
             showMessageTd.appendChild(showMessage);

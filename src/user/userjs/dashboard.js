@@ -53,7 +53,7 @@ async function getUserInfo() {
 
         let showTd = document.createElement('td');
         let showBtn = document.createElement('a');
-        showBtn.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
+        showBtn.innerHTML = '<img src="/img/eye.png" class="icon a-button">';
         showTd.appendChild(showBtn);
         newRow.appendChild(showTd);
         showBtn.addEventListener('click', async () => {
@@ -109,8 +109,8 @@ async function getUserInfo() {
 
             const createdElement = document.createElement('p');
             const createdFormat = await formatDate(listOutbox.created);
-           
-            createdElement.innerHTML +=   createdFormat;
+
+            createdElement.innerHTML += createdFormat;
             card.appendChild(createdElement);
 
 
@@ -126,7 +126,7 @@ async function getUserInfo() {
 
             cardContainer.appendChild(card);
 
-            overlayShowMessage.style.display = 'block'; 
+            overlayShowMessage.style.display = 'block';
         });
         document.querySelector('#messageOutbox').appendChild(newRow);
     }
@@ -155,7 +155,7 @@ async function getUserInfo() {
 
         let showTd = document.createElement('td');
         let showBtn = document.createElement('a');
-        showBtn.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
+        showBtn.innerHTML = '<img src="/img/eye.png" class="icon a-button">';
         showTd.appendChild(showBtn);
         newRow.appendChild(showTd);
         showBtn.addEventListener('click', async () => {

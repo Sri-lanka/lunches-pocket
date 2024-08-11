@@ -422,12 +422,12 @@ thead th {
 }
 
 .inbox .icon-eye {
-    color: white;
+    color: rgb(255, 255, 255)
     /* Ajustar el color del ícono si es necesario */
 }
 
 .outbox .icon-eye {
-    color: white;
+    color: rgb(255, 255, 255);
     /* Ajustar el color del ícono si es necesario */
 }
 

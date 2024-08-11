@@ -71,7 +71,11 @@ li {
     -webkit-filter: invert();
     filter: invert();
 }
-
+.icon-table {
+    height: 1.25rem;
+    margin-right: 0.5rem;
+    
+}
 .nav1Icon {
     display: inline-flex;
     align-items: center;

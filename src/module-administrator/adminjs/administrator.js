@@ -50,7 +50,7 @@ async function getUserInfo() {
 
         let showTd = document.createElement('td');
         let showBtn = document.createElement('a');
-        showBtn.innerHTML = '<img src="/img/eye_icon.png" class="icon a-button">';
+        showBtn.innerHTML = '<img src="/img/eye.png" class="icon a-button">';
         showTd.appendChild(showBtn);
         newRow.appendChild(showTd);
         showBtn.addEventListener('click', async () => {

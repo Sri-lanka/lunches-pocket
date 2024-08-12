@@ -200,8 +200,9 @@ a:visited{
     border-radius: 5px;
 }
 td{
-    max-width: 250px;
+    max-width: 200px;
     table-layout: fixed;
+    overflow: hidden;
 }
 .toggle-password {
     cursor: pointer;

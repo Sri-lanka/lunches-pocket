@@ -372,19 +372,38 @@ input[type="file"]::before {
 
 
 thead th {
-
+    background:#62ac62 ;
     position: sticky;
+    padding-top: 1rem;
+    
     /* Hace que el th sea pegajoso */
-    top: 0;
+    top: -1px;
     /* Lo fija en la parte superior */
-    background: transparent;
+
     /* Color de fondo para el encabezado */
     color: white;
     /* Color del texto */
-    z-index: 1;
+    z-index: 0;
 
 
 }
+.inbox .icon{
+-webkit-filter: none;
+filter: none;
+}
+.inbox .icon:hover{
+    -webkit-filter: invert();
+    filter: invert();
+    }
+    .outbox .icon{
+-webkit-filter: none;
+filter: none;
+}
+.outbox .icon:hover{
+    -webkit-filter: invert();
+    filter: invert();
+    }
+
 
 .inbox td {
     background-color: transparent;
@@ -421,15 +440,10 @@ thead th {
     width: 12px;
 }
 
-.inbox .icon-eye {
-    color: white;
-    /* Ajustar el color del ícono si es necesario */
-}
 
-.outbox .icon-eye {
-    color: white;
+
     /* Ajustar el color del ícono si es necesario */
-}
+
 
 #overlay-show-message {
     position: fixed;

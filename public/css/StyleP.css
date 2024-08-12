@@ -18,6 +18,14 @@ body {
   size: 1;
 
 }
+.home{
+  -webkit-filter: invert();
+  filter: invert();
+}
+.boton:hover>.home{
+  -webkit-filter: none;
+  filter: none;
+}
 
 .imaF {
   background-image: url(/Img/fondoHome.jpeg);

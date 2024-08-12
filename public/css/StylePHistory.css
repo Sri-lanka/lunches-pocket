@@ -68,6 +68,8 @@ li {
 .icon {
     height: 1.25rem;
     margin-right: 0.5rem;
+}
+.icon:hover{
     -webkit-filter: invert();
     filter: invert();
 }

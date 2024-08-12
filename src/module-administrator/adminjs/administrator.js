@@ -41,12 +41,10 @@ async function getUserInfo() {
 
 
         let senderCell = document.createElement('td');
-        senderCell.setAttribute("colspan", "2");
         senderCell.textContent = listInbox.sender;
         newRow.appendChild(senderCell);
 
-        let descriptionCell = document.createElement('td');
-        descriptionCell.setAttribute("colspan", "2");
+        let descriptionCell = document.createElement('td'); 
         descriptionCell.textContent = listInbox.description;
         newRow.appendChild(descriptionCell);
 

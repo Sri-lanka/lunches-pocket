@@ -423,6 +423,7 @@ filter: none;
 
 .inbox tbody {
     overflow-y: scroll;
+
     height: 100px;
 
 }

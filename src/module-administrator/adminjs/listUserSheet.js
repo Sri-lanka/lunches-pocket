@@ -192,7 +192,7 @@ async function getUserInfo() {
           userSelectSender.appendChild(option);
         });
       } else {
-        alert("Users found: " + " " + userSender.length);
+       
         userSender.forEach(userSender => {
           console.log(userSender);
           let option = document.createElement('option');
@@ -229,7 +229,7 @@ async function getUserInfo() {
           sheetSelect.appendChild(option);
         });
       } else {
-        alert("sheets found: " + " " + sheet.length);
+     
         sheet.forEach(sheet => {
           console.log(sheet);
           let option = document.createElement('option');

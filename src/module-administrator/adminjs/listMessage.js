@@ -350,7 +350,7 @@ async function getUserInfo() {
                     userSelectSender.appendChild(option);
                 });
             } else {
-                alert("Users found: " + " " + userSender.length);
+              
                 userSender.forEach(userSender => {
                     console.log(userSender);
                     let option = document.createElement('option');
@@ -386,7 +386,7 @@ async function getUserInfo() {
                     userReciepientSelect.appendChild(option);
                 });
             } else {
-                alert("Users found: " + " " + userReciepient.length);
+                
                 userReciepient.forEach(userReciepient => {
                     console.log(userReciepient);
                     let option = document.createElement('option');

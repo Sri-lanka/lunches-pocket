@@ -125,7 +125,7 @@ async function getUserInfo() {
                 programSelect.appendChild(option);
               });
             } else {
-              alert("Programs found: " + " " + program.length);
+             
               program.forEach((program) => {
                 console.log(program);
                 let option = document.createElement("option");
@@ -244,7 +244,7 @@ async function getUserInfo() {
           programSelect.appendChild(option);
         });
       } else {
-        alert("Programs found: " + " " + program.length);
+      
         program.forEach((program) => {
           console.log(program);
           let option = document.createElement("option");

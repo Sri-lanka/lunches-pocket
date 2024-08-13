@@ -494,7 +494,7 @@ async function getUserInfo() {
           userSelectReciepient.appendChild(option);
         });
       } else {
-        alert("Users found: " + " " + userReciepient.length);
+      
         userReciepient.forEach(userReciepient => {
           console.log(userReciepient);
           let option = document.createElement('option');

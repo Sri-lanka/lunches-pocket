@@ -68,6 +68,11 @@ li {
 .icon {
     height: 1.25rem;
     margin-right: 0.5rem;
+
+}
+.icon:hover{
+    height: 1.25rem;
+    margin-right: 0.5rem;
     -webkit-filter: invert();
     filter: invert();
 }
@@ -155,6 +160,7 @@ a:link {
     background: #00AF00;
     width: 90%;
     max-width: 200px;
+    overflow: hidden;
     position: relative;
     box-shadow: 7px 7px 7px #076b0393;
     border-top-right-radius: 10px;
@@ -184,7 +190,7 @@ a:link {
 
 .cont {
     width: 100%;
-    max-width: 1400px;
+    max-width: 90%;
     margin: auto;
     margin-left: 2.5rem;
 }

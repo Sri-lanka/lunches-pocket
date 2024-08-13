@@ -155,6 +155,7 @@ a:link {
     background: #00AF00;
     width: 90%;
     max-width: 200px;
+    overflow: hidden;
     position: relative;
     box-shadow: 7px 7px 7px #076b0393;
     border-top-right-radius: 10px;
@@ -242,7 +243,7 @@ p {
 .form {
     margin: 10px;
     width: 300px;
-    height: 420px;
+    height: 350px;
     padding: 15px;
     background: #aaaaaa93;
     border: 1px solid rgba(24, 121, 24, 0.233);
@@ -255,7 +256,7 @@ p {
     border-radius: 8px;
     margin-top: 10px;
     width: 352px;
-    height: 520px;
+    height: 450px;
 }
 
 .mesenger p {
